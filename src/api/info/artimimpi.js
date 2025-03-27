@@ -11,12 +11,16 @@ module.exports = (app) => {
           let hasil;
           try {
             hasil = {
-              mimpi: value,
+              mimpi: value, 
+              status: true,
+              result: {
               arti: fetchText.split(`Hasil pencarian untuk kata kunci: ${value}`)[1].split('\n')[0],
               solusi: fetchText.split('Solusi -')[1].trim()
+              }
             };
           } catch (error) {
             hasil = {
+            status: false,
               message: `Tidak ditemukan tafsir mimpi "${value}". Cari dengan kata kunci yang lain.`
             };
           }
