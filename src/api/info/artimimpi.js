@@ -34,7 +34,7 @@ module.exports = (app) => {
       if (!nama) {
         return res.status(400).json({ status: false, error: "Query is required" });
       }
-      const result = await artinama(text);
+      const result = await tafsir_mimpi(text);
       res.status(200).json(result); // Mengembalikan hasil langsung
     } catch (error) {
       console.error("Error in /info/artimimpi:", error); // Tambahkan logging untuk kesalahan
