@@ -3,35 +3,44 @@ const { fetch } = require("undici")
 const { lookup } = require("mime-types")
 
 module.exports = (app) => {
-  async function mediafire(url) {
-    return new Promise(async (resolve, reject) => {
-      const response = await fetch(url)
-      const html = await response.text()
-      const $ = cheerio.load(html)
+  async function mediaFire(url) {
+  try {
+    const response = await fetch('https://r.jina.ai/' + url);
+    const text = await response.text();
 
-      const type = $(".dl-btn-cont").find(".icon").attr("class").split("archive")[1].trim()
-      const filename = $(".dl-btn-label").attr("title")
-      const size = $(".download_link .input")
-        .text()
-        .trim()
-        .match(/$$(.*?)$$/)[1]
-      const ext = filename.split(".").pop()
-      const mimetype = lookup(ext.toLowerCase()) || "application/" + ext.toLowerCase()
-      const download = $(".input").attr("href")
-      resolve({
-        filename,
-        type,
-        size,
-        ext,
-        mimetype,
-        download,
-      })
-    }).catch((e) =>
-      reject({
-        msg: "Gagal mengambil data dari link tersebut",
-      }),
-    )
+    const result = {
+      title: (text.match(/Title: (.+)/) || [])[1]?.trim() || '',
+      link: (text.match(/URL Source: (.+)/) || [])[1]?.trim() || '',
+      filename: '',
+      url: '',
+      size: '',
+      repair: ''
+    };
+
+    if (result.link) {
+      const fileMatch = result.link.match(/\/([^\/]+\.zip)/);
+      if (fileMatch) result.filename = fileMatch[1];
+    }
+
+    const matches = [...text.matchAll(/\[(.*?)\]\((https:\/\/[^\s]+)\)/g)];
+    for (const match of matches) {
+      const desc = match[1].trim();
+      const link = match[2].trim();
+      
+      if (desc.toLowerCase().includes('download') && desc.match(/\((\d+(\.\d+)?[KMGT]B)\)/)) {
+        result.url = link;
+        result.size = (desc.match(/\((\d+(\.\d+)?[MG]B)\)/) || [])[1] || '';
+      }
+      if (desc.toLowerCase().includes('repair')) {
+        result.repair = link;
+      }
+    }
+
+    return result;
+  } catch (error) {
+    return { error: error.message };
   }
+}
 
   app.get("/downloader/mediafire", async (req, res) => {
     try {
