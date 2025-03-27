@@ -355,6 +355,15 @@
           "optionDesc": {
             "mode": "image/animated"
           }
+        },
+        {
+          "name": "Furbrat",
+          "desc": "Furry generator",
+          "path": "/maker/furbrat?text=&style=&mode=",
+          "optionDesc": {
+            "style": "Style only 1-8",
+            "mode": "image/animated"
+          }
         }
       ]
     },
@@ -453,7 +462,7 @@
         },
         {
           "name": "Pixiv Search",
-          "desc": "Search Pixiv r18 (yes or no)",
+          "desc": "Search Pixiv r18",
           "path": "/nsfw/pixiv?q=&r18=",
           "optionDesc": {
             "r18": "yes/no"

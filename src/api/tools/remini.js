@@ -30,7 +30,7 @@ module.exports = (app) => {
       const { data } = await axios.get(url, { responseType: "arraybuffer" })
       const result = await hade(data)
       res.writeHead(200, {
-        "Content-Type": "image/jpeg",
+        "Content-Type": "image/png",
         "Content-Length": data.length,
       })
       res.end(data)
