@@ -237,6 +237,41 @@
           "name": "HappyMod",
           "desc": "Search from HappyMod",
           "path": "/search/happymod?q="
+        },
+         {
+          "name": "Npm Search",
+          "desc": "Search from npm",
+          "path": "/search/npm?q="
+        },
+         {
+          "name": "Group Wa",
+          "desc": "Search link Group Wa",
+          "path": "/search/groupwa?q="
+        }
+      ]
+    },
+     {
+      "name": "Info",
+      "items": [
+        {
+          "name": "Kodepos",
+          "desc": "Find Your Regional Postcode",
+          "path": "/info/kodepos?q="
+        },
+        {
+          "name": "JadwaTv",
+          "desc": "See your favorite TV show",
+          "path": "/info/jadwaltv?q="
+        },
+        {
+          "name": "Anime",
+          "desc": "To see anime info",
+          "path": "/info/anime?q="
+        },
+        {
+          "name": "Gempa",
+          "desc": "To see gempa",
+          "path": "/info/gempa"
         }
       ]
     },
