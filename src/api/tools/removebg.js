@@ -32,9 +32,9 @@ module.exports = (app) => {
       const result = await removebg(data)
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": data.length,
+        "Content-Length": result.length,
       })
-      res.end(data)
+      res.end(result)
     } catch (error) {
       res.status(500).json({ status: false, error: error.message })
     }
