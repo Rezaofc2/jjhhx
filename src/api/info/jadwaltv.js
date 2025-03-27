@@ -678,7 +678,7 @@ module.exports = (app) => {
       const jdwal = await jadwalTV(q);
       res.status(200).json({
         status: true,
-        result: jdwal,
+        jdwal,
       });
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
