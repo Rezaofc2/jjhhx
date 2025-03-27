@@ -15,10 +15,12 @@ app.set("json spaces", 2)
 // Configure Express to remove quotes on keys
 app.set("json replacer", (key, value) => value)
 
-app.use(express.json())
+// Modify the Express configuration to increase the JSON body size limit
+app.use(express.json({ limit: "100mb" }))
 app.use(
   express.urlencoded({
     extended: false,
+    limit: "100mb",
   }),
 )
 app.use(cors())
@@ -163,6 +165,79 @@ app.get("/sysinfo", async (req, res) => {
     res.status(500).json({
       status: false,
       error: error.message,
+    })
+  }
+})
+
+// Add this new route after the existing /sysinfo route
+app.get("/ai", (req, res) => {
+  res.sendFile(path.join(__dirname, "api-page", "ai.html"))
+})
+
+// Add this new endpoint to handle AI chat requests
+// Update the AI chat endpoint to use the increased limit
+app.post("/ai/chat", express.json({ limit: "100mb" }), async (req, res) => {
+  try {
+    // Get parameters from request body
+    const { content, user, imageUrl } = req.body
+
+    if (!content && !imageUrl) {
+      return res.status(400).json({
+        status: false,
+        error: "Either content or image is required",
+      })
+    }
+
+    if (!user) {
+      return res.status(400).json({
+        status: false,
+        error: "User ID is required",
+      })
+    }
+
+    const requestData = {
+      content: content || "",
+      user: user,
+      prompt:
+        "Nama kamu adalah MchaX, kamu adalah asisten AI yang ramah dan membantu. Kamu dibuat oleh tim MchaX Api's untuk membantu pengguna dengan berbagai pertanyaan dan tugas.",
+    }
+
+    // Handle image if provided
+    if (imageUrl && imageUrl.startsWith("data:image")) {
+      try {
+        // Extract base64 data from the data URL
+        const base64Data = imageUrl.split(",")[1]
+        // Convert base64 to buffer
+        requestData.imageBuffer = Buffer.from(base64Data, "base64")
+
+        console.log("Image processed successfully, size:", requestData.imageBuffer.length)
+      } catch (imageError) {
+        console.error("Error processing image:", imageError)
+        return res.status(400).json({
+          status: false,
+          error: "Failed to process the image: " + imageError.message,
+        })
+      }
+    }
+
+    console.log("Sending request to LuminAI with data:", {
+      content: requestData.content,
+      user: requestData.user,
+      hasImage: !!requestData.imageBuffer,
+      imageSize: requestData.imageBuffer ? requestData.imageBuffer.length + " bytes" : "N/A",
+    })
+
+    const { data } = await axios.post("https://luminai.my.id", requestData)
+
+    res.status(200).json({
+      status: true,
+      result: data.result,
+    })
+  } catch (error) {
+    console.error("AI Chat Error:", error)
+    res.status(500).json({
+      status: false,
+      error: error.message || "An error occurred while processing your request",
     })
   }
 })

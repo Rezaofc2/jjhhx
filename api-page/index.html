@@ -10,6 +10,60 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        .ai-chat-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--gradient-accent);
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .ai-chat-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
+            z-index: -1;
+            transition: var(--transition);
+        }
+        
+        .ai-chat-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(244, 63, 94, 0.4);
+            color: white;
+        }
+        
+        .ai-chat-button:hover::before {
+            transform: translateY(-100%);
+        }
+        
+        .ai-chat-button i {
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .ai-chat-button {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="loadingScreen">
@@ -48,6 +102,12 @@
                         <p id="description" class="lead"></p>
                         <div id="apiLinks"></div>
                     </div>
+                    
+                    <a href="/ai" class="ai-chat-button">
+                        <i class="fas fa-robot"></i>
+                        <span>Chat with AI</span>
+                    </a>
+                    
                     <div class="hero-image float-animation">
                         <img id="dynamicImage" src="/placeholder.svg" alt="API illustration">
                         <div class="image-overlay"></div>
