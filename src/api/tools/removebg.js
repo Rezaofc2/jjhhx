@@ -10,7 +10,7 @@ module.exports = (app) => {
       }
 
       const { data } = await axios.get(url, { responseType: "arraybuffer" })
-      const image = data.toString("base64")
+      const image = await data.toString("base64")
       const res = await axios.post("https://us-central1-ai-apps-prod.cloudfunctions.net/restorePhoto", {
         image: `data:image/png;base64,${image}`,
         model: "fb8af171cfa1616ddcf1242c093f9c46bcada5ad4cf6f2fbe8b81b330ec5c003",

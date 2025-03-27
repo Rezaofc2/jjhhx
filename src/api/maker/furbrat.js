@@ -3,19 +3,19 @@ const axios = require("axios")
 module.exports = (app) => {
   app.get("/maker/furbrat", async (req, res) => {
     try {
-      const { text, style, model } = req.query
+      const { text, style, mode } = req.query
 
-      if (!text || !style || !model) {
-        return res.status(400).json({ status: false, error: "Text, style & model are required" })
+      if (!text || !style || !mode) {
+        return res.status(400).json({ status: false, error: "Text, style & mode are required" })
       }
 
       // Validasi model hanya bisa "animated" atau "image"
-      if (!["animated", "image"].includes(model.toLowerCase())) {
-        return res.status(400).json({ status: false, error: 'Invalid model. Use "animated" or "image" only.' })
+      if (!["animated", "image"].includes(mode.toLowerCase())) {
+        return res.status(400).json({ status: false, error: 'Invalid mode. Use "animated" or "image" only.' })
       }
 
       // Tentukan Content-Type berdasarkan model
-      const contentType = model.toLowerCase() === "animated" ? "image/gif" : "image/png"
+      const contentType = mode.toLowerCase() === "animated" ? "image/gif" : "image/png"
 
       // Validasi style harus angka 1 - 8
       const styleNumber = Number.parseInt(style)
@@ -25,7 +25,7 @@ module.exports = (app) => {
 
       try {
         const response = await axios.get(
-          `https://fastrestapis.fasturl.cloud/maker/furbrat?text=${encodeURIComponent(text)}&style=${styleNumber}&position=center&mode=${model}`,
+          `https://fastrestapis.fasturl.cloud/maker/furbrat?text=${text}&style=${styleNumber}&position=center&mode=${mode}`,
           { responseType: "arraybuffer" },
         )
 
