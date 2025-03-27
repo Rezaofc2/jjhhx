@@ -675,10 +675,10 @@ module.exports = (app) => {
     }
 
     try {
-      const jdwal = await jadwalTV(q);
+      const data = await jadwalTV(q);
       res.status(200).json({
         status: true,
-        jdwal,
+        data,
       });
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
