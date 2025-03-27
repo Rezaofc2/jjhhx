@@ -236,6 +236,11 @@
           "name": "TT Search",
           "desc": "Downloader from mediafire",
           "path": "/search/ttsearch?q="
+        },
+        {
+          "name": "HappyMod",
+          "desc": "Search from HappyMod",
+          "path": "/search/happymod?q="
         }
       ]
     },
