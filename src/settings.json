@@ -247,6 +247,21 @@
           "name": "Group Wa",
           "desc": "Search link Group Wa",
           "path": "/search/groupwa?q="
+        },
+         {
+          "name": "Cariresep",
+          "desc": "Search Resep Koki",
+          "path": "/search/cariresep?q="
+        },
+         {
+          "name": "Cariresep-Detail",
+          "desc": "take details from the link search for recipes",
+          "path": "/search/cariresep-detail?url="
+        },
+         {
+          "name": "Cerita Hantu",
+          "desc": "Search cerita hantu",
+          "path": "/search/ceritahantu"
         }
       ]
     },
@@ -267,6 +282,16 @@
           "name": "Gempa",
           "desc": "To see gempa",
           "path": "/info/gempa"
+        },
+        {
+          "name": "Arti Nama",
+          "desc": "To find the meaning of your name",
+          "path": "/info/artinama?nama="
+        },
+        {
+          "name": "Arti Mimpi",
+          "desc": "To find the meaning of your dream",
+          "path": "/info/artimimpi?text="
         }
       ]
     },
