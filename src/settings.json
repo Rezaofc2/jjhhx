@@ -339,6 +339,11 @@
           "path": "/tools/whatmusic?url="
         },
         {
+          "name": "Text To Speech",
+          "desc": "text to speech",
+          "path": "/tools/tts?text="
+        },
+        {
           "name": "Nulis",
           "desc": "Write on paper",
           "path": "/tools/nulis?content=&footer=&kls="

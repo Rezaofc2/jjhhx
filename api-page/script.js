@@ -496,8 +496,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error(`HTTP error! status: ${response.status}`)
           }
 
-          const contentType = response.headers.get("Content-Type")
-          if (contentType && contentType.startsWith("image/")) {
+          const contentType = response.headers.get("Content-Type") || ""
+
+          // Handle different content types
+          if (contentType.startsWith("image/")) {
             return response.blob().then((blob) => {
               const imageUrl = URL.createObjectURL(blob)
 
@@ -509,12 +511,70 @@ document.addEventListener("DOMContentLoaded", async () => {
               img.style.borderRadius = "10px"
               img.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
 
-              modalRefs.content.innerHTML = '<div class="result-header">Result</div>'
+              modalRefs.content.innerHTML = '<div class="result-header">Image Result</div>'
               modalRefs.content.appendChild(img)
             })
+          } else if (contentType.startsWith("audio/")) {
+            return response.blob().then((blob) => {
+              const audioUrl = URL.createObjectURL(blob)
+
+              const audio = document.createElement("audio")
+              audio.src = audioUrl
+              audio.controls = true
+              audio.style.width = "100%"
+              audio.style.borderRadius = "10px"
+              audio.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
+
+              modalRefs.content.innerHTML = '<div class="result-header">Audio Result</div>'
+              modalRefs.content.appendChild(audio)
+            })
+          } else if (contentType.startsWith("video/")) {
+            return response.blob().then((blob) => {
+              const videoUrl = URL.createObjectURL(blob)
+
+              const video = document.createElement("video")
+              video.src = videoUrl
+              video.controls = true
+              video.style.maxWidth = "100%"
+              video.style.borderRadius = "10px"
+              video.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
+
+              modalRefs.content.innerHTML = '<div class="result-header">Video Result</div>'
+              modalRefs.content.appendChild(video)
+            })
           } else {
+            // Handle JSON or other text-based responses
             return response.json().then((data) => {
               modalRefs.content.innerHTML = '<div class="result-header">Result</div>'
+
+              // Check if the result contains an audio or video URL
+              if (data.result && typeof data.result === "string") {
+                const url = data.result.toLowerCase()
+                if (url.endsWith(".mp3") || url.endsWith(".wav") || url.endsWith(".ogg") || url.includes("audio")) {
+                  const audio = document.createElement("audio")
+                  audio.src = data.result
+                  audio.controls = true
+                  audio.style.width = "100%"
+                  audio.style.borderRadius = "10px"
+                  audio.style.marginTop = "15px"
+
+                  modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
+                  modalRefs.content.appendChild(audio)
+                  return
+                } else if (url.endsWith(".mp4") || url.endsWith(".webm") || url.includes("video")) {
+                  const video = document.createElement("video")
+                  video.src = data.result
+                  video.controls = true
+                  video.style.maxWidth = "100%"
+                  video.style.borderRadius = "10px"
+                  video.style.marginTop = "15px"
+
+                  modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
+                  modalRefs.content.appendChild(video)
+                  return
+                }
+              }
+
               modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
             })
           }

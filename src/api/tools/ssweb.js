@@ -13,7 +13,7 @@ module.exports = (app) => {
         responseType: "arraybuffer",
       })
       res.writeHead(200, {
-        "Content-Type": "image/jpeg",
+        "Content-Type": "image/png",
         "Content-Length": data.length,
       })
       res.end(data)
