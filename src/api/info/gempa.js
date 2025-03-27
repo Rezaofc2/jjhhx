@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function gempa() {
     try {
       const response = await axios.get("https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json");
-      return response.data;
+      return response.data.Infogempa;
     } catch (error) {
       console.error("Error fetching content:", error);
       throw error;
