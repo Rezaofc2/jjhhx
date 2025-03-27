@@ -354,6 +354,9 @@
           "path": "/maker/brat?text=&mode=",
           "optionDesc": {
             "mode": "image/animated"
+          },
+          "auto": {
+            "mode": "image"
           }
         },
         {
@@ -363,6 +366,10 @@
           "optionDesc": {
             "style": "Style only 1-8",
             "mode": "image/animated"
+          },
+          "auto": {
+            "style": "1",
+            "mode": "image"
           }
         }
       ]
@@ -466,7 +473,10 @@
           "path": "/nsfw/pixiv?q=&r18=",
           "optionDesc": {
             "r18": "yes/no"
-          }
+          },
+          "auto": {
+            "r18": "yes"
+          }          
         }
       ]
     }

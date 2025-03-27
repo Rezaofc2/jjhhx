@@ -92,119 +92,119 @@ document.addEventListener("DOMContentLoaded", async () => {
       categoryHeader.className = "category-header"
 
       // Get a random icon for each category
-const icons = [
-    "fa-layer-group",
-    "fa-code",
-    "fa-database",
-    "fa-cloud",
-    "fa-bolt",
-    "fa-server",
-    "fa-plug",
-    "fa-cogs",
-    "fa-home",
-    "fa-user",
-    "fa-users",
-    "fa-user-circle",
-    "fa-user-shield",
-    "fa-user-cog",
-    "fa-user-edit",
-    "fa-user-check",
-    "fa-user-times",
-    "fa-envelope",
-    "fa-envelope-open",
-    "fa-paper-plane",
-    "fa-comment",
-    "fa-comments",
-    "fa-bell",
-    "fa-bell-slash",
-    "fa-exclamation-triangle",
-    "fa-info-circle",
-    "fa-question-circle",
-    "fa-check-circle",
-    "fa-times-circle",
-    "fa-plus-circle",
-    "fa-minus-circle",
-    "fa-arrow-up",
-    "fa-arrow-down",
-    "fa-arrow-left",
-    "fa-arrow-right",
-    "fa-sync",
-    "fa-redo",
-    "fa-undo",
-    "fa-upload",
-    "fa-download",
-    "fa-folder",
-    "fa-folder-open",
-    "fa-file",
-    "fa-file-alt",
-    "fa-file-code",
-    "fa-file-excel",
-    "fa-file-image",
-    "fa-file-video",
-    "fa-file-audio",
-    "fa-file-archive",
-    "fa-trash",
-    "fa-edit",
-    "fa-save",
-    "fa-print",
-    "fa-key",
-    "fa-lock",
-    "fa-unlock",
-    "fa-wrench",
-    "fa-tools",
-    "fa-shopping-cart",
-    "fa-credit-card",
-    "fa-money-bill",
-    "fa-wallet",
-    "fa-chart-line",
-    "fa-chart-bar",
-    "fa-chart-pie",
-    "fa-globe",
-    "fa-map",
-    "fa-map-marker",
-    "fa-compass",
-    "fa-clock",
-    "fa-calendar",
-    "fa-calendar-alt",
-    "fa-lightbulb",
-    "fa-heart",
-    "fa-star",
-    "fa-thumbs-up",
-    "fa-thumbs-down",
-    "fa-share",
-    "fa-share-alt",
-    "fa-link",
-    "fa-external-link-alt",
-    "fa-search",
-    "fa-magnifying-glass",
-    "fa-microphone",
-    "fa-video",
-    "fa-camera",
-    "fa-music",
-    "fa-gamepad",
-    "fa-terminal",
-    "fa-bug",
-    "fa-code-branch",
-    "fa-github",
-    "fa-gitlab",
-    "fa-bitbucket",
-    "fa-facebook",
-    "fa-twitter",
-    "fa-instagram",
-    "fa-youtube",
-    "fa-twitch",
-    "fa-discord",
-    "fa-whatsapp",
-    "fa-telegram",
-    "fa-linkedin",
-    "fa-slack",
-    "fa-docker",
-    "fa-apple",
-    "fa-windows",
-    "fa-linux",
-    "fa-android",
-    "fa-rocket"
-];
+      const icons = [
+        "fa-layer-group",
+        "fa-code",
+        "fa-database",
+        "fa-cloud",
+        "fa-bolt",
+        "fa-server",
+        "fa-plug",
+        "fa-cogs",
+        "fa-home",
+        "fa-user",
+        "fa-users",
+        "fa-user-circle",
+        "fa-user-shield",
+        "fa-user-cog",
+        "fa-user-edit",
+        "fa-user-check",
+        "fa-user-times",
+        "fa-envelope",
+        "fa-envelope-open",
+        "fa-paper-plane",
+        "fa-comment",
+        "fa-comments",
+        "fa-bell",
+        "fa-bell-slash",
+        "fa-exclamation-triangle",
+        "fa-info-circle",
+        "fa-question-circle",
+        "fa-check-circle",
+        "fa-times-circle",
+        "fa-plus-circle",
+        "fa-minus-circle",
+        "fa-arrow-up",
+        "fa-arrow-down",
+        "fa-arrow-left",
+        "fa-arrow-right",
+        "fa-sync",
+        "fa-redo",
+        "fa-undo",
+        "fa-upload",
+        "fa-download",
+        "fa-folder",
+        "fa-folder-open",
+        "fa-file",
+        "fa-file-alt",
+        "fa-file-code",
+        "fa-file-excel",
+        "fa-file-image",
+        "fa-file-video",
+        "fa-file-audio",
+        "fa-file-archive",
+        "fa-trash",
+        "fa-edit",
+        "fa-save",
+        "fa-print",
+        "fa-key",
+        "fa-lock",
+        "fa-unlock",
+        "fa-wrench",
+        "fa-tools",
+        "fa-shopping-cart",
+        "fa-credit-card",
+        "fa-money-bill",
+        "fa-wallet",
+        "fa-chart-line",
+        "fa-chart-bar",
+        "fa-chart-pie",
+        "fa-globe",
+        "fa-map",
+        "fa-map-marker",
+        "fa-compass",
+        "fa-clock",
+        "fa-calendar",
+        "fa-calendar-alt",
+        "fa-lightbulb",
+        "fa-heart",
+        "fa-star",
+        "fa-thumbs-up",
+        "fa-thumbs-down",
+        "fa-share",
+        "fa-share-alt",
+        "fa-link",
+        "fa-external-link-alt",
+        "fa-search",
+        "fa-magnifying-glass",
+        "fa-microphone",
+        "fa-video",
+        "fa-camera",
+        "fa-music",
+        "fa-gamepad",
+        "fa-terminal",
+        "fa-bug",
+        "fa-code-branch",
+        "fa-github",
+        "fa-gitlab",
+        "fa-bitbucket",
+        "fa-facebook",
+        "fa-twitter",
+        "fa-instagram",
+        "fa-youtube",
+        "fa-twitch",
+        "fa-discord",
+        "fa-whatsapp",
+        "fa-telegram",
+        "fa-linkedin",
+        "fa-slack",
+        "fa-docker",
+        "fa-apple",
+        "fa-windows",
+        "fa-linux",
+        "fa-android",
+        "fa-rocket",
+      ]
       const randomIcon = icons[Math.floor(Math.random() * icons.length)]
 
       categoryHeader.innerHTML = `
@@ -358,6 +358,9 @@ const icons = [
 
         const paramsArray = Array.from(params.keys())
 
+        // Get auto-fill values if they exist
+        const autoValues = currentItem?.auto || {}
+
         // Get optional descriptions if they exist
         const optionDesc = currentItem?.optionDesc || {}
 
@@ -378,6 +381,11 @@ const icons = [
           inputField.placeholder = `Enter ${param}${isOptional ? " (optional)" : ""}`
           inputField.dataset.param = param
           inputField.dataset.optional = isOptional ? "true" : "false"
+
+          // Set default value if auto-fill is specified
+          if (autoValues[param]) {
+            inputField.value = autoValues[param]
+          }
 
           inputField.required = !isOptional
           inputField.addEventListener("input", validateInputs)
@@ -416,17 +424,27 @@ const icons = [
           const newParams = new URLSearchParams()
           let isValid = true
 
+          // Get auto values if they exist
+          const autoValues = currentItem?.auto || {}
+
           inputs.forEach((input) => {
             const isOptional = input.dataset.optional === "true"
+            const param = input.dataset.param
 
-            if (!isOptional && !input.value.trim()) {
+            // Use input value or auto value if input is empty
+            let value = input.value.trim()
+            if (!value && autoValues[param]) {
+              value = autoValues[param]
+            }
+
+            if (!isOptional && !value) {
               isValid = false
               input.classList.add("is-invalid")
             } else {
               input.classList.remove("is-invalid")
-              // Only add parameter if it has a value (even for optional fields)
-              if (input.value.trim()) {
-                newParams.append(input.dataset.param, input.value.trim())
+              // Add parameter if it has a value (either from input or auto)
+              if (value) {
+                newParams.append(param, value)
               }
             }
           })
