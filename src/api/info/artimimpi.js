@@ -11,9 +11,10 @@ module.exports = (app) => {
           let hasil;
           try {
             hasil = {
-              mimpi: value, 
+              
               status: true,
               result: {
+              mimpi: value, 
               arti: fetchText.split(`Hasil pencarian untuk kata kunci: ${value}`)[1].split('\n')[0],
               solusi: fetchText.split('Solusi -')[1].trim()
               }
