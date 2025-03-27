@@ -33,6 +33,7 @@ module.exports = (app) => {
         const ttahap = atahap.join('\n\n');
 
         const result = {
+        status: true,
           data: {
             judul,
             waktu_masak: waktu,
