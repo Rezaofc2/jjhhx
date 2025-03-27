@@ -28,6 +28,7 @@ module.exports = (app) => {
         }
 
         const result = {
+        status: true,
           data: format.filter(v => v.link.startsWith('https://resepkoki.id/resep'))
         };
         resolve(result);
