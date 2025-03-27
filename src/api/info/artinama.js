@@ -13,11 +13,12 @@ module.exports = (app) => {
           try {
             const arti = fetchText.split('memiliki arti: ')[1].split('Nama:')[0].trim();
             hasil = {
-              
+              status: true,
+              result: {
                 nama: value,
                 arti: arti || "Arti tidak ditemukan", // Menangani jika arti tidak ada
                 catatan: 'Gunakan juga aplikasi numerologi Kecocokan Nama, untuk melihat sejauh mana keselarasan nama anda dengan diri anda.'
-              
+              }
             };
           } catch (error) {
             hasil = {
