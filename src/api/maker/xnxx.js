@@ -2,12 +2,14 @@ const axios = require("axios");
 
 module.exports = (app) => {
   app.get("/maker/xnxx", async (req, res) => {
-    try {
+    
       const { title, url } = req.query; 
 
-      if (!title) { // Cek 'content' bukan 'url'
-        return res.status(400).json({ status: false, error: "Content is required" });
+      if (!title || !url ) { // Cek 'content' bukan 'url'
+        return res.status(400).json({ status: false, error: "text/url is required" });
       }
+
+    try {
       const imageResponse = await axios.get(`https://api.siputzx.my.id/api/canvas/xnxx?title=${title}&image=${url}`,
         { responseType: "arraybuffer" },
       )
