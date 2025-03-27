@@ -254,11 +254,6 @@
       "name": "Info",
       "items": [
         {
-          "name": "Kodepos",
-          "desc": "Find Your Regional Postcode",
-          "path": "/info/kodepos?q="
-        },
-        {
           "name": "JadwaTv",
           "desc": "See your favorite TV show",
           "path": "/info/jadwaltv?q="
