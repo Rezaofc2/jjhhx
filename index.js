@@ -24,6 +24,56 @@ app.use(
   }),
 )
 app.use(cors())
+
+// Request Logger Middleware
+app.use((req, res, next) => {
+  const start = Date.now()
+  const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  
+  // Log request details
+  console.log(
+    chalk.bgBlue.white.bold(` ${req.method} `) + 
+    chalk.cyan(` ${req.originalUrl} `) + 
+    chalk.yellow(`[FROM: ${ip}]`)
+  )
+  
+  // Log query parameters if any
+  if (Object.keys(req.query).length) {
+    console.log(
+      chalk.magenta('Query Params: ') + 
+      chalk.greenBright(JSON.stringify(req.query, null, 2))
+    )
+  }
+  
+  // Log request body if any
+  if (req.body && Object.keys(req.body).length) {
+    console.log(
+      chalk.magenta('Request Body: ') + 
+      chalk.greenBright(JSON.stringify(req.body, null, 2))
+    )
+  }
+  
+  // Capture response
+  const originalSend = res.send
+  res.send = function(data) {
+    const responseTime = Date.now() - start
+    
+    // Log response status and time
+    console.log(
+      chalk.bgHex(res.statusCode < 400 ? '#90EE90' : '#FF6347').hex('#333').bold(` ${res.statusCode} `) +
+      chalk.gray(` ${responseTime}ms `) +
+      chalk.white(`${new Date().toISOString()}`)
+    )
+    
+    // Add a separator for better readability
+    console.log(chalk.gray('─'.repeat(80)))
+    
+    return originalSend.apply(res, arguments)
+  }
+  
+  next()
+})
+
 app.use("/", express.static(path.join(__dirname, "api-page")))
 app.use("/src", express.static(path.join(__dirname, "src")))
 
@@ -174,6 +224,40 @@ app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
 })
 
+// Tambahkan endpoint baru untuk halaman spam-pairing
+app.get("/spam-pairing", (req, res) => {
+  res.sendFile(path.join(__dirname, "api-page", "spam-pairing.html"))
+})
+
+// Tambahkan endpoint untuk verifikasi key
+app.post("/verify-spam-pairing-key", (req, res) => {
+  try {
+    const { key } = req.body
+
+    // Baca settings.json untuk mendapatkan key yang valid
+    const settingsPath = path.join(__dirname, "./src/settings.json")
+    const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
+
+    // Periksa apakah key valid
+    if (key === settings.loginKeys.spamPairing) {
+      res.status(200).json({
+        status: true,
+        message: "Key valid",
+      })
+    } else {
+      res.status(403).json({
+        status: false,
+        error: "Invalid access key",
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      error: error.message,
+    })
+  }
+})
+
 // Add this new endpoint to handle AI chat requests
 // Update the AI chat endpoint to use the increased limit
 app.post("/ai/chat", express.json({ limit: "100mb" }), async (req, res) => {
@@ -256,4 +340,3 @@ app.listen(PORT, () => {
 })
 
 module.exports = app
-

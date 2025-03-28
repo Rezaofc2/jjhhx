@@ -10,8 +10,7 @@ module.exports = (app) => {
           let fetchText = $('#body').text();
           let hasil;
           try {
-            hasil = {
-              
+            hasil = {           
               status: true,
               result: {
               mimpi: value, 

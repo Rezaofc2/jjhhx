@@ -646,14 +646,14 @@ module.exports = (app) => {
 ]
 
   async function jadwalTV(name) {
-    const data = jadwal.find((v) => (new RegExp(name, 'gi')).test(v.channel));
-    const result = [];
+    const anu = jadwal.find((v) => (new RegExp(name, 'gi')).test(v.channel));
+    const data = [];
 
     if (!data) {
       throw new Error('List Channel yang Tersedia:\n\n' + jadwal.map(v => v.channel).sort().join('\n'));
     }
 
-    const url = `https://www.jadwaltv.net/${data.isPay ? 'jadwal-pay-tv/' : ''}${data.value}`;
+    const url = `https://www.jadwaltv.net/${anu.isPay ? 'jadwal-pay-tv/' : ''}${anu.value}`;
     const html = (await axios.get(url)).data;
     const $ = cheerio.load(html);
 
@@ -661,11 +661,11 @@ module.exports = (app) => {
       const jam = $(this).find('td').eq(0).text();
       const acara = $(this).find('td').eq(1).text();
       if (!/Jadwal TV/gi.test(acara) && !/Acara/gi.test(acara)) {
-        result.push({ jam, acara });
+        data.push({ jam, acara });
       }
     });
 
-    return { channel: data.channel.toUpperCase(), result };
+    return { channel: data.channel.toUpperCase(), data };
   }
 
   app.get("/info/jadwaltv", async (req, res) => {
@@ -675,10 +675,10 @@ module.exports = (app) => {
     }
 
     try {
-      const data = await jadwalTV(q);
+      const result = await jadwalTV(q);
       res.status(200).json({
         status: true,
-        data,
+        result,
       });
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });

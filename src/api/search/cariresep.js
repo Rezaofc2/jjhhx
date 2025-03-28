@@ -27,11 +27,11 @@ module.exports = (app) => {
           });
         }
 
-        const result = {
+        const data = {
         status: true,
-          data: format.filter(v => v.link.startsWith('https://resepkoki.id/resep'))
+          result: format.filter(v => v.link.startsWith('https://resepkoki.id/resep'))
         };
-        resolve(result);
+        resolve(data);
       } catch (error) {
         reject(error);
       }

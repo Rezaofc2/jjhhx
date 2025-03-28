@@ -12,6 +12,7 @@
   "dependencies": {
     "acrcloud": "^1.4.0",
     "axios": "^1.6.8",
+    "baileys": "npm:@whiskeysockets/baileys@^6.17.16",
     "body-parser": "^1.20.3",
     "chalk": "^4.1.2",
     "cheerio": "^1.0.0",

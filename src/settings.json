@@ -14,6 +14,9 @@
   "apiSettings": {
     "creator": "krsna_081"
   },
+  "loginKeys": {
+    "spamPairing": "mchax123"
+  },  
   "links": [
     {
       "name": "Contact Me",
@@ -342,6 +345,16 @@
           "name": "Text To Speech",
           "desc": "text to speech",
           "path": "/tools/tts?text="
+        },
+        {
+          "name": "TempMail Create",
+          "desc": "Create Random Email",
+          "path": "/tools/temp-create"
+        },
+        {
+          "name": "TempMail Check",
+          "desc": "Checking Email from Temp Mail results",
+          "path": "/tools/temp-check?email="
         },
         {
           "name": "Nulis",

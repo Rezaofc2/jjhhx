@@ -32,9 +32,9 @@ module.exports = (app) => {
         const tbahan = abahan.map((b, i) => `${b} ${atakaran[i]}`).join('\n');
         const ttahap = atahap.join('\n\n');
 
-        const result = {
+        const meks = {
         status: true,
-          data: {
+          result: {
             judul,
             waktu_masak: waktu,
             hasil,
@@ -45,7 +45,7 @@ module.exports = (app) => {
           },
         };
 
-        resolve(result);
+        resolve(meks);
       } catch (error) {
         reject(error);
       }
@@ -58,7 +58,7 @@ module.exports = (app) => {
       if (!url) {
         return res.status(400).json({ status: false, error: "URL is required" });
       }
-      const result = await detailresep(url);
+      const { result } = await detailresep(url);
       res.status(200).json(result);
     } catch (error) {
       console.error("Error in /search/cariresep-detail:", error);
