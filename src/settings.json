@@ -287,6 +287,16 @@
           "path": "/info/gempa"
         },
         {
+          "name": "Cuaca",
+          "desc": "To see cuaca",
+          "path": "/info/cuaca?q="
+        },
+             {
+          "name": "Liburnasional",
+          "desc": "To see libur nasional",
+          "path": "/info/liburnasional"
+        },
+        {
           "name": "Arti Nama",
           "desc": "To find the meaning of your name",
           "path": "/info/artinama?nama="
@@ -422,6 +432,11 @@
           "path": "/maker/quote?image=&text=&name="
         },
         {
+          "name": "Memegen",
+          "desc": "maker memegen",
+          "path": "/maker/memegen?text=&text2=&url="
+        },
+        {
           "name": "Brat",
           "desc": "brat generator",
           "path": "/maker/brat?text=&mode=",
@@ -555,4 +570,3 @@
     }
   ]
 }
-
