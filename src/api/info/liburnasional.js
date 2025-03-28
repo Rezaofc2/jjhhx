@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function liburnasional() {
     try {
       const response = await axios.get("https://api.siputzx.my.id/api/info/liburnasional");
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching content:", error);
       throw error;
