@@ -356,6 +356,11 @@
           "desc": "text to speech",
           "path": "/tools/tts?text="
         },
+         {
+          "name": "Html To Image",
+          "desc": "html to image",
+          "path": "/tools/htmltoimg?text="
+        },
         {
           "name": "TempMail Create",
           "desc": "Create Random Email",
