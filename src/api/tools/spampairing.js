@@ -1,10 +1,9 @@
 const {
     makeWASocket,
-    useMultiFileAuthState,
+    useSingleFileAuthState,
     makeCacheableSignalKeyStore,
 } = require("baileys");
 const Pino = require("pino");
-const chalk = require("chalk");
 
 let sessionCache = {}; // Cache untuk menyimpan sesi di memory
 
@@ -23,12 +22,13 @@ module.exports = (app) => {
         let target = no(number);
         let jumlah = parseInt(count) || 20;
 
-        // Cek apakah sesi sudah ada di cache
+        // Cek apakah sesi sudah ada di memory
         if (!sessionCache[target]) {
             console.log("> 🔍 Sesi tidak ditemukan, membuat sesi baru...");
 
-            const { state } = await useMultiFileAuthState();
-            sessionCache[target] = state; // Simpan sesi di memory
+            // Gunakan useSingleFileAuthState() dengan penyimpanan langsung di memory
+            const { state } = await useSingleFileAuthState();
+            sessionCache[target] = state;
         } else {
             console.log("> 🔄 Menggunakan sesi yang sudah ada di memory...");
         }
@@ -41,7 +41,6 @@ module.exports = (app) => {
                 creds: sessionCache[target].creds,
                 keys: makeCacheableSignalKeyStore(sessionCache[target].keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
             },
-            version: [2, 3e3, 1015901307],
             browser: ["Ubuntu", "Edge", "110.0.1587.56"],
             markOnlineOnConnect: true,
         };
@@ -57,10 +56,7 @@ module.exports = (app) => {
                     let pairing = await sock.requestPairingCode(target);
                     let code = pairing?.match(/.{1,4}/g)?.join("-") || pairing;
 
-                    console.log(
-                        `> ${chalk.yellow.bold("[" + retries + "/" + jumlah + "]")} ` +
-                        `😛 Kode pairing anda: ${code}`
-                    );
+                    console.log(`> 🔄 [${retries}/${jumlah}] 😛 Kode pairing: ${code}`);
                 } catch (err) {
                     console.log(`> ❌ Gagal mendapatkan pairing code: ${err.message}`);
                 }
