@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function fetchWeather(q) {
     try {
       const response = await axios.get(`https://api.siputzx.my.id/api/info/cuaca?q=${encodeURIComponent(q)}`);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching weather data:", error);
       throw new Error("Unable to fetch weather data");
