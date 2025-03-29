@@ -4,10 +4,10 @@ module.exports = (app) => {
   async function xnxx(url) {
     try {
       const response = await axios.get(`https://api.agatz.xyz/api/xnxxdown?url=${encodeURIComponent(url)}`);
-      return response.data.data.data;
+      return response.data.data; // Akses data dengan benar
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      throw new Error("Unable to fetch weather data");
+      console.error("Error fetching data:", error);
+      throw new Error("Unable to fetch data");
     }
   }
 
