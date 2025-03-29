@@ -9,18 +9,22 @@ module.exports = (app) => {
     }
 
     try {
-      // Memanggil API untuk mendapatkan gambar atau video NSFW Loli
+      // Memanggil API untuk mendapatkan gambar 
       const imageResponse = await axios.get(
         `https://api.agungny.my.id/api/pornhub?text1=${text}&text2=${text2}`,
         { responseType: "arraybuffer" }
       );
+
+      if (imageResponse.status !== 200) {
+        return res.status(imageResponse.status).send("Error fetching image from API.");
+      }
 
       res.writeHead(200, {
         "Content-Type": "image/png", // Tipe konten untuk gambar
         "Content-Length": imageResponse.data.length,
       });
 
-      // Mengirimkan data gambar atau video
+      // Mengirimkan data gambar
       res.end(imageResponse.data);
     } catch (error) {
       console.error("Error fetching data from API:", error); // Log error untuk debugging
