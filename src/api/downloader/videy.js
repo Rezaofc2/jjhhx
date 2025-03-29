@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function videy(url) {
     try {
       const response = await axios.get(`https://api.diioffc.web.id/api/download/videy?url=${encodeURIComponent(url)}`);
-      return response.hasil;
+      return response.data.hasil; // Pastikan untuk mengakses data dengan benar
     } catch (error) {
       console.error("Error fetching data:", error);
       throw new Error("Unable to fetch data");
@@ -13,13 +13,13 @@ module.exports = (app) => {
 
   app.get("/downloader/videy", async (req, res) => {
     const { url } = req.query;
-    
+
     if (!url) {
       return res.status(400).json({ status: false, error: "Query is required" });
     }
 
     try {
-      const result = await videy(q);
+      const result = await videy(url); // Ganti 'q' dengan 'url'
       res.status(200).json({
         status: true,
         result,
