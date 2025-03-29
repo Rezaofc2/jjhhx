@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function xnxx(q) {
     try {
       const response = await axios.get(`https://api.agatz.xyz/api/xnxx?message=${encodeURIComponent(q)}`);
-      return response.data;
+      return response.data.data.result;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw new Error("Unable to fetch data");
