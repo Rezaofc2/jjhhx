@@ -4,10 +4,10 @@ module.exports = (app) => {
   async function videy(url) {
     try {
       const response = await axios.get(`https://api.diioffc.web.id/api/download/videy?url=${encodeURIComponent(url)}`);
-      return response.data.hasil;
+      return response.hasil;
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      throw new Error("Unable to fetch weather data");
+      console.error("Error fetching data:", error);
+      throw new Error("Unable to fetch data");
     }
   }
 
