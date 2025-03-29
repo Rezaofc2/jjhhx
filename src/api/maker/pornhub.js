@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports = (app) => {
-  app.get("/maker/pronhub", async (req, res) => {
+  app.get("/maker/pornhub", async (req, res) => {
     const { text, text2 } = req.query; // Ambil parameter dari query
 
     if (!text || !text2) {
@@ -18,14 +18,15 @@ module.exports = (app) => {
       if (imageResponse.status !== 200) {
         return res.status(imageResponse.status).send("Error fetching image from API.");
       }
-
+      
+      let bakir = Buffer.from(imageResponse.data);
       res.writeHead(200, {
         "Content-Type": "image/jpeg", // Tipe konten untuk gambar
-        "Content-Length": imageResponse.data.length,
+        "Content-Length": bakir.length,
       });
 
       // Mengirimkan data gambar
-      res.end(imageResponse.data);
+      res.end(bakir);
     } catch (error) {
       console.error("Error fetching data from API:", error); // Log error untuk debugging
       res.status(500).send(`Error: ${error.message}`);

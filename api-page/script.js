@@ -482,111 +482,83 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Find the handleApiRequest function and modify it
-    function handleApiRequest(apiUrl, modalRefs, apiName) {
-      modalRefs.spinner.classList.remove("d-none")
-      modalRefs.content.classList.add("d-none")
+async function handleApiRequest(apiUrl, modalRefs, apiName) {
+    const startTime = Date.now();
+    modalRefs.spinner.classList.remove("d-none");
+    modalRefs.content.classList.add("d-none");
 
-      // Add the Direct API Access header and endpoint display before making the request
-      modalRefs.endpoint.innerHTML = `<div class="direct-api-label">Direct API Access</div>${apiUrl}`
-      modalRefs.endpoint.classList.remove("d-none")
+    // Tampilkan URL endpoint sebelum request
+    modalRefs.endpoint.innerHTML = `<div class="direct-api-label">Direct API Access</div>${apiUrl}`;
+    modalRefs.endpoint.classList.remove("d-none");
 
-      fetch(apiUrl)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-          }
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-          const contentType = response.headers.get("Content-Type") || ""
+        const contentType = response.headers.get("Content-Type") || "";
+        const ms = Date.now() - startTime;
+        const bgColor = ms > 1000 ? "red" : ms > 500 ? "yellow" : "green";
 
-          // Handle different content types
-          if (contentType.startsWith("image/")) {
-            return response.blob().then((blob) => {
-              const imageUrl = URL.createObjectURL(blob)
+        // Header hasil request
+        modalRefs.content.innerHTML = `<div class="result-header"><span style="background-color: ${bgColor}; color: white; padding: 3px 6px; border-radius: 4px;"> ${ms}ms </span> ${apiName} Result </div>`;
 
-              const img = document.createElement("img")
-              img.src = imageUrl
-              img.alt = apiName
-              img.style.maxWidth = "100%"
-              img.style.height = "auto"
-              img.style.borderRadius = "10px"
-              img.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
+        // Handle jika respon adalah gambar
+        if (contentType.startsWith("image/")) {
+            const blob = await response.blob();
+            const imageUrl = URL.createObjectURL(blob);
+            modalRefs.content.innerHTML += `<img src="${imageUrl}" alt="${apiName}" 
+                style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">`;
+            return;
+        }
 
-              modalRefs.content.innerHTML = '<div class="result-header">Image Result</div>'
-              modalRefs.content.appendChild(img)
-            })
-          } else if (contentType.startsWith("audio/")) {
-            return response.blob().then((blob) => {
-              const audioUrl = URL.createObjectURL(blob)
+        // Handle jika respon adalah audio
+        if (contentType.startsWith("audio/")) {
+            const blob = await response.blob();
+            const audioUrl = URL.createObjectURL(blob);
+            modalRefs.content.innerHTML += `<audio controls 
+                style="width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                <source src="${audioUrl}" type="${contentType}">
+            </audio>`;
+            return;
+        }
 
-              const audio = document.createElement("audio")
-              audio.src = audioUrl
-              audio.controls = true
-              audio.style.width = "100%"
-              audio.style.borderRadius = "10px"
-              audio.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
+        // Handle jika respon adalah video
+        if (contentType.startsWith("video/")) {
+            const blob = await response.blob();
+            const videoUrl = URL.createObjectURL(blob);
+            modalRefs.content.innerHTML += `<video controls 
+                style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                <source src="${videoUrl}" type="${contentType}">
+            </video>`;
+            return;
+        }
 
-              modalRefs.content.innerHTML = '<div class="result-header">Audio Result</div>'
-              modalRefs.content.appendChild(audio)
-            })
-          } else if (contentType.startsWith("video/")) {
-            return response.blob().then((blob) => {
-              const videoUrl = URL.createObjectURL(blob)
+        // Handle jika respon adalah JSON atau teks
+        const data = await response.json();
+        modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
 
-              const video = document.createElement("video")
-              video.src = videoUrl
-              video.controls = true
-              video.style.maxWidth = "100%"
-              video.style.borderRadius = "10px"
-              video.style.boxShadow = "0 4px 15px rgba(0, 0, 0, 0.1)"
-
-              modalRefs.content.innerHTML = '<div class="result-header">Video Result</div>'
-              modalRefs.content.appendChild(video)
-            })
-          } else {
-            // Handle JSON or other text-based responses
-            return response.json().then((data) => {
-              modalRefs.content.innerHTML = '<div class="result-header">Result</div>'
-
-              // Check if the result contains an audio or video URL
-              if (data.result && typeof data.result === "string") {
-                const url = data.result.toLowerCase()
-                if (url.endsWith(".mp3") || url.endsWith(".wav") || url.endsWith(".ogg") || url.includes("audio")) {
-                  const audio = document.createElement("audio")
-                  audio.src = data.result
-                  audio.controls = true
-                  audio.style.width = "100%"
-                  audio.style.borderRadius = "10px"
-                  audio.style.marginTop = "15px"
-
-                  modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
-                  modalRefs.content.appendChild(audio)
-                  return
-                } else if (url.endsWith(".mp4") || url.endsWith(".webm") || url.includes("video")) {
-                  const video = document.createElement("video")
-                  video.src = data.result
-                  video.controls = true
-                  video.style.maxWidth = "100%"
-                  video.style.borderRadius = "10px"
-                  video.style.marginTop = "15px"
-
-                  modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
-                  modalRefs.content.appendChild(video)
-                  return
-                }
-              }
-
-              modalRefs.content.innerHTML += `<pre>${JSON.stringify(data, null, 2)}</pre>`
-            })
-          }
-        })
-        .catch((error) => {
-          modalRefs.content.innerHTML = `<div class="result-header">Error</div><pre>${error.message}</pre>`
-        })
-        .finally(() => {
-          modalRefs.spinner.classList.add("d-none")
-          modalRefs.content.classList.remove("d-none")
-        })
+        // Cek apakah JSON memiliki URL media (audio/video)
+        if (data.result && typeof data.result === "string") {
+            const url = data.result.toLowerCase();
+            if (url.endsWith(".mp3") || url.endsWith(".wav") || url.includes("audio")) {
+                modalRefs.content.innerHTML += `<audio controls 
+                    style="width: 100%; border-radius: 10px; margin-top: 15px;">
+                    <source src="${data.result}" type="audio/mpeg">
+                </audio>`;
+            } else if (url.endsWith(".mp4") || url.includes("video")) {
+                modalRefs.content.innerHTML += `<video controls 
+                    style="max-width: 100%; border-radius: 10px; margin-top: 15px;">
+                    <source src="${data.result}" type="video/mp4">
+                </video>`;
+            }
+        }
+    } catch (error) {
+        modalRefs.content.innerHTML = `<div class="result-header"><span style="background-color: red; color: white; padding: 3px 6px; border-radius: 4px;"> Error! </span> Something went wrong </div><pre>${error.message}</pre>`;
+    } finally {
+        modalRefs.spinner.classList.add("d-none");
+        modalRefs.content.classList.remove("d-none");
     }
+}
   } catch (error) {
     console.error("Error loading settings:", error)
   } finally {
