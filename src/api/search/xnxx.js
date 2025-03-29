@@ -6,8 +6,8 @@ module.exports = (app) => {
       const response = await axios.get(`https://api.agatz.xyz/api/xnxx?message=${encodeURIComponent(q)}`);
       return response.data.data.hasil;
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      throw new Error("Unable to fetch weather data");
+      console.error("Error fetching data:", error);
+      throw new Error("Unable to fetch data");
     }
   }
 
@@ -19,7 +19,7 @@ module.exports = (app) => {
     }
 
     try {
-      const result = await sholat(q);
+      const result = await xnxx(q); // Ganti sholat menjadi xnxx
       res.status(200).json({
         status: true,
         result,
