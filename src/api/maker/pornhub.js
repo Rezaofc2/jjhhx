@@ -20,7 +20,7 @@ module.exports = (app) => {
       }
 
       res.writeHead(200, {
-        "Content-Type": "image/png", // Tipe konten untuk gambar
+        "Content-Type": "image/jpeg", // Tipe konten untuk gambar
         "Content-Length": imageResponse.data.length,
       });
 
