@@ -4,7 +4,7 @@ module.exports = (app) => {
   async function xvideos(q) {
     try {
       const response = await axios.get(`https://api.agatz.xyz/api/xvideo?message=${encodeURIComponent(q)}`);
-      return response.data.data.result;
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw new Error("Unable to fetch data");
