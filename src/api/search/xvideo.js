@@ -4,10 +4,10 @@ module.exports = (app) => {
   async function xvideos(q) {
     try {
       const response = await axios.get(`https://api.agatz.xyz/api/xvideo?message=${encodeURIComponent(q)}`);
-      return response.data.data.data.hasil;
+      return response.data.data.result;
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      throw new Error("Unable to fetch weather data");
+      console.error("Error fetching data:", error);
+      throw new Error("Unable to fetch data");
     }
   }
 
