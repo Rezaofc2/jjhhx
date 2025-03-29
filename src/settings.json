@@ -140,6 +140,21 @@
           "name": "Spotify Downloader",
           "desc": "Get audio from Spotify",
           "path": "/downloader/spotify?url="
+        },
+        {
+          "name": "Videy",
+          "desc": "Get video from videy",
+          "path": "/downloader/videy?url="
+        },
+        {
+          "name": "Xvideo",
+          "desc": "Get video from xvideo",
+          "path": "/downloader/xvideo?url="
+        },
+        {
+          "name": "Xnxx",
+          "desc": "Get video from xnxx",
+          "path": "/downloader/xnxx?url="
         }
       ]
     },
@@ -222,6 +237,16 @@
           "path": "/search/youtube?q="
         },
         {
+          "name": "Xvideo",
+          "desc": "Xvideo Search",
+          "path": "/search/xvideo?q="
+        },
+        {
+          "name": "Xnxx",
+          "desc": "xnxx Search",
+          "path": "/search/xnxx?q="
+        },
+        {
           "name": "Pinterest",
           "desc": "Get Downloader & Search",
           "path": "/search/pinterest?q="
@@ -291,6 +316,11 @@
           "desc": "To see cuaca",
           "path": "/info/cuaca?q="
         },
+        {
+          "name": "Jadwalsholat",
+          "desc": "To see jadwalsholat",
+          "path": "/info/jadwalsholat?q="
+        },
              {
           "name": "Liburnasional",
           "desc": "To see libur nasional",
@@ -315,6 +345,11 @@
           "name": "Jadianime",
           "desc": "Entacher Image To Anime",
           "path": "/tools/toanime?url="
+        },
+        {
+          "name": "Ocr",
+          "desc": "Entacher Image To Text",
+          "path": "/tools/ocr?url="
         },
         {
           "name": "Ssweb",
@@ -451,6 +486,16 @@
           "auto": {
             "mode": "image"
           }
+        },
+        {
+          "name": "Animebrat",
+          "desc": "animebrat generator",
+          "path": "/maker/animebrat?text="
+        },
+        {
+          "name": "Pornhub",
+          "desc": "pornhub generator",
+          "path": "/maker/pornhub?text=&text2="
         },
         {
           "name": "Furbrat",
