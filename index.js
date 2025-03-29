@@ -160,8 +160,10 @@ app.get("/list_endpoint", async (req, res) => {
 
     res.json({
       status: true,
-      total: totalEndpoints,
-      endpoints,
+      result: {
+        totalEndpoints,
+        endpoints,
+      }
     })
   } catch (error) {
     res.status(500).json({
@@ -222,40 +224,6 @@ app.get("/sysinfo", async (req, res) => {
 // Add this new route after the existing /sysinfo route
 app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
-})
-
-// Tambahkan endpoint baru untuk halaman spam-pairing
-app.get("/spam-pairing", (req, res) => {
-  res.sendFile(path.join(__dirname, "api-page", "spam-pairing.html"))
-})
-
-// Tambahkan endpoint untuk verifikasi key
-app.post("/verify-spam-pairing-key", (req, res) => {
-  try {
-    const { key } = req.body
-
-    // Baca settings.json untuk mendapatkan key yang valid
-    const settingsPath = path.join(__dirname, "./src/settings.json")
-    const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
-
-    // Periksa apakah key valid
-    if (key === settings.loginKeys.spamPairing) {
-      res.status(200).json({
-        status: true,
-        message: "Key valid",
-      })
-    } else {
-      res.status(403).json({
-        status: false,
-        error: "Invalid access key",
-      })
-    }
-  } catch (error) {
-    res.status(500).json({
-      status: false,
-      error: error.message,
-    })
-  }
 })
 
 // Add this new endpoint to handle AI chat requests
