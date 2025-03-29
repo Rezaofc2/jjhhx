@@ -6,8 +6,8 @@ module.exports = (app) => {
       const response = await axios.get(`https://api.diioffc.web.id/api/tools/ocr?url=${encodeURIComponent(url)}`);
       return response.data.result;
     } catch (error) {
-      console.error("Error fetching weather data:", error);
-      throw new Error("Unable to fetch weather data");
+      console.error("Error fetching data:", error);
+      throw new Error("Unable to fetch data");
     }
   }
 
@@ -19,7 +19,7 @@ module.exports = (app) => {
     }
 
     try {
-      const result = await ocr(q);
+      const result = await ocr(url);
       res.status(200).json({
         status: true,
         result,
