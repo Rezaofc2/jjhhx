@@ -63,6 +63,139 @@
                 font-size: 1rem;
             }
         }
+
+        /* Stats Section Styles */
+        .stats-section {
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark .stat-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+            flex-shrink: 0;
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-content h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .dark .stat-content h3 {
+            color: var(--light);
+        }
+
+        .stat-content p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: var(--dark-600);
+        }
+
+        @media screen and (min-width: 640px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (min-width: 1024px) {
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* Improve search container positioning */
+        .search-container {
+            margin-top: 20px;
+        }
+
+        /* Add animation for stats */
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            animation: countUp 0.6s ease forwards;
+        }
+
+        .stat-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .stat-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .stat-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .stat-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
     </style>
 </head>
 <body>
@@ -114,11 +247,58 @@
                     </div>
                 </div>
                 
-                <div class="search-container">
-                    <div class="search-wrapper">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="searchInput" placeholder="Search API...">
+            </div>
+
+            <div class="stats-section">
+                <div class="container">
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="currentTime">00:00:00</h3>
+                                <p id="currentDate">Loading...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-day"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="todayRequests">0</h3>
+                                <p>Requests Today</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="totalRequests">0</h3>
+                                <p>Total Requests</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="userIP">Loading...</h3>
+                                <p>Your IP Address</p>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search API...">
                 </div>
             </div>
             
@@ -170,6 +350,106 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update time and date
+            function updateDateTime() {
+                const now = new Date();
+                
+                // Format time: HH:MM:SS
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const seconds = String(now.getSeconds()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}:${seconds}`;
+                
+                // Format date: Day, Month Date, Year
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateString = now.toLocaleDateString(undefined, options);
+                
+                document.getElementById('currentTime').textContent = timeString;
+                document.getElementById('currentDate').textContent = dateString;
+            }
+            
+            // Update time every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Fetch user IP
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('userIP').textContent = data.ip;
+                })
+                .catch(() => {
+                    document.getElementById('userIP').textContent = 'Unavailable';
+                });
+            
+            // Simulate request stats (in a real app, these would come from your backend)
+            // For demo purposes, we'll use random numbers and localStorage
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+            
+            // Get or initialize total requests from localStorage
+            let totalRequests = localStorage.getItem('totalRequests');
+            if (!totalRequests) {
+                totalRequests = getRandomInt(10000, 50000);
+                localStorage.setItem('totalRequests', totalRequests);
+            }
+            
+            // Get or initialize today's requests and date
+            let todayRequests = localStorage.getItem('todayRequests');
+            let lastDate = localStorage.getItem('lastDate');
+            const today = new Date().toDateString();
+            
+            if (!lastDate || lastDate !== today) {
+                // New day, reset counter
+                todayRequests = getRandomInt(500, 2000);
+                localStorage.setItem('todayRequests', todayRequests);
+                localStorage.setItem('lastDate', today);
+            } else if (!todayRequests) {
+                todayRequests = getRandomInt(500, 2000);
+                localStorage.setItem('todayRequests', todayRequests);
+            }
+            
+            // Display the stats with animation
+            function animateValue(id, start, end, duration) {
+                const obj = document.getElementById(id);
+                let startTimestamp = null;
+                
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    obj.textContent = value.toLocaleString();
+                    
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                
+                window.requestAnimationFrame(step);
+            }
+            
+            // Start animations after a short delay
+            setTimeout(() => {
+                animateValue('totalRequests', 0, parseInt(totalRequests), 1500);
+                animateValue('todayRequests', 0, parseInt(todayRequests), 1500);
+                
+                // Simulate occasional new requests
+                setInterval(() => {
+                    totalRequests = parseInt(totalRequests) + 1;
+                    todayRequests = parseInt(todayRequests) + 1;
+                    
+                    document.getElementById('totalRequests').textContent = parseInt(totalRequests).toLocaleString();
+                    document.getElementById('todayRequests').textContent = parseInt(todayRequests).toLocaleString();
+                    
+                    localStorage.setItem('totalRequests', totalRequests);
+                    localStorage.setItem('todayRequests', todayRequests);
+                }, getRandomInt(5000, 15000));
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
 

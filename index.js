@@ -25,55 +25,6 @@ app.use(
 )
 app.use(cors())
 
-// Request Logger Middleware
-app.use((req, res, next) => {
-  const start = Date.now()
-  const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  
-  // Log request details
-  console.log(
-    chalk.bgBlue.white.bold(` ${req.method} `) + 
-    chalk.cyan(` ${req.originalUrl} `) + 
-    chalk.yellow(`[FROM: ${ip}]`)
-  )
-  
-  // Log query parameters if any
-  if (Object.keys(req.query).length) {
-    console.log(
-      chalk.magenta('Query Params: ') + 
-      chalk.greenBright(JSON.stringify(req.query, null, 2))
-    )
-  }
-  
-  // Log request body if any
-  if (req.body && Object.keys(req.body).length) {
-    console.log(
-      chalk.magenta('Request Body: ') + 
-      chalk.greenBright(JSON.stringify(req.body, null, 2))
-    )
-  }
-  
-  // Capture response
-  const originalSend = res.send
-  res.send = function(data) {
-    const responseTime = Date.now() - start
-    
-    // Log response status and time
-    console.log(
-      chalk.bgHex(res.statusCode < 400 ? '#90EE90' : '#FF6347').hex('#333').bold(` ${res.statusCode} `) +
-      chalk.gray(` ${responseTime}ms `) +
-      chalk.white(`${new Date().toISOString()}`)
-    )
-    
-    // Add a separator for better readability
-    console.log(chalk.gray('─'.repeat(80)))
-    
-    return originalSend.apply(res, arguments)
-  }
-  
-  next()
-})
-
 app.use("/", express.static(path.join(__dirname, "api-page")))
 app.use("/src", express.static(path.join(__dirname, "src")))
 
@@ -163,7 +114,7 @@ app.get("/list_endpoint", async (req, res) => {
       result: {
         totalEndpoints,
         endpoints,
-      }
+      },
     })
   } catch (error) {
     res.status(500).json({
@@ -308,3 +259,4 @@ app.listen(PORT, () => {
 })
 
 module.exports = app
+
