@@ -45,7 +45,7 @@ module.exports = (app) => {
         return res.status(400).json({ status: false, error: "Query is required" });
       }
       const result = await cariresep(q);
-      res.status(200).json(result); // Mengembalikan hasil langsung
+      res.status(200).json({status: true, result}); // Mengembalikan hasil langsung
     } catch (error) {
       console.error("Error in /search/cariresep:", error); // Menambahkan logging untuk kesalahan
       res.status(500).json({ status: false, error: error.message });

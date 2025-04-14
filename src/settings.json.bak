@@ -104,11 +104,6 @@
           "path": "/downloader/facebook?url="
         },
         {
-          "name": "Android1",
-          "desc": "Downloader application Android1",
-          "path": "/downloader/android1?url="
-        },
-        {
           "name": "Tiktok",
           "desc": "Get more details TikTok",
           "path": "/downloader/tiktok?url="
