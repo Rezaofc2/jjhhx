@@ -109,6 +109,11 @@
           "path": "/downloader/android1?url="
         },
         {
+          "name": "Google Drive",
+          "desc": "Downloader google dirver",
+          "path": "/downloader/gdrive?url="
+        },
+        {
           "name": "Tiktok",
           "desc": "Get more details TikTok",
           "path": "/downloader/tiktok?url="
@@ -242,6 +247,11 @@
           "name": "Android1",
           "desc": "Looking for application from Android1",
           "path": "/search/android1?q="
+        },
+        {
+          "name": "Bilibili",
+          "desc": "Blibili Search",
+          "path": "/search/bilibili?q="
         },
         {
           "name": "Xvideo",
