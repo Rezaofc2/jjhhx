@@ -15,7 +15,7 @@ async function gdrive(url) {
     responseType: 'arraybuffer'
   });
 
-  return Buffer.from(response.data, 'binary');
+  return response.data;
 }
 
 module.exports = (app) => {
@@ -25,8 +25,10 @@ module.exports = (app) => {
       if (!url) {
         return res.status(400).json({ status: false, error: "Url is required" });
       }
-      const result = await gdrive(url);
-      res.status(200).json({status: true, result});
+
+      const fileBuffer = await gdrive(url);
+      const base64 = `Buffer ${fileBuffer.toString('hex').match(/.{1,2}/g).join(' ')}`;
+      res.status(200).json({ status: true, result: base64 });
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
     }
