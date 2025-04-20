@@ -427,11 +427,6 @@
           "name": "Nulis",
           "desc": "Write on paper",
           "path": "/tools/nulis?content=&footer=&kls="
-        },
-        {
-          "name": "Send Email",
-          "desc": "Send message to email",
-          "path": "/tools/sendmail?target=&subject=&messageParts="
         }
       ]
     },
