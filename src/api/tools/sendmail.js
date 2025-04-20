@@ -7,7 +7,7 @@ async function lemonmail(target, subject, message) {
         "message": message
     });
 
-    const config = {
+    const tm = {
         method: 'POST',
         url: 'https://lemon-email.vercel.app/send-email',
         headers: {
@@ -27,7 +27,7 @@ async function lemonmail(target, subject, message) {
         data: data
     };
 
-    const api = await axios.request(config);
+    const api = await axios.request(tm);
     return api.data;
 }
 
@@ -44,11 +44,9 @@ app.get("/tools/sendmail", async (req, res) => {
             });
         }
 
-        // Menggabungkan messageParts menjadi satu string
-        const message = Array.isArray(messageParts) ? messageParts.join(' ') : messageParts;
 
         // Mengirim email
-        const mailResponse = await lemonmail(target, subject, message);
+        const mailResponse = await lemonmail(target, subject, messageParts);
 
         res.json({
             success: true,
