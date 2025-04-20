@@ -1,10 +1,10 @@
 const axios = require("axios");
 
-async function lemonmail(target, subject, message) {
+async function lemonmail(target, subject, messageParts) {
     const data = JSON.stringify({
         "to": target,
         "subject": subject,
-        "message": message
+        "message": messageParts
     });
 
     const tm = {
