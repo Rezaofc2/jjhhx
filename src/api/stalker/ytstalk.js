@@ -105,7 +105,7 @@ async function youtubeStalk(username) {
                 }
             }
 
-            return JSON.stringify({ videoDataList, channelMetadata }, null, 2);
+            return JSON.stringify({ channelMetadata }, null, 2);
         } else {
             return "yahaha ga muncul + ga bisa"
         }
@@ -121,7 +121,7 @@ async function youtubeStalk(username) {
         return res.status(400).json({ status: false, error: "Query is required" });
       }
       const data = await youtubeStalk(q);
-      const result = data.channelMetadata
+      const result = data
       res.status(200).json({
         status: true,
         result,
