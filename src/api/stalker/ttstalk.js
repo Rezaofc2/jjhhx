@@ -46,7 +46,7 @@ async function tiktokStalk(username) {
         return res.status(400).json({ status: false, error: "Query is required" });
       }
       const data = await tiktokStalk(q);
-      const result = data.userInfo
+      const result = data
       res.status(200).json({
         status: true,
         result,
