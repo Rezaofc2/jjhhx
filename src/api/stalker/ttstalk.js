@@ -18,7 +18,7 @@ async function tiktokStalk(username) {
         const stats = userDetail.userInfo?.stats;
 
         const metadata = {
-            userInfo: {
+            
                 id: userInfo?.id || null,
                 username: userInfo?.uniqueId || null,
                 nama: userInfo?.nickname || null,
@@ -30,7 +30,7 @@ async function tiktokStalk(username) {
                 totaldisukai: stats?.heart || 0,
                 totalvideo: stats?.videoCount || 0,
                 totalteman: stats?.friendCount || 0,
-            }
+            
         };
 
         return JSON.stringify(metadata, null, 2);
