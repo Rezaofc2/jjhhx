@@ -431,7 +431,10 @@
         {
           "name": "Send Email",
           "desc": "Send message to email",
-          "path": "/tools/sendmail?target=&subject=&messageParts="
+          "path": "/tools/sendmail?target=&subject=&message=",
+          "optionDesc": {
+            "target": "Enter email address"
+          }
         }
       ]
     },

@@ -33,14 +33,14 @@ module.exports = (app) => {
 }
 
   app.get("/tools/sendmail", async (req, res) => {
-    const { target, subject, messageParts } = req.query;
+    const { target, subject, message } = req.query;
 
-        if (!target || !subject || !messageParts) {
+        if (!target || !subject || !message) {
       return res.status(400).json({ status: false, error: "Yang Bener Donk Formatnya" });
     }
 
     try {
-      const result = await lemonmail(target, subject, messageParts);
+      const result = await lemonmail(target, subject, message);
       res.status(200).json({
         status: true,
         result,
