@@ -537,6 +537,51 @@
         }
       ]
     },
+     {
+      "name": "Stalker",
+      "items": [
+        {
+          "name": "ttstalk",
+          "desc": "TikTok Stalk",
+          "path": "/stalker/ttstalk?q="
+        },
+         {
+          "name": "ytstalk",
+          "desc": "YouTube Stalk",
+          "path": "/stalker/ytstalk?q="
+        },
+         {
+          "name": "mcstalk",
+          "desc": "Minecraft Stalk",
+          "path": "/stalker/mcstalk?q="
+        },
+         {
+          "name": "Xbox Stalk",
+          "desc": "Xbkx Stalk",
+          "path": "/stalker/xboxstalk?q="
+        },
+         {
+          "name": "Codm Stalk",
+          "desc": "Call Of Duty Mobile Stalk",
+          "path": "/stalker/codmstalk?q="
+        },
+         {
+          "name": "Genshin Stalk",
+          "desc": "Genshin Impact Stalk",
+          "path": "/stalker/genshinstalk?q="
+        },
+        {
+          "name": "Ml Stalk",
+          "desc": "Mobile Legend Stalk",
+          "path": "/stalker/mlstalk?id=&zona="
+        },
+        {
+          "name": "Github Stalk",
+          "desc": "GitHub Stalk",
+          "path": "/stalker/githubstalk?q="
+        }
+      ]
+    },
     {
       "name": "Nsfw",
       "items": [
