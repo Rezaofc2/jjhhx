@@ -108,6 +108,11 @@
           "desc": "Downloader application Android1",
           "path": "/downloader/android1?url="
         },
+         {
+          "name": "Mc Dl",
+          "desc": "Minecraft Downloader",
+          "path": "/downloader/mcdl"
+        },
         {
           "name": "Google Drive",
           "desc": "Downloader google dirver",
@@ -554,11 +559,6 @@
           "name": "mcstalk",
           "desc": "Minecraft Stalk",
           "path": "/stalker/mcstalk?q="
-        },
-         {
-          "name": "Xbox Stalk",
-          "desc": "Xbkx Stalk",
-          "path": "/stalker/xboxstalk?q="
         },
          {
           "name": "Codm Stalk",
