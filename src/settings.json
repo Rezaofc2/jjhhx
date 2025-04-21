@@ -631,6 +631,21 @@
           "path": "/nsfw/cum"
         },
         {
+          "name": "Bokep",
+          "desc": "Bokep Random Video",
+          "path": "/nsfw/bkp"
+        },
+        {
+          "name": "Nekopoi",
+          "desc": "Nekopoi Random Video",
+          "path": "/nsfw/nekopoi"
+        },
+        {
+          "name": "HentaiTv Search",
+          "desc": "Search From hentaitv.net",
+          "path": "/nsfw/hentaitv?q="
+        },
+        {
           "name": "Pixiv Search",
           "desc": "Search Pixiv r18",
           "path": "/nsfw/pixiv?q=&r18=",
