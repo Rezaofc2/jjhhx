@@ -139,6 +139,11 @@
           "path": "/downloader/mediafire?url="
         },
         {
+          "name": "Douyin",
+          "desc": "Downloader douyin",
+          "path": "/downloader/douyin?url="
+        },
+        {
           "name": "Twitter",
           "desc": "Downloader Twitter Mendata",
           "path": "/downloader/twitter?url="
