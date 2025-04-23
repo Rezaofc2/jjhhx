@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Downloader - MchaX Api's</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --spotify-green: #1DB954;
+            --spotify-green-dark: #1aa34a;
+            --spotify-black: #121212;
+            --spotify-dark-gray: #212121;
+            --spotify-light-gray: #b3b3b3;
+            --spotify-white: #FFFFFF;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        body {
+            background-color: var(--spotify-black);
+            color: var(--spotify-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 47% 33%, rgba(29, 185, 84, 0.1) 0, transparent 59%),
+                radial-gradient(at 82% 65%, rgba(29, 185, 84, 0.05) 0, transparent 55%);
+        }
+        
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 80px;
+        }
+        
+        .navbar {
+            background-color: rgba(18, 18, 18, 0.8);
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(18, 18, 18, 0.95);
+        }
+        
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--spotify-white);
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        
+        .navbar-brand img {
+            height: 32px;
+            width: auto;
+        }
+        
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .nav-link {
+            color: var(--spotify-light-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+        }
+        
+        .nav-link:hover {
+            color: var(--spotify-white);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .container {
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .main-container {
+            padding-top: 120px;
+        }
+        
+        .hero-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--spotify-green), var(--spotify-green-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-description {
+            color: var(--spotify-light-gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .spotify-card {
+            background-color: var(--spotify-dark-gray);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .spotify-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--spotify-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: var(--spotify-green);
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--spotify-white);
+            padding: 15px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: var(--spotify-green);
+            box-shadow: 0 0 0 3px rgba(29, 185, 84, 0.2);
+            color: var(--spotify-white);
+        }
+        
+        .form-control::placeholder {
+            color: var(--spotify-light-gray);
+        }
+        
+        .btn-spotify {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-spotify:hover {
+            background-color: var(--spotify-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+            color: var(--spotify-black);
+        }
+        
+        .btn-spotify:active {
+            transform: translateY(0);
+        }
+        
+        .btn-spotify i {
+            font-size: 1.1rem;
+        }
+        
+        .result-container {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--spotify-white);
+        }
+        
+        .track-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .track-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .track-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+        
+        .track-info {
+            padding: 20px;
+            flex: 1;
+        }
+        
+        .track-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--spotify-white);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .track-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .track-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--spotify-light-gray);
+            font-size: 0.9rem;
+        }
+        
+        .track-meta-item i {
+            color: var(--spotify-green);
+            font-size: 0.8rem;
+        }
+        
+        .track-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .btn-preview {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--spotify-white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-preview:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--spotify-white);
+        }
+        
+        .btn-download {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            flex: 1;
+            justify-content: center;
+        }
+        
+        .btn-download:hover {
+            background-color: var(--spotify-green-dark);
+            color: var(--spotify-black);
+        }
+        
+        .download-result {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .download-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .download-header {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .download-image {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .download-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .download-info {
+            flex: 1;
+        }
+        
+        .download-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--spotify-white);
+        }
+        
+        .download-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .download-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--spotify-light-gray);
+            font-size: 0.95rem;
+        }
+        
+        .download-meta-item i {
+            color: var(--spotify-green);
+            font-size: 0.9rem;
+            width: 20px;
+        }
+        
+        .download-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-download-large {
+            background-color: var(--spotify-green);
+            color: var(--spotify-black);
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+        
+        .btn-download-large:hover {
+            background-color: var(--spotify-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+            color: var(--spotify-black);
+        }
+        
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: var(--spotify-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .loading-text {
+            color: var(--spotify-light-gray);
+            font-size: 1rem;
+        }
+        
+        .error-container {
+            display: none;
+            background-color: rgba(255, 59, 48, 0.1);
+            border-left: 4px solid #ff3b30;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: #ff3b30;
+            font-size: 0.95rem;
+        }
+        
+        .audio-player {
+            width: 100%;
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            padding: 10px;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            height: 40px;
+        }
+        
+        /* Custom audio player styling */
+        audio::-webkit-media-controls-panel {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        audio::-webkit-media-controls-play-button {
+            background-color: var(--spotify-green);
+            border-radius: 50%;
+        }
+        
+        audio::-webkit-media-controls-current-time-display,
+        audio::-webkit-media-controls-time-remaining-display {
+            color: var(--spotify-white);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--spotify-light-gray);
+            padding: 24px 0;
+            margin-top: auto;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--spotify-green), var(--spotify-green-dark));
+            color: var(--spotify-black);
+            font-size: 18px;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.3);
+        }
+        
+        /* Loading screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--spotify-black);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .spinner-wrapper {
+            text-align: center;
+        }
+        
+        .spinner-wrapper p {
+            margin-top: 1rem;
+            font-weight: 500;
+            color: var(--spotify-green);
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .download-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .download-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .download-actions {
+                justify-content: center;
+            }
+            
+            .track-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar-brand span {
+                display: none;
+            }
+            
+            .spotify-card {
+                padding: 20px;
+            }
+            
+            .btn-spotify {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loadingScreen">
+        <div class="spinner-wrapper">
+            <div class="spinner"></div>
+            <p>Loading Spotify Downloader...</p>
+        </div>
+    </div>
+    
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="container">
+                <a href="/" class="navbar-brand">
+                    <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png" alt="Spotify Logo">
+                    <span>Spotify Downloader</span>
+                </a>
+                <div class="navbar-actions">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/docs" class="nav-link">API Docs</a>
+                    <a href="/ai" class="nav-link">AI Chat</a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="container main-container">
+            <div class="hero-section">
+                <h1 class="hero-title">Spotify Downloader</h1>
+                <p class="hero-description">Search for your favorite songs on Spotify and download them in high quality MP3 format.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="spotify-card">
+                        <h2 class="card-title"><i class="fas fa-search"></i> Search Spotify</h2>
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Enter song name or artist...">
+                        </div>
+                        <button id="searchBtn" class="btn-spotify">
+                            <i class="fas fa-search"></i>
+                            Search
+                        </button>
+                        
+                        <div id="searchLoading" class="loading-container">
+                            <div class="spinner"></div>
+                            <p class="loading-text">Searching Spotify...</p>
+                        </div>
+                        
+                        <div id="searchError" class="error-container">
+                            <p class="error-message" id="searchErrorMessage">Error message here</p>
+                        </div>
+                        
+                        <div id="searchResults" class="result-container">
+                            <h3 class="result-title">Search Results</h3>
+                            <div id="trackList" class="track-list">
+                                <!-- Track cards will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <div class="spotify-card">
+                        <h2 class="card-title"><i class="fas fa-download"></i> Download from URL</h2>
+                        <div class="input-group">
+                            <input type="text" id="downloadInput" class="form-control" placeholder="Paste Spotify track URL here...">
+                        </div>
+                        <button id="downloadBtn" class="btn-spotify">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
+                        
+                        <div id="downloadLoading" class="loading-container">
+                            <div class="spinner"></div>
+                            <p class="loading-text">Fetching download information...</p>
+                        </div>
+                        
+                        <div id="downloadError" class="error-container">
+                            <p class="error-message" id="downloadErrorMessage">Error message here</p>
+                        </div>
+                        
+                        <div id="downloadResult" class="download-result">
+                            <div class="download-card">
+                                <div class="download-header">
+                                    <div class="download-image">
+                                        <img id="downloadImage" src="https://placeholder.svg?height=120&width=120" alt="Track Cover">
+                                    </div>
+                                    <div class="download-info">
+                                        <h3 id="downloadTitle" class="download-title">Track Title</h3>
+                                        <div class="download-meta">
+                                            <div class="download-meta-item">
+                                                <i class="fas fa-user"></i>
+                                                <span id="downloadArtist">Artist Name</span>
+                                            </div>
+                                            <div class="download-meta-item">
+                                                <i class="fas fa-clock"></i>
+                                                <span id="downloadDuration">3:45</span>
+                                            </div>
+                                            <div class="download-meta-item">
+                                                <i class="fas fa-music"></i>
+                                                <span id="downloadType">Track</span>
+                                            </div>
+                                        </div>
+                                        <div class="download-actions">
+                                            <a id="downloadLink" href="#" class="btn-download-large" target="_blank">
+                                                <i class="fas fa-download"></i>
+                                                Download MP3
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="audioPlayerContainer" class="audio-player">
+                                    <audio id="audioPlayer" controls>
+                                        <source id="audioSource" src="/placeholder.svg" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 MchaX Api's. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/krsna081" class="social-icon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VaOQ0f3BA1f7HHV9DV1J" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("Spotify Downloader initialized");
+
+            const loadingScreen = document.getElementById("loadingScreen");
+            const body = document.body;
+            body.classList.add("no-scroll");
+            
+            // Search functionality
+            const searchInput = document.getElementById("searchInput");
+            const searchBtn = document.getElementById("searchBtn");
+            const searchLoading = document.getElementById("searchLoading");
+            const searchError = document.getElementById("searchError");
+            const searchErrorMessage = document.getElementById("searchErrorMessage");
+            const searchResults = document.getElementById("searchResults");
+            const trackList = document.getElementById("trackList");
+            
+            // Download functionality
+            const downloadInput = document.getElementById("downloadInput");
+            const downloadBtn = document.getElementById("downloadBtn");
+            const downloadLoading = document.getElementById("downloadLoading");
+            const downloadError = document.getElementById("downloadError");
+            const downloadErrorMessage = document.getElementById("downloadErrorMessage");
+            const downloadResult = document.getElementById("downloadResult");
+            const downloadImage = document.getElementById("downloadImage");
+            const downloadTitle = document.getElementById("downloadTitle");
+            const downloadArtist = document.getElementById("downloadArtist");
+            const downloadDuration = document.getElementById("downloadDuration");
+            const downloadType = document.getElementById("downloadType");
+            const downloadLink = document.getElementById("downloadLink");
+            const audioSource = document.getElementById("audioSource");
+            const audioPlayer = document.getElementById("audioPlayer");
+
+            audioPlayer.addEventListener('error', (e) => {
+                console.error("Audio player error:", e);
+                alert("Error loading audio. The preview may not be available.");
+            });
+            
+            // Search function
+            async function searchSpotify() {
+                const query = searchInput.value.trim();
+                
+                if (!query) {
+                    searchError.style.display = "block";
+                    searchErrorMessage.textContent = "Please enter a search query";
+                    return;
+                }
+                
+                searchResults.style.display = "none";
+                searchError.style.display = "none";
+                searchLoading.style.display = "block";
+                
+                try {
+                    const response = await fetch(`https://api.mchax.web.id/search/spotify?q=${query}`);
+                    const data = await response.json();
+                    
+                    console.log("Search response:", data);
+                    
+                    if (!data.status || !data.result || data.result.length === 0) {
+                        throw new Error(data.error || "No results found");
+                    }
+                    
+                    // The result is directly an array, not inside a data property
+                    renderSearchResults(data.result);
+                    searchResults.style.display = "block";
+                } catch (error) {
+                    searchError.style.display = "block";
+                    searchErrorMessage.textContent = error.message || "An error occurred while searching";
+                    console.error("Search error:", error);
+                } finally {
+                    searchLoading.style.display = "none";
+                }
+            }
+            
+            // Render search results
+            function renderSearchResults(tracks) {
+                trackList.innerHTML = "";
+                
+                tracks.forEach(track => {
+                    const trackCard = document.createElement("div");
+                    trackCard.className = "track-card";
+                    
+                    const hasPreview = track.preview && track.preview !== "No preview available";
+                    
+                    trackCard.innerHTML = `
+                        <div class="track-info">
+                            <h4 class="track-title">${track.title}</h4>
+                            <div class="track-meta">
+                                <div class="track-meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>${track.duration}</span>
+                                </div>
+                                <div class="track-meta-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>${track.popularity}</span>
+                                </div>
+                            </div>
+                            <div class="track-actions">
+                                <button class="btn-preview" ${!hasPreview ? 'disabled' : ''} data-preview="${hasPreview ? track.preview : ''}">
+                                    <i class="fas fa-play"></i>
+                                    ${hasPreview ? 'Preview' : 'No Preview'}
+                                </button>
+                                <button class="btn-download" data-url="${track.url}">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    trackList.appendChild(trackCard);
+                    
+                    // Add event listeners to the buttons
+                    const previewBtn = trackCard.querySelector('.btn-preview');
+                    const downloadBtn = trackCard.querySelector('.btn-download');
+                    
+                    if (hasPreview) {
+                        previewBtn.addEventListener('click', () => {
+                            const previewUrl = previewBtn.getAttribute('data-preview');
+                            playPreview(previewUrl);
+                        });
+                    }
+                    
+                    downloadBtn.addEventListener('click', () => {
+                        const spotifyUrl = downloadBtn.getAttribute('data-url');
+                        downloadInput.value = spotifyUrl;
+                        downloadSpotify();
+                    });
+                });
+            }
+            
+            // Play preview
+            function playPreview(previewUrl) {
+                // Stop any currently playing audio
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+                
+                // Set the new source and play
+                audioSource.src = previewUrl;
+                audioPlayer.load();
+                
+                // Add a small delay before playing to ensure the audio is loaded
+                setTimeout(() => {
+                    const playPromise = audioPlayer.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.error("Audio playback error:", error);
+                            alert("Could not play audio preview. This may be due to browser autoplay restrictions.");
+                        });
+                    }
+                }, 300);
+            }
+            
+            // Download function
+            async function downloadSpotify() {
+                const url = downloadInput.value.trim();
+                
+                if (!url) {
+                    downloadError.style.display = "block";
+                    downloadErrorMessage.textContent = "Please enter a Spotify URL";
+                    return;
+                }
+                
+                if (!url.includes('spotify.com/track/')) {
+                    downloadError.style.display = "block";
+                    downloadErrorMessage.textContent = "Please enter a valid Spotify track URL";
+                    return;
+                }
+                
+                downloadResult.style.display = "none";
+                downloadError.style.display = "none";
+                downloadLoading.style.display = "block";
+                
+                try {
+                    const response = await fetch(`https://api.mchax.web.id/downloader/spotify?url=${url}`);
+                    const data = await response.json();
+                    
+                    if (!data.status || !data.result) {
+                        throw new Error(data.error || "Failed to fetch download information");
+                    }
+                    
+                    const result = data.result;
+                    
+                    downloadImage.src = result.image || "https://placeholder.svg?height=120&width=120";
+                    downloadTitle.textContent = result.title || "Unknown Title";
+                    downloadArtist.textContent = result.artist || "Unknown Artist";
+                    downloadDuration.textContent = result.duration || "--:--";
+                    downloadType.textContent = result.type || "Track";
+                    downloadLink.href = result.download || "#";
+                    
+                    // Set up audio preview from the download URL
+                    audioSource.src = result.download;
+                    audioPlayer.load();
+                    
+                    // Make sure the audio player is visible
+                    document.getElementById("audioPlayerContainer").style.display = "block";
+                    
+                    downloadResult.style.display = "block";
+                } catch (error) {
+                    downloadError.style.display = "block";
+                    downloadErrorMessage.textContent = error.message || "An error occurred while fetching download information";
+                    console.error("Download error:", error);
+                } finally {
+                    downloadLoading.style.display = "none";
+                }
+            }
+            
+            // Event listeners
+            searchBtn.addEventListener("click", searchSpotify);
+            searchInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    searchSpotify();
+                }
+            });
+            
+            downloadBtn.addEventListener("click", downloadSpotify);
+            downloadInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    downloadSpotify();
+                }
+            });
+            
+            // Navbar scroll effect
+            window.addEventListener("scroll", () => {
+                const navbar = document.querySelector(".navbar");
+                if (window.scrollY > 0) {
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+            
+            // Hide loading screen after everything is loaded
+            setTimeout(() => {
+                loadingScreen.style.display = "none";
+                body.classList.remove("no-scroll");
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

@@ -137,28 +137,6 @@ app.get("/list_endpoint", async (req, res) => {
   }
 })
 
-app.get("/runtime", async (req, res) => {
-  try {
-    const uptime = formatUptime(os.uptime())
-    const { data } = await axios.get(
-      `https://og.tailgraph.com/og?fontFamily=Poppins&title=Runtime+Server&titleTailwind=font-bold%20text-red-600%20text-7xl&stroke=true&text=Time : ${uptime}&textTailwind=text-red-700%20mt-4%20text-2xl&textFontFamily=Poppins&logoTailwind=h-8&bgUrl=https%3A%2F%2Fwallpaper.dog%2Flarge%2F272766.jpg&bgTailwind=bg-white%20bg-opacity-30&footer=MchaX-Bot&footerTailwind=text-grey-600`,
-      {
-        responseType: "arraybuffer",
-      },
-    )
-    res.writeHead(200, {
-      "Content-Type": "image/png",
-      "Content-Length": data.length,
-    })
-    res.end(data)
-  } catch (error) {
-    res.status(500).json({
-      status: false,
-      error: error.message,
-    })
-  }
-})
-
 app.get("/sysinfo", async (req, res) => {
   try {
     const startTime = Date.now()
@@ -189,6 +167,12 @@ app.get("/sysinfo", async (req, res) => {
 app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
 })
+
+// Add this new route right after it:
+app.get("/spotdl", (req, res) => {
+  res.sendFile(path.join(__dirname, "api-page", "spotify.html"))
+})
+
 
 // Add this new route for the explore page
 app.get("/explore", (req, res) => {
