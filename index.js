@@ -168,9 +168,12 @@ app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
 })
 
-// Add this new route right after it:
 app.get("/spotdl", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "spotify.html"))
+})
+
+app.get("/ttdl", (req, res) => {
+  res.sendFile(path.join(__dirname, "api-page", "ttdl.html"))
 })
 
 
