@@ -11,11 +11,8 @@ const PORT = process.env.PORT || 3680
 
 app.enable("trust proxy")
 app.set("json spaces", 2)
-
-// Configure Express to remove quotes on keys
 app.set("json replacer", (key, value) => value)
 
-// Modify the Express configuration to increase the JSON body size limit
 app.use(express.json({ limit: "100mb" }))
 app.use(
   express.urlencoded({
@@ -25,20 +22,12 @@ app.use(
 )
 app.use(cors())
 
-// Ubah baris ini:
-// app.use("/", express.static(path.join(__dirname, "api-page")))
-
-// Menjadi ini:
 app.use("/", express.static(path.join(__dirname, "api-page"), { index: false }))
 
-// Atau alternatif lain, tambahkan opsi untuk tidak menggunakan index.html secara otomatis:
-// app.use("/", express.static(path.join(__dirname, "api-page"), { index: false }))
 app.use("/src", express.static(path.join(__dirname, "src")))
 
 const settingsPath = path.join(__dirname, "./src/settings.json")
 const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
-
-// REMOVED: API key verification middleware - will be implemented in each API file
 
 app.use((req, res, next) => {
   const originalJson = res.json
@@ -80,12 +69,10 @@ fs.readdirSync(apiFolder).forEach((subfolder) => {
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(" Load Complete! ✓ "))
 console.log(chalk.bgHex("#90EE90").hex("#333").bold(` Total Routes Loaded: ${totalRoutes} `))
 
-// Main route - serve the home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "home.html"))
 })
 
-// Documentation route - serve the index page
 app.get("/docs", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "index.html"))
 })
@@ -163,7 +150,6 @@ app.get("/sysinfo", async (req, res) => {
   }
 })
 
-// Add this new route after the existing /sysinfo route
 app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
 })
@@ -176,18 +162,17 @@ app.get("/ttdl", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ttdl.html"))
 })
 
+app.get("/ytdl", (req, res) => {
+  res.sendFile(path.join(__dirname, "api-page", "ytdl.html"))
+})
 
-// Add this new route for the explore page
+
 app.get("/explore", (req, res) => {
-  // Temporarily redirect to the documentation page
   res.redirect("/docs")
 })
 
-// Add this new endpoint to handle AI chat requests
-// Update the AI chat endpoint to use the increased limit
 app.post("/ai/chat", express.json({ limit: "100mb" }), async (req, res) => {
   try {
-    // Get parameters from request body
     const { content, user, imageUrl } = req.body
 
     if (!content && !imageUrl) {

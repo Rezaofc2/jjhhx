@@ -55,7 +55,7 @@ module.exports = (app) => {
         artist: yanzz.result.artists,
         duration: convert(yanzz.result.duration_ms),
         image: yanzz.result.image,
-        download: "https://api.fabdl.com" + yanz.result.download_url,
+        download: "https://spotifyapi.caliphdev.com/api/download/track?url=" + url
       }
     } catch (error) {
       return {
