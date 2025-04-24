@@ -3,13 +3,13 @@ const axios = require("axios")
 module.exports = (app) => {
   app.get("/tools/removebg", async (req, res) => {
     try {
-      const { url } = req.query
+      const { imageUrl } = req.query
 
-      if (!url) {
-        return res.status(400).json({ status: false, error: "Url is required" })
+      if (!imageUrl) {
+        return res.status(400).json({ status: false, error: "imageUrl is required" })
       }
       
-      const { data } = await axios.get(url, { responseType: "arraybuffer" })
+      const { data } = await axios.get(imageUrl, { responseType: "arraybuffer" })
       const image = await data.toString("base64")
       const puqi = await axios.post("https://us-central1-ai-apps-prod.cloudfunctions.net/restorePhoto", {
         image: `data:image/png;base64,${image}`,

@@ -4,19 +4,19 @@ module.exports = (app) => {
     app.get("/tools/remini", async (req, res) => {
         try {
             const {
-                url
+                imageUrl
             } = req.query
 
-            if (!url) {
+            if (!imageUrl) {
                 return res.status(400).json({
                     status: false,
-                    error: "Url is required"
+                    error: "imageUrl is required"
                 })
             }
 
             const {
                 data
-            } = await axios.get("https://api.malik-jmk.web.id/api/tools/upscale/v17?imageUrl=" + url)
+            } = await axios.get("https://api.malik-jmk.web.id/api/tools/upscale/v17?imageUrl=" + imageUrl)
             res.status(200).json({
                 status: true,
                 result: data

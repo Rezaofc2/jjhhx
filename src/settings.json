@@ -376,7 +376,7 @@
         {
           "name": "Ocr",
           "desc": "Entacher Image To Text",
-          "path": "/tools/ocr?url="
+          "path": "/tools/ocr?imageUrlrl="
         },
         {
           "name": "Ssweb",
@@ -386,12 +386,12 @@
         {
           "name": "Remini",
           "desc": "Clear up photos",
-          "path": "/tools/remini?url="
+          "path": "/tools/remini?imageUrl="
         },
         {
           "name": "Remove Bg",
           "desc": "Removing the background",
-          "path": "/tools/removebg?url="
+          "path": "/tools/removebg?imageUrl="
         },
         {
           "name": "Scan Qr",

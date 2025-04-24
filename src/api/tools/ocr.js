@@ -12,14 +12,14 @@ module.exports = (app) => {
   }
 
   app.get("/tools/ocr", async (req, res) => {
-    const { url } = req.query;
+    const { imageUrl } = req.query;
     
-    if (!url) {
-      return res.status(400).json({ status: false, error: "Query is required" });
+    if (!imageUrl) {
+      return res.status(400).json({ status: false, error: "imageUrl is required" });
     }
 
     try {
-      const result = await ocr(url);
+      const result = await ocr(imageUrl);
       res.status(200).json({
         status: true,
         result,
