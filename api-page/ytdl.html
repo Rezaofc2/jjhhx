@@ -1143,7 +1143,7 @@
                     downloadTitle.textContent = videoInfo.title || "Unknown Title";
                     downloadChannel.textContent = videoInfo.channel || "Unknown Channel";
                     downloadDuration.textContent = videoInfo.duration || "--:--";
-                    downloadViews.textContent = ""; // No views info in the API response
+                    downloadViews.textContent = videoInfo.views || ""; // No views info in the API response
                     
                     // Set up video preview
                     videoFrame.src = `https://www.youtube.com/embed/${videoId}`;

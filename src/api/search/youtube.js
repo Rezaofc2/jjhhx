@@ -11,6 +11,7 @@ module.exports = (app) => {
         title: video.title,
         channel: video.author.name,
         duration: video.duration.timestamp,
+        views: video.views,
         imageUrl: video.thumbnail,
         link: video.url,
       }))
