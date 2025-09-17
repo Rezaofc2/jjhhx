@@ -92,14 +92,15 @@ module.exports = (app) => {
 ]
 
 let Reza = viral[Math.floor(Math.random() * viral.length)];
-	let response = await fetch(`https://api.agatz.xyz/api/mediafire?url=${Reza}`);
-        if (!response.ok) throw new Error(`Error fetching data: ${response.statusText}`);
-        
+	       let response = await fetch(`https://api.ryzumi.vip/api/downloader/mediafire?url=${Reza}`);
         let data = await response.json();
 
-        // Mengakses data dengan indeks [0]
-        let fileData = data.data[0];
-      const result = fileData.link
+        // Mengakses data
+        if (!data.status || !data.data) throw new Error("File data not found");
+
+        let fileData = data.data;
+
+      const result = fileData.downloadUrl
       res.status(200).json({
         status: true,
         result,
