@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.addEventListener("resize", setImageSize)
     }
 
-    setContent("page", "textContent", settings.name || "MchaX Api's")
-    setContent("header", "textContent", settings.name || "MchaX Api's")
-    setContent("name", "textContent", settings.name || "MchaX Api's")
+    setContent("page", "textContent", settings.name || "RezaOffc Api's")
+    setContent("header", "textContent", settings.name || "RezaOffc Api's")
+    setContent("name", "textContent", settings.name || "RezaOffc Api's")
     setContent("version", "textContent", settings.version || "v1.0 Beta")
     setContent("versionHeader", "textContent", settings.header.status || "Online!")
     setContent("description", "textContent", settings.description || "Simple API's")
