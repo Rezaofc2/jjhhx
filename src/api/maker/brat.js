@@ -4,17 +4,20 @@ module.exports = (app) => {
   app.get("/maker/brat", async (req, res) => {
     const { text, mode } = req.query; // Ambil parameter dari query
 
+    // Ubah mode menjadi 'false' atau 'true' sesuai permintaan
+    const isAnimated = mode === 'animated' ? 'true' : 'false'; // Ganti mode menjadi string 'true' atau 'false'
+
     try {
       // Memanggil API untuk mendapatkan gambar atau video NSFW Loli
       const imageResponse = await axios.get(
-        `https://fastrestapis.fasturl.cloud/maker/brat/animated?text=${text}&mode=${mode}`,
+        `https://api.siputzx.my.id/api/m/brat?text=${text}&isAnimated=${isAnimated}&delay=500`,
         { responseType: "arraybuffer" }
       );
 
       // Mengatur header response berdasarkan tipe konten
-      if (mode === 'animated') {
+      if (isAnimated === 'true') {
         res.writeHead(200, {
-          "Content-Type": "image/gif", // Ubah tipe konten ke video
+          "Content-Type": "image/gif", // Tipe konten untuk animasi
           "Content-Length": imageResponse.data.length,
         });
       } else {
