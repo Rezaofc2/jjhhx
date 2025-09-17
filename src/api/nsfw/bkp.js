@@ -92,14 +92,13 @@ module.exports = (app) => {
 ]
 
 let Reza = viral[Math.floor(Math.random() * viral.length)];
-	       let response = await fetch(`https://api.ryzumi.vip/api/downloader/mediafire?url=${Reza}`);
+	let response = await fetch(`https://api.ryzumi.vip/api/downloader/mediafire?url=${Reza}`);
+       
+        
         let data = await response.json();
 
-        // Mengakses data
-        
-
-        let fileData = data.data;
-
+        // Mengakses data dengan indeks [0]
+        let fileData = data.data[0];
       const result = fileData.downloadUrl
       res.status(200).json({
         status: true,
