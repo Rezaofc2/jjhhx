@@ -1,4 +1,4 @@
-let fetch = require('undici')
+let fetch = require('node-fetch')
 module.exports = (app) => {
   app.get("/nsfw/bkp", async (req, res) => {
     try {
@@ -96,7 +96,7 @@ let Reza = viral[Math.floor(Math.random() * viral.length)];
         let data = await response.json();
 
         // Mengakses data
-        if (!data.status || !data.data) throw new Error("File data not found");
+        
 
         let fileData = data.data;
 
