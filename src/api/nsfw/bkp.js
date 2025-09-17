@@ -1,4 +1,4 @@
-let fetch = require('node-fetch')
+let fetch = require('undici')
 module.exports = (app) => {
   app.get("/nsfw/bkp", async (req, res) => {
     try {
