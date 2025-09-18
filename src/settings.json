@@ -89,6 +89,17 @@
           "name": "Botakin",
           "desc": "To bald your waifu",
           "path": "/ai/botak?imageUrl="
+        },
+        {
+          "name": "Jadianime",
+          "desc": "Change your photo into anime",
+          "path": "/ai/tonime?imageUrl=&style=",
+          "optionDesc": {
+            "style": "anime/loli"
+          },
+          "auto": {
+            "style": "anime"
+          }          
         }
       ]
     },
