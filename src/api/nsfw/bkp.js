@@ -100,10 +100,19 @@ let Reza = viral[Math.floor(Math.random() * viral.length)];
 
         let fileData = data.result;
       const result = fileData.url
-      res.status(200).json({
-        status: true,
+           const imageResponse = await axios.get(
         result,
-      });
+        { responseType: "arraybuffer" },
+      )
+
+      // Mengatur header response
+      res.writeHead(200, {
+        "Content-Type": "video/mp4",
+        "Content-Length": imageResponse.data.length,
+      })
+
+      // Mengirimkan data gambar
+      res.end(imageResponse.data)
     } catch (error) {
       console.error("Error in /nsfw/nekopoi:", error); // Tambahkan logging untuk kesalahan
       res.status(500).json({ status: false, error: error.message });
