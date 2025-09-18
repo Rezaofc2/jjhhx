@@ -1,29 +1,40 @@
-const axios = require("axios")
+const axios = require("axios");
 
 module.exports = (app) => {
-  async function geminiCanvas(content, imageUrl) {
-    const { data } = await axios.get(`https://api.hiuraa.my.id/ai/gemini-canvas?text=${content}&imageUrl=${imageUrl}`)
-    return data
+  async function geminiCanvas(text, imageUrl) {
+ 
+    const { data } = await axios.get(`https://api.platform.web.id/editimg?imageUrl=${imageUrl}&prompt=${text}`);
+    return data; // Kembalikan seluruh data
   }
 
   app.get("/ai/gemini-canvas", async (req, res) => {
     try {
       const { text, imageUrl } = req.query
 
-      if (!text || !imageUrl) {
-        return res.status(400).json({ status: false, error: "Text & imageUrl is required" })
+      if (!imageUrl) {
+        return res.status(400).json({ status: false, error: "imageUrl is required" });
       }
 
-      const { result } = await geminiCanvas(text, imageUrl)
-      const pedo = Buffer.from(result.image.base64, "base64")
+      const result = await geminiCanvas(imageUrl);
+      
+      // Pastikan status adalah true dan image ada
+      if (!result || !result.status || !result.image || !result.image.url) {
+        return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
+      }
+
+      const imageUrlFromResponse = result.image.url;
+
+      // Mengambil gambar dari URL yang diberikan
+      const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
+      const imageBuffer = Buffer.from(imageResponse.data, "binary");
+
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": pedo.length,
-      })
-      res.end(pedo)
+        "Content-Length": imageBuffer.length,
+      });
+      res.end(imageBuffer);
     } catch (error) {
-      res.status(500).json({ status: false, error: error.message })
+      res.status(500).json({ status: false, error: error.message });
     }
-  })
+  });
 }
-
