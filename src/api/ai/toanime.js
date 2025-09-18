@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports = (app) => {
-    app.get("/ai/tonime", async (req, res) => {
+    app.get("/ai/toanime", async (req, res) => {
         try {
             const { imageUrl } = req.query;
 
