@@ -16,10 +16,6 @@ module.exports = (app) => {
 
       const result = await toanime(imageUrl, style);
       
-      // Pastikan status adalah true dan image ada
-      if (!result.status || !result.imageUrl) {
-        return res.status(400).json({ status: false, error: "Failed to generate image" });
-      }
 
  // Ambil URL gambar dari respons
 
