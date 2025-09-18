@@ -28,5 +28,5 @@ module.exports = (app) => {
                 error: error.message
             })
 }
-}
+})
           }
