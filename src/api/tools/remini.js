@@ -16,10 +16,10 @@ module.exports = (app) => {
 
             const {
                 data
-            } = await axios.get("https://api.malik-jmk.web.id/api/tools/upscale/v17?imageUrl=" + imageUrl)
+            } = await axios.get("https://api.platform.web.id/remini?imageUrl="+imageUrl+"&scale=10&faceEnhance=true")
             res.status(200).json({
                 status: true,
-                result: data
+                result: data.result
             })
         } catch (error) {
             res.status(500).json({
