@@ -104,10 +104,10 @@ module.exports = (app) => {
       if (!data.status || !data.result) throw new Error("File data not found");
 
       let fileData = data.result;
-      const result = fileData.url;
+      
 
       // Mengambil file video
-      const imageResponse = await axios.get(result, { responseType: "arraybuffer" });
+      const imageResponse = await axios.get(fileData.url, { responseType: "arraybuffer" });
 
       // Mengatur header response
       res.writeHead(200, {
