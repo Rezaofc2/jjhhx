@@ -10,9 +10,8 @@ module.exports = (app) => {
       }
 
       // Mengambil gambar dari API eksternal
-      const response = await axios.get(`https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`, {
-        responseType: 'arraybuffer' // Pastikan kita mendapatkan data biner
-      });
+      const response = await axios.get(`https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`
+      );
 
       const imageBuffer = response.data; // Ambil data biner dari respons
 
