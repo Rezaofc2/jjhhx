@@ -1,27 +1,25 @@
-const axios = require("axios");
+const axios = require("axios")
 
 module.exports = (app) => {
-  app.get("/ai/toanime", async (req, res) => {
+ app.get("/ai/toanime", async (req, res) => {
     try {
       const { imageUrl, style } = req.query;
+      const imageResponse = await axios.get(
+        `https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`,
+        { responseType: "arraybuffer" },
+      )
 
-      if (!imageUrl) {
-        return res.status(400).json({ status: false, error: "imageUrl is required" });
-      }
-
-      // Mengambil gambar dari API eksternal
-      const response = await axios.get(`https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`
-      );
-
-      const imageBuffer = response.data; // Ambil data biner dari respons
-
+      // Mengatur header response
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": imageBuffer.length,
-      });
-      res.end(imageBuffer); // Kirimkan data gambar ke klien
+        "Content-Length": imageResponse.data.length,
+      })
+
+      // Mengirimkan data gambar
+      res.end(imageResponse.data)
     } catch (error) {
-      res.status(500).json({ status: false, error: error.message });
+      console.error(error) // Log error untuk debugging
+      res.status(500).send(`Error: ${error.message}`)
     }
-  });
+  })
 }
