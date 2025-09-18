@@ -1,6 +1,6 @@
 {
   "name": "Eza Api's",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Simple and Easy-to-Use API Documentation",
   "header": {
     "status": "Online",
@@ -62,23 +62,19 @@
           "desc": "To hijab your waifu",
           "path": "/ai/hijab?imageUrl="
         },
-         {
-          "name": "Openai",
-          "desc": "to ask or look for something",
-          "path": "/ai/openai?model=&role=&content=",
-          "optionDesc": {
-            "model": "gpt-4.1/gpt-4.1-nano/gpt-4.1-mini/gpt-4o/gpt-4o-mini/o1/o1-mini/o3-mini/o4-mini/o3/gpt-4.5-preview/chatgpt-4o-latest/gpt-4/gpt-4-turbo/gpt-3.5-turbo"
-          },
-          "auto": {
-            "model": "gpt-4.1"
-          },          
-           "optionDesc": {
-            "role": "user/system/assistant"
-          },
-          "auto": {
-            "role": "user"
-          }
-        },
+        {
+  "name": "Openai",
+  "desc": "to ask or look for something",
+  "path": "/ai/openai?model=&role=&content=",
+  "optionDesc": {
+    "model": "gpt-4.1/gpt-4.1-nano/gpt-4.1-mini/gpt-4o/gpt-4o-mini/o1/o1-mini/o3-mini/o4-mini/o3/gpt-4.5-preview/chatgpt-4o-latest/gpt-4/gpt-4-turbo/gpt-3.5-turbo",
+    "role": "user/system/assistant"
+  },
+  "auto": {
+    "model": "gpt-4.1",
+    "role": "user"
+  }
+},
         {
           "name": "Ghibli",
           "desc": "Turning your photo to Ghibli",
