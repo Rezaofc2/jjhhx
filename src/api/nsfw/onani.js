@@ -1,27 +1,25 @@
-let fetch = require('node-fetch');
+const axios = require("axios")
 
 module.exports = (app) => {
   app.get("/nsfw/onani", async (req, res) => {
     try {
-      const videoUrl = "https://jerrycoder.oggyapi.workers.dev/msb"; // URL video
-      const response = await fetch(videoUrl);
+      // Memanggil API untuk mendapatkan gambar NSFW Loli
+      const imageResponse = await axios.get(
+        "https://jerrycoder.oggyapi.workers.dev/msb",
+        { responseType: "arraybuffer" },
+      )
 
-      // Cek apakah respons berhasil
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      // Set header untuk respons
+      // Mengatur header response
       res.writeHead(200, {
-        "Content-Type": "video/mp4", // Ganti dengan tipe konten video yang sesuai
-        "Content-Length": response.headers.get('content-length'), // Mendapatkan panjang konten dari respons
-      });
+        "Content-Type": "video/mp4",
+        "Content-Length": imageResponse.data.length,
+      })
 
-      // Mengalirkan konten video ke respons
-      response.body.pipe(res);
+      // Mengirimkan data gambar
+      res.end(imageResponse.data)
     } catch (error) {
-      console.error("Error in /nsfw/onani:", error); // Tambahkan logging untuk kesalahan
-      res.status(500).json({ status: false, error: error.message });
+      console.error(error) // Log error untuk debugging
+      res.status(500).send(`Error: ${error.message}`)
     }
-  });
-};
+  })
+}
