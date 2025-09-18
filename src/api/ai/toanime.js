@@ -1,35 +1,39 @@
 const axios = require("axios");
 
 module.exports = (app) => {
-    app.get("/ai/toanime", async (req, res) => {
-        try {
-            const { imageUrl } = req.query;
+  async function toanime(imageUrl, style) {
+    const { data } = await axios.get(`https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`);
+    return data; // Kembalikan seluruh data
+  }
 
-            if (!imageUrl) {
-                return res.status(400).json({
-                    success: false,
-                    error: "imageUrl is required"
-                });
-            }
+  app.get("/ai/toanime", async (req, res) => {
+    try {
+      const { imageUrl, style } = req.query; // Perbaiki penamaan variabel di sini
 
-            const response = await axios.get(`https://anabot.my.id/api/ai/toAnime?imageUrl=${imageUrl}&apikey=freeApikey`);
-            
-            if (response.data.success) {
-                res.status(200).json({
-                    success: true,
-                    result: response.data.data.result
-                });
-            } else {
-                res.status(500).json({
-                    success: false,
-                    error: "Failed to process the image"
-                });
-            }
-        } catch (error) {
-            res.status(500).json({
-                success: false,
-                error: error.message
-            });
-        }
-    });
-};
+      if (!imageUrl) {
+        return res.status(400).json({ status: false, error: "imageUrl is required" });
+      }
+
+      const result = await toanime(imageUrl, style);
+      
+      // Pastikan status adalah true dan image ada
+      if (!result.status || !result.imageUrl) {
+        return res.status(400).json({ status: false, error: "Failed to generate image" });
+      }
+
+      const imageUrlFromResponse = result.imageUrl; // Ambil URL gambar dari respons
+
+      // Mengambil gambar dari URL yang diberikan
+      const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
+      const imageBuffer = Buffer.from(imageResponse.data, "binary");
+
+      res.writeHead(200, {
+        "Content-Type": "image/png",
+        "Content-Length": imageBuffer.length,
+      });
+      res.end(imageBuffer);
+    } catch (error) {
+      res.status(500).json({ status: false, error: error.message });
+    }
+  });
+}
