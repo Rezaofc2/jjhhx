@@ -60,7 +60,7 @@
         {
           "name": "Hijab",
           "desc": "To hijab your waifu",
-          "path": "/ai/botak?imageUrl="
+          "path": "/ai/hijab?imageUrl="
         },
          {
           "name": "Openai",
@@ -73,10 +73,10 @@
             "model": "gpt-4.1"
           },          
            "optionDesc": {
-            "model": "user/system/assistant"
+            "role": "user/system/assistant"
           },
           "auto": {
-            "model": "user"
+            "role": "user"
           }
         },
         {
