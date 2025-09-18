@@ -1,8 +1,10 @@
-let axios = require('axios')
+const fetch = require('node-fetch'); // Pastikan 'node-fetch' sudah terinstal
+const axios = require('axios'); // Pastikan 'axios' sudah terinstal
+
 module.exports = (app) => {
   app.get("/nsfw/bkp", async (req, res) => {
     try {
-      const viral = [
+            const viral = [
 
 'https://www.mediafire.com/file/8jr96kmpe4f6osz/1714577016765.mp4/file', 
 "https://www.mediafire.com/file/5aimbha2fn86e1j/vid_81/file?dkey=h7dm688by5e&r=1598",
@@ -91,30 +93,32 @@ module.exports = (app) => {
 "https://www.mediafire.com/file/05york0sjwxijgu/lagi_tidur_malah_di_ganggu.mp4/file"
 ]
 
-let Reza = viral[Math.floor(Math.random() * viral.length)];
-	 let response = await fetch(`https://izumiiiiiiii.dpdns.org/downloader/mediafire?url=${Reza}`);
-        let data = await response.json();
+      // Mengambil URL secara acak dari daftar
+      let Reza = viral[Math.floor(Math.random() * viral.length)];
+      
+      // Mengambil data dari API
+      let response = await fetch(`https://izumiiiiiiii.dpdns.org/downloader/mediafire?url=${Reza}`);
+      let data = await response.json();
 
-        // Mengakses data
-        if (!data.status || !data.result) throw new Error("File data not found");
+      // Memastikan data yang diterima valid
+      if (!data.status || !data.result) throw new Error("File data not found");
 
-        let fileData = data.result;
-      const result = fileData.url
-           const imageResponse = await axios.get(
-        result,
-        { responseType: "arraybuffer" },
-      )
+      let fileData = data.result;
+      const result = fileData.url;
+
+      // Mengambil file video
+      const imageResponse = await axios.get(result, { responseType: "arraybuffer" });
 
       // Mengatur header response
       res.writeHead(200, {
         "Content-Type": "video/mp4",
         "Content-Length": imageResponse.data.length,
-      })
+      });
 
-      // Mengirimkan data gambar
-      res.end(imageResponse.data)
+      // Mengirimkan data video
+      res.end(imageResponse.data);
     } catch (error) {
-      console.error("Error in /nsfw/nekopoi:", error); // Tambahkan logging untuk kesalahan
+      console.error("Error in /nsfw/bkp:", error); // Tambahkan logging untuk kesalahan
       res.status(500).json({ status: false, error: error.message });
     }
   });
