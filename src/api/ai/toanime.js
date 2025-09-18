@@ -9,19 +9,18 @@ module.exports = (app) => {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
       }
 
-      // Mengambil gambar dari URL yang diberikan
+      // Mengambil gambar dari API eksternal
       const response = await axios.get(`https://api.ryzumi.vip/api/ai/toanime?url=${imageUrl}&style=${style}`, {
-        responseType: 'arraybuffer' // Mengatur responseType untuk mendapatkan buffer
+        responseType: 'arraybuffer' // Pastikan kita mendapatkan data biner
       });
 
-      // Mengatur header respons
+      const imageBuffer = response.data; // Ambil data biner dari respons
+
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": response.data.length,
+        "Content-Length": imageBuffer.length,
       });
-
-      // Mengirimkan gambar sebagai respons
-      res.end(response.data);
+      res.end(imageBuffer); // Kirimkan data gambar ke klien
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
     }
