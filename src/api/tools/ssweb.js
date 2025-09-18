@@ -1,25 +1,34 @@
-const axios = require("axios")
+const axios = require("axios");
 
 module.exports = (app) => {
   app.get("/tools/ssweb", async (req, res) => {
     try {
-      const { url } = req.query
+      const { url } = req.query;
 
       if (!url) {
-        return res.status(400).json({ status: false, error: "Url is required" })
+        return res.status(400).json({ status: false, error: "Url is required" });
       }
 
-      const { data } = await axios.get(`https://restapi.botwaaa.web.id/ssweb?url=${url}&apikey=free`, {
-        responseType: "arraybuffer",
-      })
+      // Mengambil screenshot dari API
+      const response = await axios.get(`https://api.platform.web.id/screenshot?url=${url}`);
+
+      // Mendapatkan URL file gambar dari respons
+      const { fileUrl } = response.data;
+
+      if (!fileUrl) {
+        return res.status(500).json({ status: false, error: "Failed to retrieve image URL" });
+      }
+
+      // Mengambil gambar dari URL yang diberikan
+      const imageResponse = await axios.get(fileUrl, { responseType: "arraybuffer" });
+
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": data.length,
-      })
-      res.end(data)
+        "Content-Length": imageResponse.data.length,
+      });
+      res.end(imageResponse.data);
     } catch (error) {
-      res.status(500).json({ status: false, error: error.message })
+      res.status(500).json({ status: false, error: error.message });
     }
-  })
-}
-
+  });
+};
