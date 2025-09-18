@@ -6,16 +6,14 @@ module.exports = (app) => {
       const { text } = req.query;
       if (!text) return res.status(400).json({ status: false, error: "Text is required" });
 
-      // Perbaikan pada penggunaan template literal
-      const response = await axios.get(`https://api.platform.web.id/tts?text=${encodeURIComponent(text)}`, { responseType: "arraybuffer" });
+      // Mengambil data dari API
+      const response = await axios.get(`https://api.platform.web.id/tts?text=${encodeURIComponent(text)}`);
 
-      // Mengirimkan audio langsung
-      res.writeHead(200, {
-        "Content-Type": "audio/mpeg", // Format sesuai file (MP3)
-        "Content-Length": Buffer.byteLength(response.data),
+      // Mengirimkan hasil dalam format JSON
+      res.status(200).json({
+        status: true,
+        result: response.data // Mengirimkan data langsung dari API
       });
-
-      res.end(Buffer.from(response.data)); // Kirim audio sebagai Buffer
     } catch (error) {
       console.error("Error in TTS:", error);
       res.status(500).json({ status: false, error: error.message });
