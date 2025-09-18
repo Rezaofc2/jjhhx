@@ -90,10 +90,17 @@
           "desc": "To bald your waifu",
           "path": "/ai/botak?imageUrl="
         },
-        {
-          "name": "Jadianime",
+      
+         {
+           "name": "Jadianime",
           "desc": "Change your photo into anime",
-          "path": "/ai/toanime?imageUrl="
+          "path": "/ai/toanime?imageUrl=&style=",
+          "optionDesc": {
+            "style": "anime/loli"
+          },
+          "auto": {
+            "style": "anime"
+          }          
         }
       ]
     },
