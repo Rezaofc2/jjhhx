@@ -2,9 +2,9 @@ const axios = require("axios")
 
 module.exports = (app) => {
   async function geminiCanvas(imageUrl) {
-    const prompt = `tolong hitamkan kulit dari karakter di gambar ini`
-    const { data } = await axios.get(`https://api.hiuraa.my.id/ai/gemini-canvas?text=${prompt}&imageUrl=${imageUrl}`)
-    return data
+    
+    const { data } = await axios.get(`https://api.platform.web.id/hitam?imageUrl=${imageUrl}`)
+    return data.image
   }
 
   app.get("/ai/hitamin", async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = (app) => {
       }
 
       const { result } = await geminiCanvas(imageUrl)
-      const pedo = Buffer.from(result.image.base64, "base64")
+      const pedo = Buffer.from(result.url.base64, "base64")
       res.writeHead(200, {
         "Content-Type": "image/png",
         "Content-Length": pedo.length,
