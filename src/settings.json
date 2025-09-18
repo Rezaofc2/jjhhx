@@ -46,43 +46,13 @@
     {
       "name": "AI (Artificial Intelligence)",
       "items": [
-        {
-          "name": "LuminAI",
-          "desc": "Talk with luminai",
-          "path": "/ai/luminai?text="
-        },
-        {
-          "name": "CopilotAi",
-          "desc": "Talk with copilot",
-          "path": "/ai/copilot?text=&sessi=&imageUrl=",
-          "optionalParams": ["imageUrl"]
-        },
-        {
-          "name": "You Search",
-          "desc": "Talk with YouSearch",
-          "path": "/ai/yousearch?text=&prompt="
-        },
-        {
-          "name": "Hydro Mind",
-          "desc": "Talk with hydromind",
-          "path": "/ai/hydromind?text=&model="
-        },
-        {
-          "name": "Gemini Pro",
-          "desc": "Talk with Gemini-pro",
-          "path": "/ai/gemini-pro?text=&imageUrl=&sessi=",
-          "optionalParams": ["imageUrl"]
-        },
+       
         {
           "name": "Gemini Canvas",
           "desc": "Edit image with gemini canvas",
           "path": "/ai/gemini-canvas?text=&imageUrl="
         },
-        {
-          "name": "Gemini",
-          "desc": "Talk with gemini",
-          "path": "/ai/gemini?text=&sessi="
-        },
+        
         {
           "name": "Hitamin",
           "desc": "To blacken your waifu",
@@ -368,16 +338,7 @@
     {
       "name": "Tools",
       "items": [
-        {
-          "name": "Jadianime",
-          "desc": "Entacher Image To Anime",
-          "path": "/tools/toanime?url="
-        },
-        {
-          "name": "Ocr",
-          "desc": "Entacher Image To Text",
-          "path": "/tools/ocr?imageUrlrl="
-        },
+       
         {
           "name": "Ssweb",
           "desc": "Website screenshot",
@@ -418,11 +379,7 @@
           "desc": "text to speech",
           "path": "/tools/tts?text="
         },
-         {
-          "name": "Html To Image",
-          "desc": "html to image",
-          "path": "/tools/htmltoimg?text="
-        },
+         
         {
           "name": "TempMail Create",
           "desc": "Create Random Email",
@@ -433,11 +390,7 @@
           "desc": "Checking Email from Temp Mail results",
           "path": "/tools/temp-check?email="
         },
-        {
-          "name": "Nulis",
-          "desc": "Write on paper",
-          "path": "/tools/nulis?content=&footer=&kls="
-        },
+    
         {
           "name": "Send Email",
           "desc": "Send message to email",
@@ -521,30 +474,9 @@
           "auto": {
             "mode": "image"
           }
-        },
-        {
-          "name": "Animebrat",
-          "desc": "animebrat generator",
-          "path": "/maker/animebrat?text="
-        },
-        {
-          "name": "Pornhub",
-          "desc": "pornhub generator",
-          "path": "/maker/pornhub?text=&text2="
-        },
-        {
-          "name": "Furbrat",
-          "desc": "Furry generator",
-          "path": "/maker/furbrat?text=&style=&mode=",
-          "optionDesc": {
-            "style": "Style only 1-8",
-            "mode": "image/animated"
-          },
-          "auto": {
-            "style": "1",
-            "mode": "image"
-          }
         }
+       
+       
       ]
     },
      {
@@ -689,6 +621,11 @@
           "name": "Nekopoi",
           "desc": "Nekopoi Random Video",
           "path": "/nsfw/nekopoi"
+        },
+         {
+          "name": "Onani",
+          "desc": "Nekopoi Random Video",
+          "path": "/nsfw/onani"
         },
         {
           "name": "HentaiTv Search",
