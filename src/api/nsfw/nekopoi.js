@@ -53,14 +53,14 @@ module.exports = (app) => {
 "https://www.mediafire.com/file/3s5ipicuko9ccgi/%255BNekoHanime%255D_Baka_na_Imouto_eps_4.mp4/file"
 ]
     let Reza = nekopoi[Math.floor(Math.random() * nekopoi.length)];
-	let response = await fetch(`https://api.agatz.xyz/api/mediafire?url=${Reza}`);
-        if (!response.ok) throw new Error(`Error fetching data: ${response.statusText}`);
-        
+	 let response = await fetch(`https://izumiiiiiiii.dpdns.org/downloader/mediafire?url=${Reza}`);
         let data = await response.json();
 
-        // Mengakses data dengan indeks [0]
-        let fileData = data.data[0];
-      const result = fileData.link
+        // Mengakses data
+        if (!data.status || !data.result) throw new Error("File data not found");
+
+        let fileData = data.result;
+      const result = fileData.url
       res.status(200).json({
         status: true,
         result,
