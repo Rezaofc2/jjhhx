@@ -1,5 +1,5 @@
 {
-  "name": "EzaApi's",
+  "name": "Eza Api's",
   "version": "1.0.0",
   "description": "Simple and Easy-to-Use API Documentation",
   "header": {
@@ -52,7 +52,38 @@
           "desc": "Edit image with gemini canvas",
           "path": "/ai/gemini-canvas?text=&imageUrl="
         },
-        
+         {
+          "name": "Figure",
+          "desc": "Turning your photo into extras",
+          "path": "/ai/figure?imageUrl="
+        },
+        {
+          "name": "Hijab",
+          "desc": "To hijab your waifu",
+          "path": "/ai/botak?imageUrl="
+        },
+         {
+          "name": "Openai",
+          "desc": "to ask or look for something",
+          "path": "/ai/openai?model=&role=&content=",
+          "optionDesc": {
+            "model": "gpt-4.1/gpt-4.1-nano/gpt-4.1-mini/gpt-4o/gpt-4o-mini/o1/o1-mini/o3-mini/o4-mini/o3/gpt-4.5-preview/chatgpt-4o-latest/gpt-4/gpt-4-turbo/gpt-3.5-turbo"
+          },
+          "auto": {
+            "model": "gpt-4.1"
+          },          
+           "optionDesc": {
+            "model": "user/system/assistant"
+          },
+          "auto": {
+            "model": "user"
+          }
+        },
+        {
+          "name": "Ghibli",
+          "desc": "Turning your photo to Ghibli",
+          "path": "/ai/ghibli?imageUrl="
+        },
         {
           "name": "Hitamin",
           "desc": "To blacken your waifu",
@@ -132,17 +163,8 @@
           "name": "Videy",
           "desc": "Get video from videy",
           "path": "/downloader/videy?url="
-        },
-        {
-          "name": "Xvideo",
-          "desc": "Get video from xvideo",
-          "path": "/downloader/xvideo?url="
-        },
-        {
-          "name": "Xnxx",
-          "desc": "Get video from xnxx",
-          "path": "/downloader/xnxx?url="
         }
+      
       ]
     },
     {
@@ -233,16 +255,7 @@
           "desc": "Blibili Search",
           "path": "/search/bilibili?q="
         },
-        {
-          "name": "Xvideo",
-          "desc": "Xvideo Search",
-          "path": "/search/xvideo?q="
-        },
-        {
-          "name": "Xnxx",
-          "desc": "xnxx Search",
-          "path": "/search/xnxx?q="
-        },
+       
         {
           "name": "Pinterest",
           "desc": "Get Downloader & Search",
@@ -379,7 +392,11 @@
           "desc": "text to speech",
           "path": "/tools/tts?text="
         },
-         
+          {
+          "name": "Translate",
+          "desc": "translate the language",
+          "path": "/tools/translate?text=&lang="
+        },
         {
           "name": "TempMail Create",
           "desc": "Create Random Email",
@@ -624,7 +641,7 @@
         },
          {
           "name": "Onani",
-          "desc": "Nekopoi Random Video",
+          "desc": "Masturbation Random Video",
           "path": "/nsfw/onani"
         },
         {
