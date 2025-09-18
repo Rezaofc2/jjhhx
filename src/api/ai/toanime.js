@@ -21,10 +21,10 @@ module.exports = (app) => {
         return res.status(400).json({ status: false, error: "Failed to generate image" });
       }
 
-      const imageUrlFromResponse = result.imageUrl; // Ambil URL gambar dari respons
+ // Ambil URL gambar dari respons
 
       // Mengambil gambar dari URL yang diberikan
-      const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
+      const imageResponse = await axios.get(result, { responseType: 'arraybuffer' });
       const imageBuffer = Buffer.from(imageResponse.data, "binary");
 
       res.writeHead(200, {
