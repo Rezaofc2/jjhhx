@@ -15,7 +15,7 @@ module.exports = (app) => {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
       }
 
-      const result = await geminiCanvas(imageUrl);
+      const result = await geminiCanvas(text, imageUrl);
       
       // Pastikan status adalah true dan image ada
       if (!result || !result.status || !result.image || !result.image.url) {
