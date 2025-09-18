@@ -5,6 +5,7 @@ module.exports = (app) => {
         try {
             const { imageUrl } = req.query;
 
+            // Memastikan imageUrl ada
             if (!imageUrl) {
                 return res.status(400).json({
                     success: false,
@@ -12,23 +13,32 @@ module.exports = (app) => {
                 });
             }
 
-            const response = await axios.get(`https://anabot.my.id/api/ai/toAnime?imageUrl=${imageUrl}&apikey=freeApikey`);
-            
-            if (response.data.success) {
-                res.status(200).json({
+            // Mengambil data dari API
+            const response = await axios.get(`https://anabot.my.id/api/ai/toAnime`, {
+                params: {
+                    imageUrl,
+                    apikey: 'freeApikey'
+                }
+            });
+
+            // Memeriksa apakah respons dari API sukses
+            if (response.data && response.data.success) {
+                return res.status(200).json({
                     success: true,
                     result: response.data.data.result
                 });
             } else {
-                res.status(500).json({
+                return res.status(500).json({
                     success: false,
-                    error: "Failed to process the image"
+                    error: response.data.error || "Failed to process the image"
                 });
             }
         } catch (error) {
-            res.status(500).json({
+            // Menangani kesalahan yang terjadi saat memanggil API
+            console.error("Error fetching from API:", error.message);
+            return res.status(500).json({
                 success: false,
-                error: error.message
+                error: "An error occurred while processing your request"
             });
         }
     });
