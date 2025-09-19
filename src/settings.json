@@ -95,6 +95,16 @@
           "desc": "gemini ai",
           "path": "/ai/gemini?text="
         },
+        {
+          "name": "Llama33",
+          "desc": "llama33 ai",
+          "path": "/ai/llama33?prompt=&text="
+        },
+        {
+          "name": "Meta Ai",
+          "desc": "Meta ai",
+          "path": "/ai/metaai?text="
+        },
          {
            "name": "Jadianime",
           "desc": "Change your photo into anime",
@@ -368,7 +378,11 @@
     {
       "name": "Tools",
       "items": [
-       
+       {
+          "name": "Nsfw Detector",
+          "desc": "Image nsfw detect",
+          "path": "/tools/nsfw-detect?url="
+        },
         {
           "name": "Ssweb",
           "desc": "Website screenshot",
