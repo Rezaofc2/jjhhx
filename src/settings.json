@@ -90,7 +90,11 @@
           "desc": "To bald your waifu",
           "path": "/ai/botak?imageUrl="
         },
-      
+       {
+          "name": "Gemini",
+          "desc": "gemini ai",
+          "path": "/ai/gemini?text="
+        },
          {
            "name": "Jadianime",
           "desc": "Change your photo into anime",
@@ -324,6 +328,11 @@
           "desc": "To see anime info",
           "path": "/info/anime?q="
         },
+         {
+          "name": "Grow A Garden Stock",
+          "desc": "Get a gag stock",
+          "path": "/info/growagardenstock"
+        },
         {
           "name": "Gempa",
           "desc": "To see gempa",
@@ -443,6 +452,21 @@
           "name": "Sertifikat-Tolol",
           "desc": "maker logo sertifikat-tolol",
           "path": "/maker/sertifikat-tolol?text="
+        },
+          {
+          "name": "Fakecall",
+          "desc": "maker fakecall",
+          "path": "/maker/fakecall?name=&durasi=&pp="
+        },
+          {
+          "name": "Ustad",
+          "desc": "maker command ustad",
+          "path": "/maker/ustad?text="
+        },
+          {
+          "name": "Ustad2",
+          "desc": "maker command ustad2",
+          "path": "/maker/ustad2?text="
         },
         {
           "name": "Jail",
