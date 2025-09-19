@@ -4,10 +4,10 @@ module.exports = (app) => {
   async function metaai(url) {
     try {
       // Menggunakan template literal yang benar dengan backticks (``)
-      const response = await axios.get(`https://api.ryzumi.vip/api/tool/nsfw-checker?url=${url}`);
+      const response = await axios.get(`https://api.ryzumi.vip/api/tool/nsfw-checker?url=${encodeURIComponent(url)}`);
       return response.data.data; // Pastikan untuk mengakses data yang benar
     } catch (error) {
-      console.error("Error fetching content:", error);
+      console.error("Error fetching content:", error.response ? error.response.data : error.message);
       throw error;
     }
   }
@@ -25,7 +25,9 @@ module.exports = (app) => {
         result,
       });
     } catch (error) {
-      res.status(500).json({ status: false, error: error.message });
+      // Menangani kesalahan dengan lebih baik
+      const errorMessage = error.response ? error.response.data.error : error.message;
+      res.status(500).json({ status: false, error: errorMessage });
     }
   });
 };
