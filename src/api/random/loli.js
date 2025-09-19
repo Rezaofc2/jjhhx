@@ -59,7 +59,7 @@ module.exports = (app) => {
 
   app.get("/random/loli", async (req, res) => {
     try {
-      const r = "foto anime anak kecil kawai" // Judul pencarian
+      const r = "anime bocil kawai" // Judul pencarian
       const results = await searchPinterest(r)
 
       // Memastikan ada hasil sebelum mengambil gambar acak
