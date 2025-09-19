@@ -378,11 +378,7 @@
     {
       "name": "Tools",
       "items": [
-       {
-          "name": "Nsfw Detector",
-          "desc": "Image nsfw detect",
-          "path": "/tools/nsfw-detect?url="
-        },
+       
         {
           "name": "Ssweb",
           "desc": "Website screenshot",
