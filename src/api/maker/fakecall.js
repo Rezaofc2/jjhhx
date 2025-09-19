@@ -5,9 +5,7 @@ module.exports = (app) => {
     try {
       const { name, durasi, pp } = req.query; 
 
-      if (!image) { // Cek 'content' bukan 'url'
-        return res.status(400).json({ status: false, error: "image is required" });
-      }
+      
       const imageResponse = await axios.get(`https://api.zenzxz.my.id/maker/fakecall?nama=${encodeURIComponent(name)}&durasi=${encodeURIComponent(durasi)}&avatar=${encodeURIComponent(pp)}`,
         { responseType: "arraybuffer" },
       )
