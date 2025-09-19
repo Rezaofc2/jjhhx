@@ -444,6 +444,11 @@
           "path": "/maker/gay?nama=&avatar=&num="
         },
         {
+          "name": "Iqc",
+          "desc": "maker iphone qc",
+          "path": "/maker/iqc?time=&text="
+        },
+        {
           "name": "Xnxx",
           "desc": "maker logo foto xnxx",
           "path": "/maker/xnxx?title=&url="
