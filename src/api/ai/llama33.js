@@ -12,7 +12,7 @@ module.exports = (app) => {
     }
   }
 
-  app.get("/ai/metai", async (req, res) => {
+  app.get("/ai/llama33", async (req, res) => {
     const { prompt, text } = req.query; // Ambil parameter dari query string
     if (!text) {
       return res.status(400).json({ status: false, error: "Parameter 'text' is required." });
