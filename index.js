@@ -173,17 +173,17 @@ app.get("/explore", (req, res) => {
 
 app.post("/ai/chat", async (req, res) => {
   try {
-    const { text } = req.body;
+    const { content } = req.body;
 
     // Validasi input
-    if (!text) {
+    if (!content) {
       return res.status(400).json({
         status: false,
-        error: "Text is required",
+        error: "content is required",
       });
     }
 
-    const response = await axios.post(`https://apieza.vercel.app/ai/metaai?text=${encodeURIComponent(text)}`);
+    const response = await axios.post(`https://apieza.vercel.app/ai/metaai?text=${encodeURIComponent(content)}`);
     const { data } = response;
 
     res.status(200).json({
