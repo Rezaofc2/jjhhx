@@ -770,7 +770,7 @@
                                     <span class="code-comment">// JavaScript example using fetch</span><br>
                                     <span class="code-keyword">async function</span> <span class="code-function">chatWithAI</span>(<span class="code-variable">message</span>) {<br>
                                     &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">response</span> = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">'https://apieza.vercel.app/ai/luminai?text='</span> + <span class="code-variable">message</span><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">'https://apieza.vercel.app/ai/metaai?text='</span> + <span class="code-variable">message</span><br>
                                     &nbsp;&nbsp;);<br>
                                     &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">data</span> = <span class="code-keyword">await</span> <span class="code-variable">response</span>.<span class="code-method">json</span>();<br>
                                     &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-variable">data</span>.<span class="code-property">result</span>;<br>
@@ -809,8 +809,8 @@
                             <div class="endpoint-list">
                                 <div class="endpoint-card">
                                     <h4 class="endpoint-name">AI Chat</h4>
-                                    <p class="endpoint-description">Interact with an AI assistant powered by LuminAI</p>
-                                    <div class="endpoint-path">/ai/luminai?text=your_message</div>
+                                    <p class="endpoint-description">Interact with an AI assistant powered by MetaAi</p>
+                                    <div class="endpoint-path">/ai/metaai?text=your_message</div>
                                 </div>
                                 
                                 <div class="endpoint-card">
