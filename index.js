@@ -171,70 +171,34 @@ app.get("/explore", (req, res) => {
   res.redirect("/docs")
 })
 
-app.post("/ai/chat", express.json({ limit: "100mb" }), async (req, res) => {
+app.post("/ai/chat", async (req, res) => {
   try {
-    const { content, user, imageUrl } = req.body
+    const { text } = req.body;
 
-    if (!content && !imageUrl) {
+    // Validasi input
+    if (!text) {
       return res.status(400).json({
         status: false,
-        error: "Either content or image is required",
-      })
+        error: "Text is required",
+      });
     }
 
-    if (!user) {
-      return res.status(400).json({
-        status: false,
-        error: "User ID is required",
-      })
-    }
-
-    const requestData = {
-      content: content || "",
-      user: user,
-      prompt:
-        "Nama kamu adalah MchaX, kamu adalah asisten AI yang ramah dan membantu. Kamu dibuat oleh tim MchaX Api's untuk membantu pengguna dengan berbagai pertanyaan dan tugas.",
-    }
-
-    // Handle image if provided
-    if (imageUrl && imageUrl.startsWith("data:image")) {
-      try {
-        // Extract base64 data from the data URL
-        const base64Data = imageUrl.split(",")[1]
-        // Convert base64 to buffer
-        requestData.imageBuffer = Buffer.from(base64Data, "base64")
-
-        console.log("Image processed successfully, size:", requestData.imageBuffer.length)
-      } catch (imageError) {
-        console.error("Error processing image:", imageError)
-        return res.status(400).json({
-          status: false,
-          error: "Failed to process the image: " + imageError.message,
-        })
-      }
-    }
-
-    console.log("Sending request to LuminAI with data:", {
-      content: requestData.content,
-      user: requestData.user,
-      hasImage: !!requestData.imageBuffer,
-      imageSize: requestData.imageBuffer ? requestData.imageBuffer.length + " bytes" : "N/A",
-    })
-
-    const { data } = await axios.post("https://luminai.my.id", requestData)
+    const response = await axios.post(`https://apieza.vercel.app/ai/metaai?text=${encodeURIComponent(text)}`);
+    const { data } = response;
 
     res.status(200).json({
       status: true,
+      creator: "RezaOffc",
       result: data.result,
-    })
+    });
   } catch (error) {
-    console.error("AI Chat Error:", error)
+    console.error("AI Chat Error:", error);
     res.status(500).json({
       status: false,
       error: error.message || "An error occurred while processing your request",
-    })
+    });
   }
-})
+});
 
 app.use((req, res, next) => {
   res.status(404).sendFile(process.cwd() + "/api-page/404.html")
