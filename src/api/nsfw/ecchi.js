@@ -5,7 +5,7 @@ module.exports = (app) => {
     try {
       // Memanggil API untuk mendapatkan gambar NSFW Loli
       const imageResponse = await axios.get(
-        "https://api.lolhuman.xyz/api/random/nsfw/ecchi?apikey=" + process.env.lolhuman,
+        "https://rynekoo-api.hf.space/random/waifuim/ecchi",
         { responseType: "arraybuffer" },
       )
 
@@ -23,4 +23,3 @@ module.exports = (app) => {
     }
   })
 }
-
