@@ -53,14 +53,24 @@
           "path": "/ai/gemini-canvas?text=&imageUrl="
         },
          {
-          "name": "Figure",
+          "name": "To Figure",
           "desc": "Turning your photo into extras",
           "path": "/ai/figure?imageUrl="
         },
         {
-          "name": "Hijab",
+          "name": "To Hijab",
           "desc": "To hijab your waifu",
           "path": "/ai/hijab?imageUrl="
+        },
+         {
+          "name": "To Chibi",
+          "desc": "To Chibi your waifu",
+          "path": "/ai/tochibi?imageUrl="
+        },
+         {
+          "name": "To Smile",
+          "desc": "To Smile your waifu",
+          "path": "/ai/tosmile?imageUrl="
         },
         {
   "name": "Openai",
@@ -76,7 +86,7 @@
   }
 },
         {
-          "name": "Ghibli",
+          "name": "To Ghibli",
           "desc": "Turning your photo to Ghibli",
           "path": "/ai/ghibli?imageUrl="
         },
