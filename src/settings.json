@@ -266,6 +266,21 @@
           "name": "Doge",
           "desc": "Meme Dog Random Image",
           "path": "/random/dog"
+        },
+        {
+          "name": "Maid",
+          "desc": "Anime Maid Random Image",
+          "path": "/random/cat"
+        },
+        {
+          "name": "Milf",
+          "desc": "Anime Milf Random Image",
+          "path": "/random/milf"
+        },
+        {
+          "name": "Elf",
+          "desc": "Anime Elf Random Image",
+          "path": "/random/elf"
         }
       ]
     },
@@ -684,6 +699,11 @@
           "name": "Cum",
           "desc": "Cum Random Image",
           "path": "/nsfw/cum"
+        },
+        {
+          "name": "Ass",
+          "desc": "Ass Random Image",
+          "path": "/nsfw/ass"
         },
         {
           "name": "Bokep",
