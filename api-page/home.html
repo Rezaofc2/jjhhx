@@ -743,115 +743,28 @@
                 </div>
             </section>
             
-            <!-- Code Example Section -->
-            <section class="code-example-section py-5">
-                <div class="container">
-                    <div class="section-title">
-                        <h2>Easy to Integrate</h2>
-                        <p>Simple API calls that can be integrated into any application</p>
-                    </div>
-                    
-                    <div class="row align-items-center">
-                        <div class="col-lg-6">
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-dots">
-                                        <div class="code-dot code-dot-red"></div>
-                                        <div class="code-dot code-dot-yellow"></div>
-                                        <div class="code-dot code-dot-green"></div>
-                                    </div>
-                                    <div class="code-title">Example: Using the AI Chat API</div>
-                                </div>
-                                <div class="code-content">
-                                    <span class="code-comment">// JavaScript example using fetch</span><br>
-                                    <span class="code-keyword">async function</span> <span class="code-function">chatWithAI</span>(<span class="code-variable">message</span>) {<br>
-                                    &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">response</span> = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<br>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">'https://apieza.vercel.app/ai/metaai?text='</span> + <span class="code-variable">message</span><br>
-                                    &nbsp;&nbsp;);<br>
-                                    &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">data</span> = <span class="code-keyword">await</span> <span class="code-variable">response</span>.<span class="code-method">json</span>();<br>
-                                    &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-variable">data</span>.<span class="code-property">result</span>;<br>
-                                    }
-                                </div>
-                                <button class="code-copy" id="copyCode1">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="code-block">
-                                <div class="code-header">
-                                    <div class="code-dots">
-                                        <div class="code-dot code-dot-red"></div>
-                                        <div class="code-dot code-dot-yellow"></div>
-                                        <div class="code-dot code-dot-green"></div>
-                                    </div>
-                                    <div class="code-title">Example: Using the Image to Anime API</div>
-                                </div>
-                                <div class="code-content">
-                                    <span class="code-comment">// Python example using requests</span><br>
-                                    <span class="code-keyword">import</span> <span class="code-variable">requests</span><br><br>
-                                    <span class="code-function">def</span> <span class="code-method">convert_to_anime</span>(<span class="code-variable">image_url</span>):<br>
-                                    &nbsp;&nbsp;<span class="code-variable">url</span> = <span class="code-string">f"https://apieza.vercel.app/tools/toanime?url={image_url}"</span><br>
-                                    &nbsp;&nbsp;<span class="code-variable">response</span> = <span class="code-variable">requests</span>.<span class="code-method">get</span>(<span class="code-variable">url</span>)<br>
-                                    &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-variable">response</span>.<span class="code-property">content</span>  <span class="code-comment"># Returns image data</span>
-                                </div>
-                                <button class="code-copy" id="copyCode2">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <h3 class="mb-4">Popular Endpoints</h3>
-                            <div class="endpoint-list">
-                                <div class="endpoint-card">
-                                    <h4 class="endpoint-name">AI Chat</h4>
-                                    <p class="endpoint-description">Interact with an AI assistant powered by MetaAi</p>
-                                    <div class="endpoint-path">/ai/metaai?text=your_message</div>
-                                </div>
-                                
-                                <div class="endpoint-card">
-                                    <h4 class="endpoint-name">YouTube Search</h4>
-                                    <p class="endpoint-description">Search for videos on YouTube</p>
-                                    <div class="endpoint-path">/search/youtube?q=your_query</div>
-                                </div>
-                                
-                                <div class="endpoint-card">
-                                    <h4 class="endpoint-name">TikTok Downloader</h4>
-                                    <p class="endpoint-description">Download videos from TikTok</p>
-                                    <div class="endpoint-path">/downloader/tiktok?url=tiktok_url</div>
-                                </div>
-                                
-                                <div class="endpoint-card">
-                                    <h4 class="endpoint-name">Remove Background</h4>
-                                    <p class="endpoint-description">Remove background from images</p>
-                                    <div class="endpoint-path">/tools/removebg?url=image_url</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- Stats Boxes -->
 <div class="px-4 max-w-3xl mx-auto">
   <div class="grid grid-cols-2 gap-4 mb-10" id="status-boxes">
     <div id="battery"
       class="bg-gray-100 p-4 rounded-lg text-center shadow hover:shadow-md transform transition-all duration-300 hover:scale-105">
       <i class="fas fa-battery-full text-xl text-gray-600 mb-2"></i><br>
-      <span>Battery: Loading...</span>
+   
     </div>
     <div id="clock"
       class="bg-gray-100 p-4 rounded-lg text-center shadow hover:shadow-md transform transition-all duration-300 hover:scale-105">
       <i class="far fa-clock text-xl text-gray-600 mb-2"></i><br>
-      <span>Time: Loading...</span>
+    
     </div>
     <div id="total-endpoint"
       class="bg-gray-100 p-4 rounded-lg text-center shadow hover:shadow-md transform transition-all duration-300 hover:scale-105">
       <i class="fas fa-server text-xl text-gray-600 mb-2"></i><br>
-      <span>Total Endpoint: Loading...</span>
+    
     </div>
     <div id="total-request"
       class="bg-gray-100 p-4 rounded-lg text-center shadow hover:shadow-md transform transition-all duration-300 hover:scale-105">
       <i class="fas fa-chart-line text-xl text-gray-600 mb-2"></i><br>
-      <span>Total Request: Loading...</span>
+
     </div>
   </div>
 </div>
