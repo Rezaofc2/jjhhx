@@ -5,136 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/src/icon.png" type="image/png">
     <title id="page"></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         body {
             background-color: #ffffff; /* background putih */
             color: #000000; /* teks hitam */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background-color: #ffffff; /* navbar putih */
+            color: #000000; /* teks hitam */
+        }
+
+        a {
+            color: #000000; /* tautan hitam */
+            text-decoration: none;
         }
 
         .ai-chat-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #000000; /* background hitam */
-            color: white;
-            text-decoration: none;
+            background: #000000; /* tombol hitam */
+            color: #ffffff; /* teks putih */
             padding: 14px 28px;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            margin-top: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            border-radius: 5px;
+            transition: all 0.3s;
         }
-        
-        .ai-chat-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%);
-            z-index: -1;
-            transition: var(--transition);
-        }
-        
+
         .ai-chat-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            color: white;
+            background: #ffffff; /* tombol putih saat hover */
+            color: #000000; /* teks hitam saat hover */
         }
-        
-        .ai-chat-button:hover::before {
-            transform: translateY(-100%);
-        }
-        
+
         .api-key-info {
             margin-top: 30px;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.1); /* background hitam transparan */
-            border-radius: var(--radius-lg);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-        }
-
-        .api-key-info h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #000000; /* teks hitam */
-        }
-
-        .api-key-info p {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            color: #000000; /* teks hitam */
-        }
-
-        .api-key-table th, .api-key-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .api-key-table th {
-            font-weight: 600;
-            background-color: rgba(0, 0, 0, 0.1); /* background hitam transparan */
-        }
-
-        .api-key-badge.free {
-            background-color: rgba(16, 185, 129, 0.2);
-            color: #10b981;
-        }
-
-        .api-key-badge.premium {
-            background-color: rgba(0, 0, 0, 0.1); /* background hitam transparan */
-            color: #000000; /* teks hitam */
-        }
-
-        /* Improve search container positioning */
-        .search-container {
-            margin-top: 20px;
-        }
-
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.1); /* background transparan */
             border-radius: 5px;
-            padding: 5px;
-            background-color: #ffffff; /* background putih */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .search-icon {
-            color: #000000; /* ikon hitam */
-        }
-
-        #searchInput {
-            border: none;
-            outline: none;
-            flex: 1;
-            padding: 10px;
-            background-color: transparent;
+        .api-key-info h3, .api-key-info p {
             color: #000000; /* teks hitam */
         }
 
-        footer {
-            background-color: #f8f9fa; /* footer putih */
+        .footer {
+            background-color: #ffffff; /* footer putih */
             color: #000000; /* teks hitam */
             padding: 20px 0;
+            text-align: center;
         }
 
         .social-icon {
             color: #000000; /* ikon hitam */
+        }
+
+        .modal {
+            background: rgba(255, 255, 255, 0.9); /* modal putih transparan */
+        }
+
+        .modal-header, .modal-body {
+            color: #000000; /* teks hitam dalam modal */
+        }
+
+        .api-card {
+            background: rgba(0, 0, 0, 0.05); /* kartu transparan */
+            border: 1px solid #000000; /* border hitam */
+            color: #000000; /* teks hitam */
+        }
+
+        .api-card:hover {
+            background: rgba(0, 0, 0, 0.1); /* kartu lebih terang saat hover */
+        }
+
+        pre {
+            background: #f0f0f0; /* background abu-abu muda untuk preformatted text */
+            color: #000000; /* teks hitam */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .btn-close {
+            color: #000000; /* tombol close hitam */
+        }
+
+        .btn-toggle {
+            background: #000000; /* tombol toggle hitam */
+            color: #ffffff; /* teks putih */
+        }
+
+        .btn-toggle:hover {
+            background: #ffffff; /* tombol putih saat hover */
+            color: #000000; /* teks hitam saat hover */
         }
     </style>
 </head>
@@ -235,7 +196,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
     <script src="/script.js"></script>
 </body>
 </html>
