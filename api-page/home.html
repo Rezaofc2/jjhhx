@@ -1,61 +1,836 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Krizz Api's</title>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css ">
-  <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins :wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com "></script>
-  <style>
-  body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #ffffff;
-  color: #2c3e50;
-  margin: 0;
-  padding: 1rem 1.5rem;
-  line-height: 1.6;
-}
-h1, h2, h3, h4, h5, h6,
-p, span, li, a, button, .btn, .info-box, .thank-you-box {
-  font-family: 'Poppins', sans-serif;
-}
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in {
-      animation: fadeIn 0.5s ease-out forwards;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/src/icon.png" type="image/png">
+    <title>EzaApi's - Simple and Powerful REST API</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Additional styles for the landing page */
+        .hero-section {
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--dark-600);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .dark .hero-description {
+            color: var(--dark-600);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary-gradient {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(99, 102, 241, 0.4);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(99, 102, 241, 0.2);
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        
+        .section-title p {
+            color: var(--dark-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            height: 100%;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .dark .feature-card {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--card-border-dark);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .feature-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .dark .feature-title {
+            color: var(--light);
+        }
+        
+        .feature-description {
+            color: var(--dark-600);
+            margin-bottom: 0;
+        }
+        
+        .stats-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(244, 63, 94, 0.05));
+            position: relative;
+        }
+        
+        .dark .stats-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(244, 63, 94, 0.1));
+        }
+        
+        .stats-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .dark .stats-card {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--card-border-dark);
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .stats-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .stats-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stats-label {
+            color: var(--dark-600);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .cta-card {
+            background: var(--gradient-primary);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+            color: var(--primary-dark);
+        }
+        
+        .shape-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: 0;
+            opacity: 0.5;
+        }
+        
+        .shape-blob-1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(99, 102, 241, 0.3);
+            top: -100px;
+            left: -100px;
+        }
+        
+        .shape-blob-2 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(244, 63, 94, 0.3);
+            bottom: -150px;
+            right: -150px;
+        }
+        
+        .code-block {
+            background: var(--dark);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark .code-block {
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .code-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+        
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .code-dot-red {
+            background-color: #ef4444;
+        }
+        
+        .code-dot-yellow {
+            background-color: #f59e0b;
+        }
+        
+        .code-dot-green {
+            background-color: #10b981;
+        }
+        
+        .code-title {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+        }
+        
+        .code-content {
+            line-height: 1.6;
+        }
+        
+        .code-comment {
+            color: #94a3b8;
+        }
+        
+        .code-keyword {
+            color: #93c5fd;
+        }
+        
+        .code-string {
+            color: #86efac;
+        }
+        
+        .code-function {
+            color: #c4b5fd;
+        }
+        
+        .code-variable {
+            color: #f9a8d4;
+        }
+        
+        .code-property {
+            color: #fcd34d;
+        }
+        
+        .code-method {
+            color: #60a5fa;
+        }
+        
+        .code-number {
+            color: #fb923c;
+        }
+        
+        .code-copy {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .code-copy:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .endpoint-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .endpoint-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .dark .endpoint-card {
+            background: var(--card-bg-dark);
+            border: 1px solid var(--card-border-dark);
+        }
+        
+        .endpoint-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dark .endpoint-card:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .endpoint-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .dark .endpoint-name {
+            color: var(--light);
+        }
+        
+        .endpoint-description {
+            color: var(--dark-600);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .endpoint-path {
+            font-family: 'Fira Code', monospace;
+            background: rgba(99, 102, 241, 0.1);
+            padding: 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            color: var(--primary);
+            word-break: break-all;
+        }
+        
+        .dark .endpoint-path {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-section {
+                padding: 100px 0 60px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-primary-gradient, .btn-outline {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .cta-title {
+                font-size: 2rem;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: var(--dark);
+            transition: var(--transition);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .dark .menu-toggle {
+            background-color: var(--dark-800);
+            color: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-toggle:hover {
+            transform: rotate(90deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-dropdown {
+            position: fixed;
+            top: 70px;
+            left: 20px;
+            background-color: white;
+            border-radius: var(--radius-md);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            z-index: 1000;
+            display: none;
+        }
+
+        .dark .menu-dropdown {
+            background-color: var(--dark-800);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-dropdown.show {
+            display: block;
+            animation: fadeInDown 0.3s ease forwards;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .dark .menu-item {
+            color: var(--light);
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--primary);
+        }
+
+        .dark .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body class="bg-white text-gray-800 font-sans leading-relaxed">
-
-<!-- Header -->
-<header class="mt-12 mb-4 text-center text-4xl font-extrabold tracking-wide text-gray-800 fade-in">
-  Welcome To Api Krizz
-</header>
-
-<p class="text-center max-w-xl mx-auto mb-8 text-lg text-gray-500 fade-in delay-100">
-  Simple API with easy and minimalistic integration for WhatsApp Bot Developers.
-</p>
-
-<!-- Action Buttons -->
-<div class="flex flex-wrap justify-center gap-4 mb-8 fade-in delay-200">
-  <button onclick="window.location.href='/docs'"
-    class="bg-black hover:bg-gray-800 text-white font-semibold px-5 py-2 rounded-md flex items-center gap-2 transition duration-300 transform hover:scale-105 shadow-md">
-    <i class="fas fa-cogs"></i> Explore Api's
-  </button>
-  <button onclick="window.location.href='https://wa.me/6288297793616 '"
-    class="border-2 border-black text-black hover:bg-black hover:text-white font-semibold px-5 py-2 rounded-md flex items-center gap-2 transition duration-300 transform hover:scale-105 shadow-md">
-    <i class="fab fa-whatsapp"></i> Contact Dev
-  </button>
+<body>
+    <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+        <i class="fas fa-ellipsis-v"></i>
+    </button>
+    <div id="menuDropdown" class="menu-dropdown">
+        <a href="/docs" class="menu-item">
+            <i class="fas fa-book"></i>
+            Documentation
+        </a>
+        <a href="/spotdl" class="menu-item">
+            <i class="fab fa-spotify"></i>
+            Spotify Downloader
+        </a>
+        <a href="/ttdl" class="menu-item">
+            <i class="fab fa-tiktok"></i>
+            TikTok Downloader
+        </a>
+        <a href="/ytdl" class="menu-item">
+            <i class="fab fa-youtube"></i>
+            YouTube Downloader
+        <a>
+        <a href="/contributors" class="menu-item">
+            <i class="fas fa-users"></i>
+            Contributors
+        </a>
+    </div>
+    <div id="loadingScreen">
+        <div class="spinner-wrapper">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+            <p>Loading EzaApi's...</p>
+        </div>
+    </div>
+    
+    <div class="page-wrapper">
+        <nav class="navbar">
+            <div class="container">
+                <a class="navbar-brand">
+                    <span id="header"></span>
+                    <div id="versionHeader" class="status-badge"></div>
+                </a>
+                <div class="navbar-actions">
+                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="shape-blob shape-blob-1"></div>
+                <div class="shape-blob shape-blob-2"></div>
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 hero-content">
+                            <h1 class="hero-title">Powerful REST API for Your Projects</h1>
+                            <p class="hero-description">EzaApi's menyediakan koleksi API yang komprehensif bagi pengembang untuk diintegrasikan ke dalam aplikasi mereka, mulai dari layanan AI hingga pengunduh media dan alat yang berguna.</p>
+                            <div class="hero-buttons">
+    <a href="/docs" class="btn-primary-gradient">
+        <i class="fas fa-rocket"></i>
+        Explore APIs
+    </a>
 </div>
-
-<!-- Stats Boxes -->
+                        </div>
+                        <div class="col-lg-6 d-none d-lg-block">
+                            <img src="https://files.catbox.moe/opz3hv.png" alt="API Illustration" class="img-fluid float-animation">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Features Section -->
+            <section class="features-section">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Key Features</h2>
+                        <p>Temukan apa yang membuat EzaApi menjadi pilihan yang sempurna bagi pengembang</p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <h3 class="feature-title">Fast & Reliable</h3>
+                                <p class="feature-description">API kami dioptimalkan untuk kecepatan dan keandalan, memastikan aplikasi Anda berjalan lancar tanpa gangguan.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h3 class="feature-title">AI Integration</h3>
+                                <p class="feature-description">Integrasikan kemampuan AI yang canggih ke dalam aplikasi Anda dengan koleksi titik akhir bertenaga AI kami.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <h3 class="feature-title">Media Downloaders</h3>
+                                <p class="feature-description">Unduh media dari platform populer seperti YouTube, TikTok, Instagram, dan lainnya dengan panggilan API sederhana.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h3 class="feature-title">Useful Tools</h3>
+                                <p class="feature-description">Akses berbagai alat utilitas seperti OCR, text-to-speech, manipulasi gambar, dan banyak lagi melalui API kami.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h3 class="feature-title">Search Capabilities</h3>
+                                <p class="feature-description">Terapkan fungsionalitas pencarian yang canggih di berbagai platform dan layanan dengan titik akhir pencarian kami.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="feature-card">
+                                <div class="feature-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h3 class="feature-title">Developer Friendly</h3>
+                                <p class="feature-description">API yang terdokumentasi dengan baik dengan format respons yang konsisten membuat integrasi ke dalam proyek Anda menjadi cepat dan mudah.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Code Example Section -->
+            <section class="code-example-section py-5">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Easy to Integrate</h2>
+                        <p>Simple API calls that can be integrated into any application</p>
+                    </div>
+                    
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <div class="code-dots">
+                                        <div class="code-dot code-dot-red"></div>
+                                        <div class="code-dot code-dot-yellow"></div>
+                                        <div class="code-dot code-dot-green"></div>
+                                    </div>
+                                    <div class="code-title">Example: Using the AI Chat API</div>
+                                </div>
+                                <div class="code-content">
+                                    <span class="code-comment">// JavaScript example using fetch</span><br>
+                                    <span class="code-keyword">async function</span> <span class="code-function">chatWithAI</span>(<span class="code-variable">message</span>) {<br>
+                                    &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">response</span> = <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-string">'https://apieza.vercel.app/ai/metaai?text='</span> + <span class="code-variable">message</span><br>
+                                    &nbsp;&nbsp;);<br>
+                                    &nbsp;&nbsp;<span class="code-keyword">const</span> <span class="code-variable">data</span> = <span class="code-keyword">await</span> <span class="code-variable">response</span>.<span class="code-method">json</span>();<br>
+                                    &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-variable">data</span>.<span class="code-property">result</span>;<br>
+                                    }
+                                </div>
+                                <button class="code-copy" id="copyCode1">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="code-block">
+                                <div class="code-header">
+                                    <div class="code-dots">
+                                        <div class="code-dot code-dot-red"></div>
+                                        <div class="code-dot code-dot-yellow"></div>
+                                        <div class="code-dot code-dot-green"></div>
+                                    </div>
+                                    <div class="code-title">Example: Using the Image to Anime API</div>
+                                </div>
+                                <div class="code-content">
+                                    <span class="code-comment">// Python example using requests</span><br>
+                                    <span class="code-keyword">import</span> <span class="code-variable">requests</span><br><br>
+                                    <span class="code-function">def</span> <span class="code-method">convert_to_anime</span>(<span class="code-variable">image_url</span>):<br>
+                                    &nbsp;&nbsp;<span class="code-variable">url</span> = <span class="code-string">f"https://apieza.vercel.app/tools/toanime?url={image_url}"</span><br>
+                                    &nbsp;&nbsp;<span class="code-variable">response</span> = <span class="code-variable">requests</span>.<span class="code-method">get</span>(<span class="code-variable">url</span>)<br>
+                                    &nbsp;&nbsp;<span class="code-keyword">return</span> <span class="code-variable">response</span>.<span class="code-property">content</span>  <span class="code-comment"># Returns image data</span>
+                                </div>
+                                <button class="code-copy" id="copyCode2">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <h3 class="mb-4">Popular Endpoints</h3>
+                            <div class="endpoint-list">
+                                <div class="endpoint-card">
+                                    <h4 class="endpoint-name">AI Chat</h4>
+                                    <p class="endpoint-description">Interact with an AI assistant powered by MetaAi</p>
+                                    <div class="endpoint-path">/ai/metaai?text=your_message</div>
+                                </div>
+                                
+                                <div class="endpoint-card">
+                                    <h4 class="endpoint-name">YouTube Search</h4>
+                                    <p class="endpoint-description">Search for videos on YouTube</p>
+                                    <div class="endpoint-path">/search/youtube?q=your_query</div>
+                                </div>
+                                
+                                <div class="endpoint-card">
+                                    <h4 class="endpoint-name">TikTok Downloader</h4>
+                                    <p class="endpoint-description">Download videos from TikTok</p>
+                                    <div class="endpoint-path">/downloader/tiktok?url=tiktok_url</div>
+                                </div>
+                                
+                                <div class="endpoint-card">
+                                    <h4 class="endpoint-name">Remove Background</h4>
+                                    <p class="endpoint-description">Remove background from images</p>
+                                    <div class="endpoint-path">/tools/removebg?url=image_url</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stats Boxes -->
 <div class="px-4 max-w-3xl mx-auto">
   <div class="grid grid-cols-2 gap-4 mb-10" id="status-boxes">
     <div id="battery"
@@ -80,129 +855,121 @@ p, span, li, a, button, .btn, .info-box, .thank-you-box {
     </div>
   </div>
 </div>
-
-<!-- Info Section -->
-<section class="info-section space-y-6 max-w-2xl mx-auto fade-in delay-400">
-  <!-- Info Box 1 -->
- <div class="bg-gray-50 border-l-4 border-gray-300 text-gray-700 p-4 rounded shadow-sm hover:shadow-lg transition-shadow">
-  <h3 class="font-bold text-lg flex items-center">
-    <i class="fas fa-info-circle mr-2 text-black"></i>Apa Itu API?
-  </h3>
-  <p class="mt-2 text-sm">API (Application Programming Interface) adalah sekumpulan aturan dan protokol yang memungkinkan dua perangkat lunak atau sistem untuk saling berkomunikasi.</p>
-  <ul class="mt-2 list-disc pl-5 text-sm space-y-1">
-    <li><strong>Misal:</strong> Saat bot WhatsApp meminta informasi cuaca, ia menggunakan API BMKG.</li>
-    <li><strong>Fungsi:</strong> Mempermudah pengembangan aplikasi tanpa harus membangun semua fitur dari awal.</li>
-    <li><strong>Contoh:</strong> ChatGPT API, YouTube Downloader API, dll.</li>
-  </ul>
+            </section>
+            
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <div class="container">
+                    <div class="cta-card">
+                        <h2 class="cta-title">Ready to Get Started?</h2>
+                        <p class="cta-description">Explore our comprehensive API collection and integrate powerful features into your applications today.</p>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+    <a href="/docs" class="btn-white">
+        <i class="fas fa-rocket"></i>
+        Explore APIs
+    </a>
 </div>
-  <!-- Info Box 2 -->
-<div class="bg-gray-50 border-l-4 border-gray-300 text-gray-700 p-4 rounded shadow-sm hover:shadow-lg transition-shadow">
-  <h3 class="font-bold text-lg flex items-center">
-    <i class="fas fa-robot mr-2 text-black"></i>Kenapa API Sangat Berguna Pada Bot?
-  </h3>
-  <p class="mt-2 text-sm">Bot bisa melakukan lebih banyak hal dengan bantuan API, seperti:</p>
-  <ul class="mt-2 list-disc pl-5 text-sm space-y-1">
-    <li class="flex items-center">
-      <i class="fas fa-cloud-sun mr-2 text-black"></i>Mengambil data cuaca dari API BMKG.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-brain mr-2 text-black"></i>Mengakses ChatGPT atau AI lainnya.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-video mr-2 text-black"></i>Mendownload video YouTube lewat API downloader.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-link mr-2 text-black"></i>Menghubungkan dengan layanan eksternal.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-newspaper mr-2 text-black"></i>Memberikan informasi real-time.
-    </li>
-  </ul>
-</div>
-<!-- Info Box 3 -->
-<div class="bg-gray-50 border-l-4 border-gray-300 text-gray-700 p-4 rounded shadow-sm hover:shadow-lg transition-shadow">
-  <h3 class="font-bold text-lg flex items-center">
-    <i class="fas fa-shopping-cart mr-2 text-black"></i>Alasan Mengapa Harus Membeli API
-  </h3>
-  <p class="mt-2 text-sm">Beberapa alasan orang membeli REST API:</p>
-  <ul class="mt-2 list-disc pl-5 text-sm space-y-1">
-    <li class="flex items-center">
-      <i class="fas fa-clock mr-2 text-black"></i>Hemat waktu dan tenaga developer.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-check-double mr-2 text-black"></i>Langsung siap pakai.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-gem mr-2 text-black"></i>Fitur premium/unik.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-store mr-2 text-black"></i>Bisa dipakai untuk bisnis jasa.
-    </li>
-    <li class="flex items-center">
-      <i class="fas fa-sync-alt mr-2 text-black"></i>Ada dukungan dan update rutin.
-    </li>
-  </ul>
-</div>
-</section>
-
-<!-- Special Thank You -->
-<section class="thank-you-section my-12 fade-in delay-500">
-  <h3 class="thank-you text-xl font-bold mb-4 text-center">Special Thank You</h3>
-  <div class="thank-you-grid grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xs mx-auto">
-    <div class="thank-you-box flex flex-col items-center justify-center p-3 bg-white border border-gray-300 rounded shadow hover:shadow-md transition-shadow text-center">
-      <i class="fas fa-user-shield text-gray-500 text-xl mb-1"></i>
-      <span>krsna_081</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <p>© 2025 EzaApi's. All rights reserved.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/krsna081" class="social-icon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://whatsapp.com/channel/0029Vb58rhw4o7qKMRcba22Y" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
-    <div class="thank-you-box flex flex-col items-center justify-center p-3 bg-white border border-gray-300 rounded shadow hover:shadow-md transition-shadow text-center">
-      <i class="fas fa-user-shield text-gray-500 text-xl mb-1"></i>
-      <span>AllxdDev</span>
-    </div>
-    <div class="thank-you-box flex flex-col items-center justify-center p-3 bg-white border border-gray-300 rounded shadow hover:shadow-md transition-shadow text-center">    
-      <i class="fas fa-book-reader text-gray-500 text-xl mb-1"></i>
-      <span>Skyzopedia</span>
-    </div>
-    <div class="thank-you-box flex flex-col items-center justify-center p-3 bg-white border border-gray-300 rounded shadow hover:shadow-md transition-shadow text-center">
-      <i class="fas fa-shopping-cart text-gray-500 text-xl mb-1"></i>
-      <span>ALL BUYER</span>
-    </div>
-  </div>
-</section>
 
-<!-- JavaScript -->
-<script>
-  // Battery Status
-  navigator.getBattery().then(battery => {
-    function updateBatteryStatus() {
-      document.getElementById('battery').innerHTML = `<i class="fas fa-battery-full text-xl text-gray-600 mb-2"></i><br>Battery: ${Math.round(battery.level * 100)}%`;
-    }
-    updateBatteryStatus();
-    battery.addEventListener('levelchange', updateBatteryStatus);
-  });
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loadingScreen = document.getElementById("loadingScreen");
+            const body = document.body;
+            body.classList.add("no-scroll");
 
-  // Real Time Clock
-  function updateTime() {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
-    document.getElementById('clock').innerHTML = `<i class="far fa-clock text-xl text-gray-600 mb-2"></i><br>Time: ${hours}:${minutes}:${seconds}`;
-  }
-  setInterval(updateTime, 1000);
-  updateTime();
+            // Theme toggle functionality
+            const themeToggle = document.getElementById("themeToggle");
+            const themeIcon = themeToggle.querySelector("i");
+            
+            // Check for saved theme preference or use preferred color scheme
+            const savedTheme = localStorage.getItem("theme");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            
+            if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add("dark");
+                themeIcon.classList.remove("fa-moon");
+                themeIcon.classList.add("fa-sun");
+            }
+            
+            themeToggle.addEventListener("click", () => {
+                document.documentElement.classList.toggle("dark");
+                
+                if (document.documentElement.classList.contains("dark")) {
+                    themeIcon.classList.remove("fa-moon");
+                    themeIcon.classList.add("fa-sun");
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    themeIcon.classList.remove("fa-sun");
+                    themeIcon.classList.add("fa-moon");
+                    localStorage.setItem("theme", "light");
+                }
+            });
 
-  // Fetch Status
-  fetch('/api/status')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('total-endpoint').innerHTML = `<i class="fas fa-server text-xl text-gray-600 mb-2"></i><br>Total Endpoint: ${data.result.totalfitur}`;
-      document.getElementById('total-request').innerHTML = `<i class="fas fa-chart-line text-xl text-gray-600 mb-2"></i><br>Total Request: ${data.result.totalrequest}`;
-    })
-    .catch(err => {
-      document.getElementById('total-endpoint').textContent = 'Total Endpoint: Error';
-      document.getElementById('total-request').textContent = 'Total Request: Error';
-      console.error(err);
-    });
-</script>
+            // Copy code functionality
+            document.getElementById("copyCode1").addEventListener("click", function() {
+                const codeText = this.parentElement.querySelector(".code-content").innerText;
+                navigator.clipboard.writeText(codeText);
+                
+                const originalIcon = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalIcon;
+                }, 2000);
+            });
+            
+            document.getElementById("copyCode2").addEventListener("click", function() {
+                const codeText = this.parentElement.querySelector(".code-content").innerText;
+                navigator.clipboard.writeText(codeText);
+                
+                const originalIcon = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i>';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalIcon;
+                }, 2000);
+            });
 
+            // Hide loading screen after everything is loaded
+            setTimeout(() => {
+                loadingScreen.style.display = "none";
+                body.classList.remove("no-scroll");
+            }, 1500);
+
+            // Menu toggle functionality
+            const menuToggle = document.getElementById("menuToggle");
+            const menuDropdown = document.getElementById("menuDropdown");
+
+            menuToggle.addEventListener("click", () => {
+                menuDropdown.classList.toggle("show");
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener("click", (event) => {
+                if (!menuToggle.contains(event.target) && !menuDropdown.contains(event.target)) {
+                    menuDropdown.classList.remove("show");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
