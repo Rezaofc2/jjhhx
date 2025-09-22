@@ -30,22 +30,26 @@ p, span, li, a, button, .btn, .info-box, .thank-you-box {
     .fade-in {
       animation: fadeIn 0.5s ease-out forwards;
     }
-    .menu-item i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        .menu-dropdown {
-            position: fixed;
-            top: 70px;
-            left: 20px;
-            background-color: white;
-            border-radius: var(--radius-md);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px 0;
-            z-index: 1000;
-            display: none;
-        }
+  .menu-toggle {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.menu-toggle i {
+    margin-bottom: 4px; 
+}
+
+.menu-dropdown {
+    display: none; 
+}
+
+.menu-item {
+    display: flex;
+    align-items: center; 
+}
+
+
   </style>
 </head>
 <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
@@ -196,17 +200,10 @@ p, span, li, a, button, .btn, .info-box, .thank-you-box {
     });
 
   // Menu Toggle Functionality
-  const menuToggle = document.getElementById("menuToggle");
-  const menuDropdown = document.getElementById("menuDropdown");
-
-  menuToggle.addEventListener("click", () => {
-    // Toggle the display of the menu dropdown
-    if (menuDropdown.style.display === "none" || menuDropdown.style.display === "") {
-      menuDropdown.style.display = "block";
-    } else {
-      menuDropdown.style.display = "none";
-    }
-  });
+ document.getElementById('menuToggle').addEventListener('click', function() {
+    const dropdown = document.getElementById('menuDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+});
 </script>
 
 </body>
