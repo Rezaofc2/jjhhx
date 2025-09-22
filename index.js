@@ -5,7 +5,7 @@ const os = require("os")
 const axios = require("axios")
 const cors = require("cors")
 const path = require("path")
-
+const moment = require('moment-timezone')
 const app = express()
 const PORT = process.env.PORT || 3680
 
@@ -29,21 +29,65 @@ app.use("/src", express.static(path.join(__dirname, "src")))
 const settingsPath = path.join(__dirname, "./src/settings.json")
 const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
 
+global.totalreq = 0
+
+// Middleware untuk log dan format JSON response
 app.use((req, res, next) => {
+  console.log(chalk.bgHex("#FFFF99").hex("#333").bold(` Request Route: ${req.path} `))
+  global.totalreq += 1
+
   const originalJson = res.json
   res.json = function (data) {
     if (data && typeof data === "object") {
       const responseData = {
         status: data.status,
-        creator: settings.apiSettings.creator || "Created Using Rynn UI",
+        creator: settings.apiSettings.creator || "Created Using Skyzo",
         ...data,
       }
       return originalJson.call(this, responseData)
     }
     return originalJson.call(this, data)
   }
+
   next()
 })
+
+const runtime = function(seconds = process.uptime()) {
+	seconds = Number(seconds);
+	var d = Math.floor(seconds / (3600 * 24));
+	var h = Math.floor(seconds % (3600 * 24) / 3600);
+	var m = Math.floor(seconds % 3600 / 60);
+	var s = Math.floor(seconds % 60);
+	var dDisplay = d > 0 ? d + (d == 1 ? "d " : "d ") : "";
+	var hDisplay = h > 0 ? h + (h == 1 ? "h " : "h ") : "";
+	var mDisplay = m > 0 ? m + (m == 1 ? "m " : "m ") : "";
+	var sDisplay = s > 0 ? s + (s == 1 ? "s" : "s") : "";
+	return dDisplay + hDisplay + mDisplay + sDisplay;
+}
+global.runtime = runtime
+function tanggal (numer) {
+	myMonths = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+				myDays = ['Minggu','Senin','Selasa','Rabu','Kamis','Jum’at','Sabtu']; 
+				var tgl = new Date(numer);
+				var day = tgl.getDate()
+				bulan = tgl.getMonth()
+				var thisDay = tgl.getDay(),
+				thisDay = myDays[thisDay];
+				var yy = tgl.getYear()
+				var year = (yy < 1000) ? yy + 1900 : yy; 
+				const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
+				let d = new Date
+				let locale = 'id'
+				let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
+				let weton = ['Pahing', 'Pon','Wage','Kliwon','Legi'][Math.floor(((d * 1) + gmt) / 84600000) % 5]
+				
+				return`${thisDay}, ${day}/${myMonths[bulan]}/${year}`
+}
+
+
+const capital = (string) => {
+return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // Api Route
 let totalRoutes = 0
@@ -149,6 +193,30 @@ app.get("/sysinfo", async (req, res) => {
     })
   }
 })
+
+app.get('/status', async (req, res) => {
+    try {
+        // Mengambil data dari /list_endpoint
+        const response = await axios.get(`https://apieza.vercel.app/list_endpoint`);
+        const totalFitur = response.data.result.totalEndpoints; // Ambil totalEndpoints dari response
+
+        res.status(200).json({
+            status: true,
+            result: {
+                status: "Aktif", 
+                totalrequest: global.totalreq.toString(), 
+                totalfitur: totalFitur, // Menggunakan totalFitur yang diambil dari /list_endpoint
+                runtime: runtime(process.uptime()), 
+                domain: req.hostname
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: error.message,
+        });
+    }
+});
 
 app.get("/ai", (req, res) => {
   res.sendFile(path.join(__dirname, "api-page", "ai.html"))
