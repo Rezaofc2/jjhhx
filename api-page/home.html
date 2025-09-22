@@ -950,5 +950,41 @@
             });
         });
     </script>
+    <!-- JavaScript -->
+<script>
+  // Battery Status
+  navigator.getBattery().then(battery => {
+    function updateBatteryStatus() {
+      document.getElementById('battery').innerHTML = `<i class="fas fa-battery-full text-xl text-gray-600 mb-2"></i><br>Battery: ${Math.round(battery.level * 100)}%`;
+    }
+    updateBatteryStatus();
+    battery.addEventListener('levelchange', updateBatteryStatus);
+  });
+
+  // Real Time Clock
+  function updateTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    document.getElementById('clock').innerHTML = `<i class="far fa-clock text-xl text-gray-600 mb-2"></i><br>Time: ${hours}:${minutes}:${seconds}`;
+  }
+  setInterval(updateTime, 1000);
+  updateTime();
+
+  // Fetch Status
+  fetch('/status')
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('total-endpoint').innerHTML = `<i class="fas fa-server text-xl text-gray-600 mb-2"></i><br>Total Endpoint: ${data.result.totalfitur}`;
+      document.getElementById('total-request').innerHTML = `<i class="fas fa-chart-line text-xl text-gray-600 mb-2"></i><br>Total Request: ${data.result.totalrequest}`;
+    })
+    .catch(err => {
+      document.getElementById('total-endpoint').textContent = 'Total Endpoint: Error';
+      document.getElementById('total-request').textContent = 'Total Request: Error';
+      console.error(err);
+    });
+</script>
+
 </body>
 </html>
