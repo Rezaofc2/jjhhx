@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <link rel="stylesheet" href="/styles.css">
     <style>
+        body {
+            background-color: #ffffff; /* background putih */
+            color: #000000; /* teks hitam */
+        }
+
         .ai-chat-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: var(--gradient-accent);
+            background: #000000; /* background hitam */
             color: white;
             text-decoration: none;
             padding: 14px 28px;
@@ -25,7 +30,7 @@
             font-size: 1.1rem;
             transition: var(--transition);
             margin-top: 20px;
-            box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -45,7 +50,7 @@
         
         .ai-chat-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(244, 63, 94, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
             color: white;
         }
         
@@ -53,81 +58,36 @@
             transform: translateY(-100%);
         }
         
-        .ai-chat-button i {
-            font-size: 1.2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .ai-chat-button {
-                padding: 12px 24px;
-                font-size: 1rem;
-            }
-        }
-
-        /* API Key Info Section */
         .api-key-info {
             margin-top: 30px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.1); /* background hitam transparan */
             border-radius: var(--radius-lg);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .dark .api-key-info {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .api-key-info h3 {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 15px;
-            color: var(--primary);
+            color: #000000; /* teks hitam */
         }
 
         .api-key-info p {
             margin-bottom: 10px;
             font-size: 1rem;
-        }
-
-        .api-key-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
+            color: #000000; /* teks hitam */
         }
 
         .api-key-table th, .api-key-table td {
             padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .dark .api-key-table th, .dark .api-key-table td {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .api-key-table th {
             font-weight: 600;
-            background-color: rgba(99, 102, 241, 0.1);
-        }
-
-        .dark .api-key-table th {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .api-key-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .api-key-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            background-color: rgba(0, 0, 0, 0.1); /* background hitam transparan */
         }
 
         .api-key-badge.free {
@@ -136,23 +96,45 @@
         }
 
         .api-key-badge.premium {
-            background-color: rgba(99, 102, 241, 0.2);
-            color: var(--primary);
-        }
-
-        .dark .api-key-badge.free {
-            background-color: rgba(16, 185, 129, 0.3);
-            color: #34d399;
-        }
-
-        .dark .api-key-badge.premium {
-            background-color: rgba(99, 102, 241, 0.3);
-            color: var(--primary-light);
+            background-color: rgba(0, 0, 0, 0.1); /* background hitam transparan */
+            color: #000000; /* teks hitam */
         }
 
         /* Improve search container positioning */
         .search-container {
             margin-top: 20px;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 5px;
+            background-color: #ffffff; /* background putih */
+        }
+
+        .search-icon {
+            color: #000000; /* ikon hitam */
+        }
+
+        #searchInput {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 10px;
+            background-color: transparent;
+            color: #000000; /* teks hitam */
+        }
+
+        footer {
+            background-color: #f8f9fa; /* footer putih */
+            color: #000000; /* teks hitam */
+            padding: 20px 0;
+        }
+
+        .social-icon {
+            color: #000000; /* ikon hitam */
         }
     </style>
 </head>
@@ -191,9 +173,7 @@
                             <div id="version" class="version-badge"></div>
                         </div>
                         <p id="description" class="lead"></p>
-                        
                     </div>
-                    
                     
                     <div class="hero-image float-animation">
                         <img id="dynamicImage" src="/placeholder.svg" alt="API illustration">
@@ -247,7 +227,7 @@
                 <p>© 2025 Eza Api's. All rights reserved.</p>
                 <div class="social-links">
                     <a href="https://github.com/krsna081" class="social-icon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://whatsapp.com/channel/0029Vb58rhw4o7qKMRcba22Y" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VaFGs8U6RGJDSDeYmC2S" class="social-icon" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
