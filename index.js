@@ -5,7 +5,7 @@ const os = require("os")
 const axios = require("axios")
 const cors = require("cors")
 const path = require("path")
-
+require("./helpers.js")
 const app = express()
 const PORT = process.env.PORT || 3680
 
@@ -29,19 +29,26 @@ app.use("/src", express.static(path.join(__dirname, "src")))
 const settingsPath = path.join(__dirname, "./src/settings.json")
 const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
 
+global.totalreq = 0
+
+// Middleware untuk log dan format JSON response
 app.use((req, res, next) => {
+  console.log(chalk.bgHex("#FFFF99").hex("#333").bold(` Request Route: ${req.path} `))
+  global.totalreq += 1
+
   const originalJson = res.json
   res.json = function (data) {
     if (data && typeof data === "object") {
       const responseData = {
         status: data.status,
-        creator: settings.apiSettings.creator || "Created Using Rynn UI",
+        creator: settings.creator || "Created Using Skyzo",
         ...data,
       }
       return originalJson.call(this, responseData)
     }
     return originalJson.call(this, data)
   }
+
   next()
 })
 
