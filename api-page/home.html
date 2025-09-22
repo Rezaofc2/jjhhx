@@ -194,7 +194,7 @@ p, span, li, a, button, .btn, .info-box, .thank-you-box {
   updateTime();
 
   // Fetch Status
-  fetch('/api/status')
+  fetch('/status')
     .then(res => res.json())
     .then(data => {
       document.getElementById('total-endpoint').innerHTML = `<i class="fas fa-server text-xl text-gray-600 mb-2"></i><br>Total Endpoint: ${data.result.totalfitur}`;
@@ -205,8 +205,19 @@ p, span, li, a, button, .btn, .info-box, .thank-you-box {
       document.getElementById('total-request').textContent = 'Total Request: Error';
       console.error(err);
     });
-     const menuToggle = document.getElementById("menuToggle");
-            const menuDropdown = document.getElementById("menuDropdown");
+
+  // Menu Toggle Functionality
+  const menuToggle = document.getElementById("menuToggle");
+  const menuDropdown = document.getElementById("menuDropdown");
+
+  menuToggle.addEventListener("click", () => {
+    // Toggle the display of the menu dropdown
+    if (menuDropdown.style.display === "none" || menuDropdown.style.display === "") {
+      menuDropdown.style.display = "block";
+    } else {
+      menuDropdown.style.display = "none";
+    }
+  });
 </script>
 
 </body>
