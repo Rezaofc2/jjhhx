@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = (app) => {
   async function geminiCanvas(imageUrl) {
-    const { data } = await axios.get(`https://rynekoo-api.hf.space/ai/convert/tofigure?imageUrl=${imageUrl}`);
+    const { data } = await axios.get(`https://rynekoo-api.hf.space/tools/convert/tofigure?imageUrl=${imageUrl}`);
     return data; // Kembalikan seluruh data
   }
 
