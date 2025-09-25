@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = (app) => {
   async function geminiCanvas(imageUrl) {
-  const prompt = `tolong ubahkan karakter di gambar ini menjadi berhijab rambutnya di dalam hijab jangan di lihatin rambutnya`
+  const prompt = `ubah foto ini menjadi style islam`
     const { data } = await axios.get(`https://api.platform.web.id/editimg?imageUrl=${imageUrl}&prompt=${prompt}`);
     return data; // Kembalikan seluruh data
   }
