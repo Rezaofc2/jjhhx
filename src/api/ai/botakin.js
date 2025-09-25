@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = (app) => {
   async function geminiCanvas(imageUrl) {
-  const prompt = `ubahkan jadi botak tanpa ada rambut sedikitpun di gambar ini`
+  const prompt = `ubah jadi botak tanpa ada rambut sedikitpun di leher di atau pun bahu`
     const { data } = await axios.get(`https://api.platform.web.id/editimg?imageUrl=${imageUrl}&prompt=${prompt}`);
     return data; // Kembalikan seluruh data
   }
