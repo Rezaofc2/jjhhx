@@ -22,7 +22,7 @@ module.exports = (app) => {
         return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
       }
 
-      const imageUrlFromResponse = result.result.result.url;
+      const imageUrlFromResponse = result.result.url;
 
       // Mengambil gambar dari URL yang diberikan
       const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
