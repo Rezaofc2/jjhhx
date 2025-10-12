@@ -645,14 +645,15 @@ module.exports = (app) => {
 	}
 ]
 
+
   async function jadwalTV(name) {
     const anu = jadwal.find((v) => (new RegExp(name, 'gi')).test(v.channel));
-    const data = [];
-
-    if (!data) {
+    
+    if (!anu) {
       throw new Error('List Channel yang Tersedia:\n\n' + jadwal.map(v => v.channel).sort().join('\n'));
     }
 
+    const data = [];
     const url = `https://www.jadwaltv.net/${anu.isPay ? 'jadwal-pay-tv/' : ''}${anu.value}`;
     const html = (await axios.get(url)).data;
     const $ = cheerio.load(html);
@@ -665,7 +666,8 @@ module.exports = (app) => {
       }
     });
 
-    return { channel: data.channel.toUpperCase(), data };
+    // Kembalikan channel dan data
+    return { channel: anu.channel.toUpperCase(), data }; // Perbaikan di sini
   }
 
   app.get("/info/jadwaltv", async (req, res) => {
