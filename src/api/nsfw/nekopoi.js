@@ -1,5 +1,5 @@
 import { format } from 'util';
-
+let axios = require('axios')
 async function mediaFire(url) {
     try {
         const response = await fetch('https://r.jina.ai/' + url);
@@ -96,10 +96,23 @@ module.exports = (app) => {
     let Reza = nekopoi[Math.floor(Math.random() * nekopoi.length)];
 	 const data = await mediaFire(Reza); 
       const result = data.url
-      res.status(200).json({
+      /*res.status(200).json({
         status: true,
         result,
-      });
+      });*/
+      const imageResponse = await axios.get(
+        result,
+        { responseType: "arraybuffer" },
+      )
+
+      // Mengatur header response
+      res.writeHead(200, {
+        "Content-Type": "video/mp4",
+        "Content-Length": imageResponse.data.length,
+      })
+
+      // Mengirimkan data gambar
+      res.end(imageResponse.data)
     } catch (error) {
       console.error("Error in /nsfw/nekopoi:", error); // Tambahkan logging untuk kesalahan
       res.status(500).json({ status: false, error: error.message });
