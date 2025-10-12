@@ -8,7 +8,7 @@ module.exports = (app) => {
 
   app.get("/ai/gemini-canvas", async (req, res) => {
     try {
-      const { text, imageUrl } = req.query;
+      const { imageUrl } = req.query;
 
       if (!imageUrl) {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
@@ -16,7 +16,7 @@ module.exports = (app) => {
 
       const result = await geminiCanvas(text, imageUrl);
       
-      // Pastikan status adalah true dan image ada
+      // Pastikan status adalah true dan result ada
       if (!result || !result.status || !result.result || !result.result.url) {
         return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
       }
@@ -33,8 +33,7 @@ module.exports = (app) => {
       });
       res.end(imageBuffer);
     } catch (error) {
-      console.error(error); // Tambahkan log kesalahan untuk debugging
       res.status(500).json({ status: false, error: error.message });
     }
   });
-};
+}
