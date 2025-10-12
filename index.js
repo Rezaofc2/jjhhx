@@ -30,6 +30,7 @@ const settingsPath = path.join(__dirname, "./src/settings.json")
 const settings = JSON.parse(fs.readFileSync(settingsPath, "utf-8"))
 
 global.totalreq = 0
+global.lolkey = "RyApi"
 
 // Middleware untuk log dan format JSON response
 app.use((req, res, next) => {
