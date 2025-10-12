@@ -15,8 +15,6 @@ module.exports = (app) => {
         return res.status(400).json({ status: false, error: "text is required" });
       }
 
-      const result = await geminiCanvas(text, imageUrl);
-     
       const imageResponse = await axios.get(`https://api.krizz.my.id/api/ai/edit?text=${encodeURIComponent(text)}&imgUrl=${encodeURIComponent(imageUrl)}`,
         { responseType: "arraybuffer" },
       )
