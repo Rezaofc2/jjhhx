@@ -1,10 +1,7 @@
 const axios = require("axios");
 
 module.exports = (app) => {
-  async function geminiCanvas(text, imageUrl) {
-    const { data } = await axios.get(`https://api.krizz.my.id/api/ai/edit?text=${encodeURIComponent(text)}&imgUrl=${encodeURIComponent(imageUrl)}`);
-    return data; // Kembalikan seluruh data
-  }
+  
 
   app.get("/ai/gemini-canvas", async (req, res) => {
     try {
@@ -20,18 +17,18 @@ module.exports = (app) => {
 
       const result = await geminiCanvas(text, imageUrl);
      
+      const imageResponse = await axios.get(`https://api.krizz.my.id/api/ai/edit?text=${encodeURIComponent(text)}&imgUrl=${encodeURIComponent(imageUrl)}`,
+        { responseType: "arraybuffer" },
+      )
 
-      const imageUrlFromResponse = result;
-
-      // Mengambil gambar dari URL yang diberikan
-      const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
-      //const imageBuffer = Buffer.from(imageResponse.data, "binary");
-
+      // Mengatur header response
       res.writeHead(200, {
         "Content-Type": "image/png",
         "Content-Length": imageResponse.data.length,
-      });
-      res.end(imageBuffer);
+      })
+
+      // Mengirimkan data gambar
+      res.end(imageResponse.data)
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
     }
