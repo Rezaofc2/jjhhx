@@ -10,7 +10,7 @@ module.exports = (app) => {
       }
 
       // Mengambil screenshot dari API
-      const response = await axios.get(`https://api.platform.web.id/screenshot?url=${url}`);
+      const response = await axios.get(`https://apidl.asepharyana.tech/api/tool/ssweb?url=${url}&mode=desktop`);
 
       // Mendapatkan URL file gambar dari respons
       const { fileUrl } = response.data;
