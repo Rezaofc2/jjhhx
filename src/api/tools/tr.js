@@ -4,11 +4,10 @@ module.exports = (app) => {
   async function tr(text, lang) {
     try {
       // Menggunakan template literal yang benar dengan backticks (``)
-      const response = await axios.get(`https://api.platform.web.id/translate?text=${encodeURIComponent(text)}&fromLang=auto&toLang=${lang}`);
-      
-      // Memastikan untuk mengakses data yang benar
+      const response = await axios.get(`https://api.siputzx.my.id/api/tools/translate?text=${encodeURIComponent(text)}&source=auto&target=${lang}`);
+        // Memastikan untuk mengakses data yang benar
       if (response.data.success) {
-        return response.data.result.translated; 
+        return response.data.translated; 
       } else {
         throw new Error("Translation failed");
       }
