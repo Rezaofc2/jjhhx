@@ -2,14 +2,13 @@ const axios = require("axios");
 
 module.exports = (app) => {
   async function geminiCanvas(text, imageUrl) {
- 
     const { data } = await axios.get(`https://api.deline.my.id/ai/editimg?url=${imageUrl}&prompt=${text}`);
     return data; // Kembalikan seluruh data
   }
 
   app.get("/ai/gemini-canvas", async (req, res) => {
     try {
-      const { text, imageUrl } = req.query
+      const { text, imageUrl } = req.query;
 
       if (!imageUrl) {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
@@ -18,7 +17,7 @@ module.exports = (app) => {
       const result = await geminiCanvas(text, imageUrl);
       
       // Pastikan status adalah true dan image ada
-      if (!result || !result.status || !result.image || !result.image.url) {
+      if (!result || !result.status || !result.result || !result.result.url) {
         return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
       }
 
@@ -34,7 +33,8 @@ module.exports = (app) => {
       });
       res.end(imageBuffer);
     } catch (error) {
+      console.error(error); // Tambahkan log kesalahan untuk debugging
       res.status(500).json({ status: false, error: error.message });
     }
   });
-}
+};
