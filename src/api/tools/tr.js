@@ -5,9 +5,10 @@ module.exports = (app) => {
     try {
       // Menggunakan template literal yang benar dengan backticks (``)
       const response = await axios.get(`https://api.siputzx.my.id/api/tools/translate?text=${encodeURIComponent(text)}&source=auto&target=${lang}`);
-        // Memastikan untuk mengakses data yang benar
-      if (response.data.success) {
-        return response.data.translated; 
+      
+      // Memastikan untuk mengakses data yang benar
+      if (response.data.status && response.data.data) {
+        return response.data.data.translatedText; 
       } else {
         throw new Error("Translation failed");
       }
