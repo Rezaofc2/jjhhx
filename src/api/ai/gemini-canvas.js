@@ -8,7 +8,7 @@ module.exports = (app) => {
 
   app.get("/ai/gemini-canvas", async (req, res) => {
     try {
-      const { imageUrl } = req.query;
+      const { text, imageUrl } = req.query;
 
       if (!imageUrl) {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
