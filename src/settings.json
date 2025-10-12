@@ -600,6 +600,11 @@
           "desc": "Mobile Legend Stalk",
           "path": "/stalker/mlstalk?id=&zona="
         },
+         {
+          "name": "Ff Stalk",
+          "desc": "Free Fire Stalk",
+          "path": "/stalker/ffstalk?id="
+        },
         {
           "name": "Github Stalk",
           "desc": "GitHub Stalk",
@@ -673,7 +678,7 @@
         {
           "name": "Neko",
           "desc": "Nsfw Neko Random Image",
-          "path": "/nsfw/ecchi"
+          "path": "/nsfw/neko"
         },
         {
           "name": "Yuri",
