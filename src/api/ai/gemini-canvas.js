@@ -21,11 +21,9 @@ module.exports = (app) => {
       const result = await geminiCanvas(text, imageUrl);
 
       // Memastikan hasil memiliki properti 'result'
-      if (!result || !result.result) {
-        return res.status(500).json({ status: false, error: "Failed to process the image" });
-      }
+     
 
-      const imageUrlFromResponse = result.result;
+      const imageUrlFromResponse = result;
 
       // Mengambil gambar dari URL yang diberikan
       const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
