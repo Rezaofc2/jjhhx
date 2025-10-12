@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = (app) => {
   async function geminiCanvas(text, imageUrl) {
-    const { data } = await axios.get(`https://api.deline.my.id/ai/editimg?url=${imageUrl}&prompt=${text}`);
+    const { data } = await axios.get(`https://api.krizz.my.id/api/ai/edit?text=${encodeURIComponent(text)}&imgUrl=${encodeURIComponent(imageUrl)}`);
     return data; // Kembalikan seluruh data
   }
 
@@ -10,18 +10,22 @@ module.exports = (app) => {
     try {
       const { text, imageUrl } = req.query;
 
+      // Memastikan imageUrl dan text diberikan
       if (!imageUrl) {
         return res.status(400).json({ status: false, error: "imageUrl is required" });
       }
-
-      const result = await geminiCanvas(text, imageUrl);
-      
-      // Pastikan status adalah true dan result ada
-      if (!result || !result.status || !result.result || !result.result.url) {
-        return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
+      if (!text) {
+        return res.status(400).json({ status: false, error: "text is required" });
       }
 
-      const imageUrlFromResponse = result.result.url;
+      const result = await geminiCanvas(text, imageUrl);
+
+      // Memastikan hasil memiliki properti 'result'
+      if (!result || !result.result) {
+        return res.status(500).json({ status: false, error: "Failed to process the image" });
+      }
+
+      const imageUrlFromResponse = result.result;
 
       // Mengambil gambar dari URL yang diberikan
       const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
