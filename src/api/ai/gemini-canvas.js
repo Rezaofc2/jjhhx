@@ -14,8 +14,8 @@ module.exports = (app) => {
       if (!text) {
         return res.status(400).json({ status: false, error: "text is required" });
       }
-
-      const imageResponse = await axios.get(`https://api.krizz.my.id/api/ai/edit?text=${encodeURIComponent(text)}&imgUrl=${encodeURIComponent(imageUrl)}`,
+     
+      const imageResponse = await axios.get(`https://api.ryzumi.vip/api/ai/image/gemini?text=${encodeURIComponent(text)}&url=${encodeURIComponent(imageUrl)}`,
         { responseType: "arraybuffer" },
       )
 
