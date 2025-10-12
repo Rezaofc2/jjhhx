@@ -3,7 +3,7 @@ const axios = require("axios");
 module.exports = (app) => {
   async function geminiCanvas(text, imageUrl) {
  
-    const { data } = await axios.get(`https://api.platform.web.id/editimg?imageUrl=${imageUrl}&prompt=${text}`);
+    const { data } = await axios.get(`https://api.deline.my.id/ai/editimg?url=${imageUrl}&prompt=${text}`);
     return data; // Kembalikan seluruh data
   }
 
@@ -22,7 +22,7 @@ module.exports = (app) => {
         return res.status(500).json({ status: false, error: "Invalid response structure from geminiCanvas" });
       }
 
-      const imageUrlFromResponse = result.image.url;
+      const imageUrlFromResponse = result.result.url;
 
       // Mengambil gambar dari URL yang diberikan
       const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
