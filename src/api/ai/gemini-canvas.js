@@ -19,19 +19,17 @@ module.exports = (app) => {
       }
 
       const result = await geminiCanvas(text, imageUrl);
-
-      // Memastikan hasil memiliki properti 'result'
      
 
       const imageUrlFromResponse = result;
 
       // Mengambil gambar dari URL yang diberikan
       const imageResponse = await axios.get(imageUrlFromResponse, { responseType: 'arraybuffer' });
-      const imageBuffer = Buffer.from(imageResponse.data, "binary");
+      //const imageBuffer = Buffer.from(imageResponse.data, "binary");
 
       res.writeHead(200, {
         "Content-Type": "image/png",
-        "Content-Length": imageBuffer.length,
+        "Content-Length": imageResponse.data.length,
       });
       res.end(imageBuffer);
     } catch (error) {
