@@ -8,7 +8,7 @@ module.exports = (app) => {
       }
 
       // Menggunakan q sebagai parameter untuk API
-      const response = await fetch(`https://api.lolhuman.xyz/api/github/${q}?apikey=${process.env.lolhuman}`);
+      const response = await fetch(`https://api.lolhuman.xyz/api/github/${q}?apikey=${global.lolkey}`);
       const hasil = await response.json();
       const result = hasil.result; // Menyimpan hasil dari API
       res.status(200).json({
