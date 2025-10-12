@@ -8,7 +8,7 @@ module.exports = (app) => {
       }
 
       // Menggunakan q sebagai parameter untuk API
-      const response = await fetch(`https://api.lolhuman.xyz/api/codm/${q}?apikey=${process.env.lolhuman}`);
+      const response = await fetch(`https://api.lolhuman.xyz/api/codm/${q}?apikey=${global.lolkey}`);
       const hasil = await response.json();
 
       if (hasil.status !== 200) {
