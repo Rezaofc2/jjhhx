@@ -5,7 +5,7 @@ module.exports = (app) => {
     try {
       // Memanggil API untuk mendapatkan gambar NSFW Loli
       const imageResponse = await axios.get(
-        "https://api.lolhuman.xyz/api/random2/tits?apikey=" + process.env.lolhuman,
+        "https://api.lolhuman.xyz/api/random2/tits?apikey=" + global.lolkey,
         { responseType: "arraybuffer" },
       )
 
