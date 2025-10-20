@@ -20,7 +20,7 @@ module.exports = (app) => {
       const imageResponse = await axios.get(apiUrl, { responseType: "arraybuffer" });
 
       // Memeriksa apakah permintaan berhasil
-      if (imageResponse.data.success) {
+      
         const imageUrlResult = imageResponse.data.result;
 
         // Mengambil gambar dari URL hasil
@@ -34,9 +34,7 @@ module.exports = (app) => {
 
         // Mengirimkan data gambar
         res.end(finalImageResponse.data);
-      } else {
-        res.status(500).json({ status: false, error: "Failed to process image" });
-      }
+      
     } catch (error) {
       res.status(500).json({ status: false, error: error.message });
     }
